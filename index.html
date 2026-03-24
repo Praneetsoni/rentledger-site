@@ -7,7 +7,7 @@
     <meta name="description" content="Track rental income, manage expenses, and generate IRS Schedule E tax reports. Local-first. Privacy-focused. Built for landlords.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -43,9 +43,16 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Fira Code', monospace;
-            font-weight: 600;
+        h1, h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
             line-height: 1.3;
         }
 
@@ -106,6 +113,15 @@
             font-weight: 700;
             font-size: 1.125rem;
             color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        nav .logo svg {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
         }
 
         nav .nav-links {
@@ -184,6 +200,7 @@
         }
 
         .hero .tagline {
+            font-family: 'Playfair Display', serif;
             font-size: 1.25rem;
             color: var(--text-secondary);
             max-width: 480px;
@@ -422,6 +439,7 @@
         }
 
         .pricing .subtitle {
+            font-family: 'Playfair Display', serif;
             color: var(--text-secondary);
             font-size: 1.0625rem;
             margin-bottom: 3rem;
@@ -554,6 +572,15 @@
             font-size: 1.125rem;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .footer-brand .logo svg {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
         }
 
         .footer-brand p {
@@ -689,7 +716,7 @@
 
     <!-- NAV -->
     <nav>
-        <div class="logo">RentLedger</div>
+        <div class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="nav-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="nav-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#nav-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#nav-accent)"/></g></svg>RentLedger</div>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
@@ -917,7 +944,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <div class="logo">RentLedger</div>
+                    <div class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ft-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="ft-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#ft-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#ft-accent)"/></g></svg>RentLedger</div>
                     <p>Rental portfolio tracking for iOS.</p>
                 </div>
                 <div class="footer-links">
