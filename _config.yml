@@ -1,4 +1,5 @@
 title: RentLedger
 description: Rental portfolio tracking for iOS
+baseurl: /rentledger-site
 theme: null
 markdown: kramdown
