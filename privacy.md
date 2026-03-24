@@ -15,7 +15,7 @@ RentLedger is a local-first application. All financial data you enter — includ
 
 Your biometric lock preference is stored securely in the device Keychain.
 
-Receipt images you capture or import are stored locally in the Application's sandbox on your device and are never transmitted to any server. Receipt images may contain personally identifiable information such as vendor names, transaction amounts, and partial account numbers. This information remains on your device and is not accessed, collected, or processed by the Service Provider.
+Receipt files (images and PDFs) you capture or import are stored locally in the Application's sandbox on your device and are never transmitted to any server. Receipt files (images and PDFs) may contain personally identifiable information such as vendor names, transaction amounts, and partial account numbers. This information remains on your device and is not accessed, collected, or processed by the Service Provider.
 
 ## Information Collection and Use
 
@@ -66,7 +66,7 @@ If you are a California resident, the California Consumer Privacy Act ("CCPA") p
 
 ## Security
 
-The Service Provider takes the security of your data seriously. Financial data is protected using Apple's SwiftData on-device encryption. Receipt images and exported files are protected with iOS file protection. Biometric authentication (Face ID, Touch ID, or Optic ID) is available to restrict access to the Application.
+The Service Provider takes the security of your data seriously. Financial data is protected using Apple's SwiftData on-device encryption. Receipt files (images and PDFs) and exported files are protected with iOS file protection. Biometric authentication (Face ID, Touch ID, or Optic ID) is available to restrict access to the Application.
 
 ## Changes
 
