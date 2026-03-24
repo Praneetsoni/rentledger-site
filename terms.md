@@ -101,13 +101,15 @@ If you provide any information that is untrue, inaccurate, not current, or incom
 
 ### Billing and Renewal
 
-Your subscription will continue and automatically renew unless canceled. You consent to our charging your payment method on a recurring basis without requiring your prior approval for each recurring charge, until such time as you cancel the applicable order. The length of your billing cycle will depend on the type of subscription plan you choose when you subscribed to the Services.
+Your subscription will continue and automatically renew unless canceled. Your subscription automatically renews unless canceled at least 24 hours before the end of the current period. Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period at the rate of your selected plan. You consent to our charging your payment method on a recurring basis without requiring your prior approval for each recurring charge, until such time as you cancel the applicable order. The length of your billing cycle will depend on the type of subscription plan you choose when you subscribed to the Services.
+
+The subscription provides continued access to premium tracking features, including unlimited payment and expense tracking, receipt scanning with on-device OCR, automated IRS Schedule E and 1099-NEC tax report generation, CSV import and export, and ongoing feature updates and priority support.
 
 The Application offers optional premium features through the following plans:
 
 - **Monthly subscription:** $4.99/month
 - **Annual subscription:** $39.99/year
-- **Lifetime purchase:** $79.99 (one-time)
+- **Lifetime purchase:** $79.99 (one-time) — a non-recurring alternative that includes all premium features and future updates
 
 All payments are processed by Apple. We do not process payments directly and do not have access to your payment information. In-app purchases are subject to [Apple's Terms and Conditions](https://www.apple.com/legal/internet-services/itunes/).
 

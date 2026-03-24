@@ -15,7 +15,7 @@ RentLedger is a local-first application. All financial data you enter — includ
 
 Your biometric lock preference is stored securely in the device Keychain.
 
-Receipt images you capture or import are stored locally in the Application's sandbox on your device and are never transmitted to any server.
+Receipt images you capture or import are stored locally in the Application's sandbox on your device and are never transmitted to any server. Receipt images may contain personally identifiable information such as vendor names, transaction amounts, and partial account numbers. This information remains on your device and is not accessed, collected, or processed by the Service Provider.
 
 ## Information Collection and Use
 
@@ -59,6 +59,10 @@ Because all user data is stored locally on your device, the Service Provider doe
 ## Children
 
 The Application does not knowingly collect personally identifiable information from children under the age of 13. The Application does not collect personally identifiable information from any user. If you have concerns, please contact the Service Provider at support@rentledger.org.
+
+## California Privacy Rights (CCPA)
+
+If you are a California resident, the California Consumer Privacy Act ("CCPA") provides you with specific rights regarding your personal information. The Service Provider does not sell, rent, or share personal information as defined under the CCPA. The Application does not collect personal information that is transmitted to or stored on external servers. All data remains on your device under your sole control. Because the Service Provider does not collect, store, or have access to your personal information, there is no data to disclose, delete, or opt out of on the Service Provider's end. You may delete all locally stored data at any time by using the "Delete All Data" option in the Application's Settings or by uninstalling the Application.
 
 ## Security
 
