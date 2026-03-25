@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — RentLedger</title>
+    <meta name="description" content="Get help with RentLedger. FAQs, contact support, and troubleshooting for the iOS rent tracking app.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0F0F14;
+            --surface: #1A1A24;
+            --surface-elevated: #2A292F;
+            --primary: #C8BFFF;
+            --primary-fill: #715CE4;
+            --accent: #FFB688;
+            --success: #4ADE80;
+            --text-primary: #E4E1E9;
+            --text-secondary: #CAC3D8;
+            --text-tertiary: #B0AAC0;
+            --ghost-border: rgba(200, 191, 255, 0.08);
+            --ghost-border-hover: rgba(200, 191, 255, 0.18);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 200ms ease-out;
+        }
+
+        a:hover { color: var(--accent); }
+
+        a:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        .section-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .container--narrow {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ─── NAV ─── */
+
+        nav {
+            position: fixed;
+            top: 1rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+            background: rgba(26, 26, 36, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            padding: 0.875rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 200ms ease-out;
+        }
+
+        nav .logo {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+
+        nav .logo:hover { color: var(--text-primary); }
+
+        nav .logo svg {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav .nav-links a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: color 200ms ease-out;
+        }
+
+        nav .nav-links a:hover { color: var(--text-primary); }
+
+        nav .nav-links a.active { color: var(--primary); }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-fill);
+            color: var(--text-primary);
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(113, 92, 228, 0.3);
+            color: var(--text-primary);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+        }
+
+        /* ─── HERO ─── */
+
+        .hero {
+            padding-top: 9rem;
+            padding-bottom: 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.25rem, 4.5vw, 3rem);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .highlight { color: var(--primary); }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ─── CATEGORY CARDS ─── */
+
+        .categories {
+            padding-bottom: 4rem;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .category-card {
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            cursor: pointer;
+            transition: transform 200ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out;
+            text-decoration: none;
+            display: block;
+            color: var(--text-primary);
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ghost-border-hover);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            color: var(--text-primary);
+        }
+
+        .category-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(113, 92, 228, 0.12);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .category-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .category-icon.green { background: rgba(74, 222, 128, 0.1); }
+        .category-icon.green svg { stroke: var(--success); }
+
+        .category-icon.amber { background: rgba(255, 182, 136, 0.1); }
+        .category-icon.amber svg { stroke: var(--accent); }
+
+        .category-card h3 {
+            font-size: 0.9375rem;
+            margin-bottom: 0.375rem;
+        }
+
+        .category-card p {
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+
+        /* ─── FAQ ─── */
+
+        .faq {
+            padding-bottom: 5rem;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .faq-header h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 200ms ease-out;
+        }
+
+        .faq-item:hover { border-color: var(--ghost-border-hover); }
+
+        .faq-item.open { border-color: rgba(200, 191, 255, 0.12); }
+
+        .faq-trigger {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        .faq-trigger:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: -2px;
+            border-radius: 10px;
+        }
+
+        .faq-trigger h3 {
+            font-family: 'Fira Sans', sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .faq-trigger .icon-plus {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .faq-trigger .icon-plus::before,
+        .faq-trigger .icon-plus::after {
+            content: '';
+            position: absolute;
+            background: var(--text-tertiary);
+            border-radius: 1px;
+            transition: transform 250ms ease-out, opacity 200ms ease-out;
+        }
+
+        .faq-trigger .icon-plus::before {
+            width: 12px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-trigger .icon-plus::after {
+            width: 2px;
+            height: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-item.open .faq-trigger .icon-plus::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+            opacity: 0;
+        }
+
+        .faq-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 300ms ease-out;
+        }
+
+        .faq-item.open .faq-panel {
+            grid-template-rows: 1fr;
+        }
+
+        .faq-panel-inner {
+            overflow: hidden;
+        }
+
+        .faq-panel-content {
+            padding: 0 1.5rem 1.25rem;
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        /* ─── CONTACT ─── */
+
+        .contact {
+            padding-bottom: 5rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .contact-card {
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 200ms ease-out;
+        }
+
+        .contact-card:hover { border-color: var(--ghost-border-hover); }
+
+        .contact-card.featured {
+            border-color: var(--primary-fill);
+            background: linear-gradient(165deg, rgba(113, 92, 228, 0.06), var(--surface));
+        }
+
+        .contact-card-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(113, 92, 228, 0.12);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-card-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .contact-card h3 {
+            font-size: 1.0625rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            transition: color 200ms ease-out, gap 200ms ease-out;
+        }
+
+        .contact-link:hover {
+            color: var(--primary);
+            gap: 0.625rem;
+        }
+
+        .contact-link svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ─── BUG REPORT ─── */
+
+        .bug-report {
+            padding-bottom: 5rem;
+        }
+
+        .bug-card {
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .bug-card-text h2 {
+            font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .bug-card-text p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .bug-card-text .btn-primary {
+            font-size: 0.875rem;
+            padding: 0.625rem 1.25rem;
+        }
+
+        .bug-checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+        }
+
+        .bug-checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .check-icon svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--success);
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ─── FOOTER ─── */
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--ghost-border);
+            margin-top: 2rem;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand .logo {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+
+        .footer-brand .logo:hover { color: var(--text-primary); }
+
+        .footer-brand .logo svg {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+        }
+
+        .footer-brand p {
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-col a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-col a:hover { color: var(--text-primary); }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--ghost-border);
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ─── RESPONSIVE ─── */
+
+        @media (max-width: 768px) {
+            nav {
+                left: 1rem;
+                right: 1rem;
+                padding: 0.75rem 1rem;
+            }
+
+            nav .nav-links a:not(.btn-primary) { display: none; }
+
+            .category-grid { grid-template-columns: 1fr; }
+
+            .contact-grid { grid-template-columns: 1fr; }
+
+            .bug-card {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.75rem;
+            }
+
+            .footer-grid { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.875rem; }
+
+            .hero .subtitle { font-size: 1rem; }
+
+            .faq-trigger { padding: 1rem 1.25rem; }
+
+            .faq-panel-content { padding: 0 1.25rem 1rem; }
+
+            .bug-card { padding: 1.25rem; }
+        }
+
+        /* ─── REDUCED MOTION ─── */
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+
+            .category-card,
+            .btn-primary,
+            .contact-link { transition: none; }
+
+            .category-card:hover,
+            .btn-primary:hover { transform: none; }
+
+            .faq-panel { transition: none; }
+
+            .faq-trigger .icon-plus::before,
+            .faq-trigger .icon-plus::after { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="/" class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="nav-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="nav-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#nav-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#nav-accent)"/></g></svg>RentLedger</a>
+        <div class="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#pricing">Pricing</a>
+            <a href="/support/" class="active">Support</a>
+            <a href="/privacy/">Privacy</a>
+            <a href="#" class="btn-primary" aria-label="Download RentLedger on the App Store">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                App Store
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <p class="section-label">Support</p>
+            <h1>How can we <span class="highlight">help</span>?</h1>
+            <p class="subtitle">Everything you need to get the most out of RentLedger — from quick answers to direct support.</p>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories">
+        <div class="container">
+            <div class="category-grid">
+                <a href="#faq-data" class="category-card">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Privacy & Data</h3>
+                    <p>Where your data lives, backups, and how to export or delete everything.</p>
+                </a>
+                <a href="#faq-billing" class="category-card">
+                    <div class="category-icon green">
+                        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    </div>
+                    <h3>Billing & Subscriptions</h3>
+                    <p>Free trials, subscription management, restoring purchases, and lifetime access.</p>
+                </a>
+                <a href="#faq-features" class="category-card">
+                    <div class="category-icon amber">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h3>Features & Usage</h3>
+                    <p>Tax reports, receipt scanning, CSV exports, and getting the most from RentLedger.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container--narrow">
+            <div class="faq-header">
+                <p class="section-label">FAQ</p>
+                <h2>Frequently asked questions</h2>
+            </div>
+
+            <div class="faq-list">
+
+                <!-- Privacy & Data -->
+                <div class="faq-item" id="faq-data">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-a1">
+                        <h3>Where is my data stored?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-a1" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">All your data is stored locally on your device using Apple's SwiftData framework. Nothing is sent to a server — your financial information never leaves your phone. RentLedger does not operate servers or maintain user accounts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-a2">
+                        <h3>How do I back up my data?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-a2" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">Your RentLedger data is included in your iCloud or local device backups automatically. As long as you have device backups enabled in your iPhone settings, your data is safe.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-a3">
+                        <h3>How do I export my data?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-a3" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">You can export your payments and expenses as CSV files from the Reports tab. Tap the export button and choose how to share the file — email it to your accountant, save to Files, or send via AirDrop.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-a4">
+                        <h3>How do I delete all my data?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-a4" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">Open RentLedger, go to Settings, and tap "Delete All Data." This permanently removes all payments, expenses, properties, tenants, vendors, and receipt files from your device. This action cannot be undone.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing -->
+                <div class="faq-item" id="faq-billing">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-b1">
+                        <h3>What's included in the free trial?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-b1" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">All new subscribers receive a 1-month free trial with full access to every feature. After the trial, you can continue with a monthly ($4.99/mo) or annual ($39.99/yr) subscription, or make a one-time lifetime purchase.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-b2">
+                        <h3>Is there a lifetime purchase option?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-b2" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">Yes. RentLedger offers a one-time lifetime purchase ($79.99) that unlocks all features and includes all future updates — no recurring charges, no renewals, no surprises.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-b3">
+                        <h3>How do I restore a purchase?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-b3" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">Open RentLedger, go to Settings, and tap "Restore Purchases." This will restore any active subscription or lifetime purchase linked to your Apple ID. Make sure you're signed in with the same Apple ID you used for the original purchase.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-b4">
+                        <h3>How do I cancel my subscription?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-b4" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">Subscriptions are managed through your Apple ID. On your iPhone, open Settings, tap your name, then Subscriptions, find RentLedger, and tap Cancel Subscription. You'll keep access until the end of your current billing period.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <div class="faq-item" id="faq-features">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-c1">
+                        <h3>Does RentLedger provide tax advice?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-c1" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">No. RentLedger is a record-keeping tool that helps you organize rental income and expenses. It generates Schedule E and 1099-NEC reports based on the data you enter, but does not provide financial, tax, or legal advice. Consult a qualified professional for tax matters.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-c2">
+                        <h3>Does the app work offline?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-c2" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">Yes. RentLedger works entirely offline. All data is stored on-device and all features — including receipt scanning, report generation, and CSV export — work without an internet connection.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact">
+        <div class="container--narrow">
+            <div class="faq-header">
+                <p class="section-label">Still need help?</p>
+                <h2>Get in touch</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card featured">
+                    <div class="contact-card-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+                    </div>
+                    <h3>Email support</h3>
+                    <p>Questions, feature requests, or anything else — we typically respond within 48 hours.</p>
+                    <a href="mailto:support@rentledger.org" class="contact-link">
+                        support@rentledger.org
+                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Response time</h3>
+                    <p>Most emails are answered within one business day. Complex issues may take up to 48 hours.</p>
+                    <span class="contact-link" style="color: var(--success); cursor: default;">
+                        <svg viewBox="0 0 24 24" style="stroke: var(--success);"><polyline points="20 6 9 17 4 12"/></svg>
+                        No bots, no tickets — just a real reply
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUG REPORT -->
+    <section class="bug-report">
+        <div class="container--narrow">
+            <div class="bug-card">
+                <div class="bug-card-text">
+                    <p class="section-label">Found a bug?</p>
+                    <h2>Help us fix it fast</h2>
+                    <p>The more detail you include, the faster we can reproduce and resolve the issue.</p>
+                    <a href="mailto:support@rentledger.org?subject=Bug%20Report" class="btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+                        Report a bug
+                    </a>
+                </div>
+                <ul class="bug-checklist">
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        App version (found in Settings)
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        iPhone model and iOS version
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Steps to reproduce the issue
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        What you expected to happen
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Screenshots or screen recordings
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ft-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="ft-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#ft-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#ft-accent)"/></g></svg>RentLedger</a>
+                    <p>Rental portfolio tracking for iOS.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="/privacy/">Privacy Policy</a></li>
+                            <li><a href="/terms/">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="/support/">Help & FAQ</a></li>
+                            <li><a href="mailto:support@rentledger.org">support@rentledger.org</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 RentLedger. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-trigger').forEach(function(trigger) {
+            trigger.addEventListener('click', function() {
+                var item = this.closest('.faq-item');
+                var isOpen = item.classList.contains('open');
+
+                // Close all others
+                document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+                    openItem.classList.remove('open');
+                    openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current
+                if (!isOpen) {
+                    item.classList.add('open');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // Smooth scroll to FAQ category when clicking category cards
+        document.querySelectorAll('.category-card').forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    var target = document.querySelector(href);
+                    if (target) {
+                        var faqTrigger = target.querySelector('.faq-trigger');
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(function() {
+                            if (!target.classList.contains('open')) {
+                                faqTrigger.click();
+                            }
+                        }, 400);
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
