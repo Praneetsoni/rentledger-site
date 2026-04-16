@@ -13,7 +13,7 @@ This privacy policy applies to the RentLedger app (hereby referred to as "Applic
 
 RentLedger is a local-first application. All financial data you enter — including payments, expenses, vendors, tax reports, and receipt images — is stored exclusively on your device using Apple's SwiftData framework. The Service Provider does not operate servers, does not maintain user accounts, and has no ability to access, view, or retrieve your data.
 
-Your biometric lock preference is stored securely in the device Keychain.
+The following small, non-financial items are stored securely in the device Keychain: your biometric lock preference, the anonymous installation identifier described below, and a cached Apple in-app-purchase transaction identifier (used only to recognize your subscription across reinstalls). None of these items contain your financial data and none are synced to iCloud.
 
 Receipt files (images and PDFs) you capture or import are stored locally in the Application's sandbox on your device and are never transmitted to any server. Receipt files (images and PDFs) may contain personally identifiable information such as vendor names, transaction amounts, and partial account numbers. This information remains on your device and is not accessed, collected, or processed by the Service Provider.
 
@@ -35,6 +35,7 @@ The Application collects only the following limited, anonymous information:
 
 - **Crash diagnostics:** The Application uses Apple's MetricKit framework to collect anonymous crash reports and performance metrics. This data is not linked to your identity.
 - **Anonymous analytics:** The Application uses TelemetryDeck to collect anonymous usage analytics. TelemetryDeck does not collect personally identifiable information, does not track users across apps, and does not use the data for advertising. For more information, see [TelemetryDeck's Privacy Policy](https://telemetrydeck.com/privacy/).
+- **Anonymous installation identifier:** On first launch, the Application generates a random, anonymous identifier (a UUID) and stores it in the device Keychain. This identifier is attached to anonymous analytics events as a session key so we can distinguish "one user launched the app five times" from "five different users." It is not your Apple ID, device serial number, advertising identifier, or identifier for vendors (IDFV). It cannot be used to identify you personally or track you across other apps. The identifier stays on your device — it is not synced to iCloud. You can reset it at any time by using "Delete All Data" in the Application's Settings, or by uninstalling the Application.
 
 The Application does not collect your IP address, location, browsing activity, or any personally identifiable information. The Application uses Apple's Vision framework to extract text from receipt images; this processing happens entirely on your device and no images or extracted text are sent to any server or external AI service. The Application does not use cloud-based AI services or large language models.
 
@@ -58,7 +59,7 @@ The Service Provider may disclose information as required by law, such as to com
 
 ## Data Deletion
 
-You may delete all of your data at any time by deleting the Application from your device. Since all data is stored locally, uninstalling the Application permanently removes all associated data. You may also use the "Delete All Data" option within the Application's Settings.
+You may delete all of your data at any time by deleting the Application from your device. Since all data is stored locally, uninstalling the Application permanently removes all associated data. You may also use the "Delete All Data" option within the Application's Settings, which additionally clears the anonymous installation identifier and cached Apple transaction identifier from the Keychain so the next launch starts fresh.
 
 ## Opt-Out Rights
 
@@ -78,7 +79,7 @@ If you are a California resident, the California Consumer Privacy Act ("CCPA") p
 
 ## Security
 
-The Service Provider takes the security of your data seriously. Financial data stored on-device is protected using iOS file protection (NSFileProtectionComplete), meaning it is encrypted while your device is locked. Receipt files and in-app data are stored in the Application's sandbox. Files you export from the Application (backups, CSVs, PDFs) are no longer under the Application's control once saved or shared; their security depends on the destination you choose. Biometric authentication (Face ID, Touch ID, or Optic ID) is available to restrict access to the Application.
+The Service Provider takes the security of your data seriously. Financial data stored on-device is protected using iOS file protection (NSFileProtectionComplete), meaning it is encrypted while your device is locked. Receipt files and in-app data are stored in the Application's sandbox. Files you export from the Application (backups, CSVs, PDFs) are no longer under the Application's control once saved or shared; their security depends on the destination you choose. Biometric authentication (Face ID, Touch ID, or Optic ID) is available to restrict access to the Application. Sensitive items stored in the Keychain — including your anonymous installation identifier and cached Apple transaction identifier — use the "after first unlock, this device only" accessibility class, meaning they are readable only after the device has been unlocked at least once since restart and are never synced to iCloud.
 
 ## Changes
 

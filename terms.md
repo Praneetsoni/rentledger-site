@@ -176,7 +176,9 @@ We reserve the right, but not the obligation, to: (1) monitor the Services for v
 
 ## 11. Privacy Policy
 
-We care about data privacy and security. Please review our Privacy Policy: [https://rentledger.org/privacy/](https://rentledger.org/privacy/). By using the Services, you agree to be bound by our Privacy Policy, which is incorporated into these Legal Terms. The Application is distributed via the Apple App Store. All user data is stored locally on your device; no data is transmitted to or stored on our servers. Anonymous diagnostic and analytics data is processed by TelemetryDeck GmbH, a GDPR-compliant analytics provider based in Germany.
+We care about data privacy and security. Please review our Privacy Policy: [https://rentledger.org/privacy/](https://rentledger.org/privacy/). By using the Services, you agree to be bound by our Privacy Policy, which is incorporated into these Legal Terms.
+
+The Application is distributed via the Apple App Store. Your financial data is stored locally on your device; we do not operate servers and we do not receive or store your financial data. Limited anonymous diagnostic and analytics telemetry is processed by TelemetryDeck GmbH, a GDPR-compliant analytics provider based in Germany. No telemetry includes the contents of your records.
 
 ## 12. Term and Termination
 
@@ -228,7 +230,7 @@ You agree to defend, indemnify, and hold us harmless, including our subsidiaries
 
 ## 20. User Data
 
-The Application stores all data exclusively on your device. We do not operate servers, do not maintain user accounts, and have no ability to access, retrieve, or recover your data remotely. The Application provides in-app backup and export features (see Section 4) that let you create local copies of your data for your own use; these exports are created on your device and shared only to destinations you select. You are solely responsible for the security of exported files and for any data stored within the Application on your device. You agree that we shall have no liability for any loss, corruption, or unauthorized disclosure of such data, including exported backup files, and you hereby waive any right of action against us arising from any such loss, corruption, or disclosure.
+The Application stores all data exclusively on your device. We do not operate servers, do not maintain user accounts, and have no ability to access, retrieve, or recover your data remotely. The Application provides in-app backup and export features (see Section 4) that let you create local copies of your data for your own use; these exports are created on your device and shared only to destinations you select. You are solely responsible for the security of exported files and for any data stored within the Application on your device. You agree that we shall have no liability for any loss, corruption, or unauthorized disclosure of such data, including exported backup files, and you hereby waive any right of action against us arising from any such loss, corruption, or disclosure. Limited anonymous telemetry — described in our Privacy Policy — is transmitted to our analytics provider (TelemetryDeck GmbH). This telemetry does not include any data you enter into the Application (payments, expenses, tenants, vendors, receipts, etc.).
 
 ## 21. Electronic Communications, Transactions, and Signatures
 
