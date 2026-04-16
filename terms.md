@@ -5,7 +5,7 @@ permalink: /terms/
 
 # Terms of Service
 
-*Last updated: March 24, 2026*
+*Last updated: April 16, 2026*
 
 ## Agreement to Our Legal Terms
 
@@ -53,6 +53,7 @@ We recommend that you print a copy of these Legal Terms for your records.
 24. [Data Deletion](#24-data-deletion)
 25. [Miscellaneous](#25-miscellaneous)
 26. [Contact Us](#26-contact-us)
+27. [Backup Files](#27-backup-files)
 
 ## 1. Our Services
 
@@ -103,7 +104,9 @@ If you provide any information that is untrue, inaccurate, not current, or incom
 
 Your subscription will continue and automatically renew unless canceled. Your subscription automatically renews unless canceled at least 24 hours before the end of the current period. Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period at the rate of your selected plan. You consent to our charging your payment method on a recurring basis without requiring your prior approval for each recurring charge, until such time as you cancel the applicable order. The length of your billing cycle will depend on the type of subscription plan you choose when you subscribed to the Services.
 
-The subscription provides continued access to premium tracking features, including unlimited payment and expense tracking, receipt scanning with on-device OCR, automated IRS Schedule E and 1099-NEC tax report generation, CSV import and export, and ongoing feature updates and priority support.
+An active subscription (or a lifetime purchase) grants you the ability to use RentLedger's full feature set, including: adding and editing payments, expenses, tenants, properties, and vendors; creating recurring payment and expense templates; using receipt scanning with on-device OCR; enabling rent reminder notifications; generating IRS Schedule E and 1099-NEC tax reports; viewing vendor insights; exporting data to CSV; and restoring data from backup files.
+
+The following features remain available without an active subscription: viewing existing data, creating `.rentledger` backup archives, biometric lock, and deleting your data.
 
 The Application offers optional premium features through the following plans:
 
@@ -115,7 +118,7 @@ All payments are processed by Apple. We do not process payments directly and do 
 
 ### Free Trial
 
-We offer a 30-day free trial to new users who register with the Services. The account will be charged according to the user's chosen subscription at the end of the free trial.
+From time to time, we may offer free trials on auto-renewable subscriptions. The specific duration, eligibility, and terms of any free trial will be displayed in the App Store and in the Application before you start the trial. After a free trial ends, your subscription will automatically begin at the then-current price unless you cancel at least 24 hours before the trial ends. You may cancel anytime through your Apple ID subscription settings.
 
 ### Cancellation
 
@@ -145,33 +148,13 @@ As a user of the Services, you agree not to:
 - Except as permitted by applicable law, decipher, decompile, disassemble, or reverse engineer any of the software comprising or in any way making up a part of the Services.
 - Use the Services as part of any effort to compete with us or otherwise use the Services and/or the Content for any revenue-generating endeavor or commercial enterprise.
 
-## 6. User Generated Contributions
+## 6. Feedback and Submissions
 
-The Services does not offer users to submit or post content. We may provide you with the opportunity to create, submit, post, display, transmit, perform, publish, distribute, or broadcast content and materials to us or on the Services, including but not limited to text, writings, video, audio, photographs, graphics, comments, suggestions, or personal information or other material (collectively, "Contributions"). Contributions may be viewable by other users of the Services and through third-party websites. As such, any Contributions you transmit may be treated in accordance with the Services' Privacy Policy. When you create or make available any Contributions, you thereby represent and warrant that:
+The Services do not permit users to submit, post, or share content with other users. If you send us feedback, suggestions, bug reports, or other information about the Services via email or other means, you grant us a non-exclusive, royalty-free, perpetual license to use such submissions without acknowledgment or compensation. We will not use your submissions in a way that personally identifies you without your consent.
 
-- The creation, distribution, transmission, public display, or performance, and the accessing, downloading, or copying of your Contributions do not and will not infringe the proprietary rights, including but not limited to the copyright, patent, trademark, trade secret, or moral rights of any third party.
-- You are the creator and owner of or have the necessary licenses, rights, consents, releases, and permissions to use and to authorize us, the Services, and other users of the Services to use your Contributions in any manner contemplated by the Services and these Legal Terms.
-- You have the written consent, release, and/or permission of each and every identifiable individual person in your Contributions to use the name or likeness of each and every such identifiable individual person to enable inclusion and use of your Contributions in any manner contemplated by the Services and these Legal Terms.
-- Your Contributions are not false, inaccurate, or misleading.
-- Your Contributions are not unsolicited or unauthorized advertising, promotional materials, pyramid schemes, chain letters, spam, mass mailings, or other forms of solicitation.
-- Your Contributions are not obscene, lewd, lascivious, filthy, violent, harassing, libelous, slanderous, or otherwise objectionable (as determined by us).
-- Your Contributions do not ridicule, mock, disparage, intimidate, or abuse anyone.
-- Your Contributions are not used to harass or threaten (in the legal sense of those terms) any other person and to promote violence against a specific person or class of people.
-- Your Contributions do not violate any applicable law, regulation, or rule.
-- Your Contributions do not violate the privacy or publicity rights of any third party.
-- Your Contributions do not violate any applicable law concerning child pornography, or otherwise intended to protect the health or well-being of minors.
-- Your Contributions do not include any offensive comments that are connected to race, national origin, gender, sexual preference, or physical handicap.
-- Your Contributions do not otherwise violate, or link to material that violates, any provision of these Legal Terms, or any applicable law or regulation.
+## 7. Reserved
 
-Any use of the Services in violation of the foregoing violates these Legal Terms and may result in, among other things, termination or suspension of your rights to use the Services.
-
-## 7. Contribution License
-
-You and Services agree that we may access, store, process, and use any information and personal data that you provide following the terms of the Privacy Policy and your choices (including settings).
-
-By submitting suggestions or other feedback regarding the Services, you agree that we can use and share such feedback for any purpose without compensation to you.
-
-We do not assert any ownership over your Contributions. You retain full ownership of all of your Contributions and any intellectual property rights or other proprietary rights associated with your Contributions. We are not liable for any statements or representations in your Contributions provided by you in any area on the Services. You are solely responsible for your Contributions to the Services and you expressly agree to exonerate us from any and all responsibility and to refrain from any legal action against us regarding your Contributions.
+*This section intentionally left blank.*
 
 ## 8. Mobile Application License
 
@@ -193,7 +176,7 @@ We reserve the right, but not the obligation, to: (1) monitor the Services for v
 
 ## 11. Privacy Policy
 
-We care about data privacy and security. Please review our Privacy Policy: [https://rentledger.org/privacy/](https://rentledger.org/privacy/). By using the Services, you agree to be bound by our Privacy Policy, which is incorporated into these Legal Terms. Please be advised the Services are hosted in the United States (via Apple's App Store). If you access the Services from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in the United States, then through your continued use of the Services, you are transferring your data to the United States, and you expressly consent to have your data transferred to and processed in the United States.
+We care about data privacy and security. Please review our Privacy Policy: [https://rentledger.org/privacy/](https://rentledger.org/privacy/). By using the Services, you agree to be bound by our Privacy Policy, which is incorporated into these Legal Terms. The Application is distributed via the Apple App Store. All user data is stored locally on your device; no data is transmitted to or stored on our servers. Anonymous diagnostic and analytics data is processed by TelemetryDeck GmbH, a GDPR-compliant analytics provider based in Germany.
 
 ## 12. Term and Termination
 
@@ -245,7 +228,7 @@ You agree to defend, indemnify, and hold us harmless, including our subsidiaries
 
 ## 20. User Data
 
-The Application stores all data exclusively on your device. We do not operate servers, do not maintain user accounts, and do not have the ability to access, back up, or recover your data. You are solely responsible for all data stored within the Application on your device. You agree that we shall have no liability to you for any loss or corruption of any such data, and you hereby waive any right of action against us arising from any such loss or corruption of such data.
+The Application stores all data exclusively on your device. We do not operate servers, do not maintain user accounts, and have no ability to access, retrieve, or recover your data remotely. The Application provides in-app backup and export features (see Section 4) that let you create local copies of your data for your own use; these exports are created on your device and shared only to destinations you select. You are solely responsible for the security of exported files and for any data stored within the Application on your device. You agree that we shall have no liability for any loss, corruption, or unauthorized disclosure of such data, including exported backup files, and you hereby waive any right of action against us arising from any such loss, corruption, or disclosure.
 
 ## 21. Electronic Communications, Transactions, and Signatures
 
@@ -273,6 +256,15 @@ In order to resolve a complaint regarding the Services or to receive further inf
 
 **RentLedger**
 [support@rentledger.org](mailto:support@rentledger.org)
+
+## 27. Backup Files
+
+The Application allows you to create `.rentledger` backup archives containing your financial data. Once a backup is created and saved outside the Application, the following apply:
+
+- The archive contains unencrypted copies of your payments, expenses, properties, vendors, tenants, and receipt images. Treat it as you would any sensitive financial document.
+- We have no ability to access, recover, or delete backup files you have exported.
+- Restoring from a backup replaces data currently in the Application. We recommend creating a fresh backup before performing a restore.
+- We make no warranty that a backup file created by one version of the Application will remain readable by future versions. We will make reasonable efforts to maintain backward compatibility and will clearly indicate in the Application when a backup file is from an unsupported version.
 
 ---
 

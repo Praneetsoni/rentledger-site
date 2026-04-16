@@ -5,7 +5,7 @@ permalink: /privacy/
 
 # Privacy Policy
 
-*Last updated: March 24, 2026*
+*Last updated: April 16, 2026*
 
 This privacy policy applies to the RentLedger app (hereby referred to as "Application") for iOS devices that was created by RentLedger (hereby referred to as "Service Provider") as a Freemium service. This service is intended for use "AS IS".
 
@@ -17,6 +17,18 @@ Your biometric lock preference is stored securely in the device Keychain.
 
 Receipt files (images and PDFs) you capture or import are stored locally in the Application's sandbox on your device and are never transmitted to any server. Receipt files (images and PDFs) may contain personally identifiable information such as vendor names, transaction amounts, and partial account numbers. This information remains on your device and is not accessed, collected, or processed by the Service Provider.
 
+## Data Export and Backup
+
+The Application includes features that let you export your data so you can back it up, share it with your accountant, or move it to another device:
+
+- **Backup archives (`.rentledger` files):** You can create a single archive containing all of your payments, expenses, vendors, properties, tenants, and receipt images. This file is created on your device and offered via the iOS share sheet — you choose where it goes (e.g., Files app, iCloud Drive, email, AirDrop).
+- **CSV exports:** You can export payment, expense, and vendor data as CSV files packaged in a ZIP archive. The vendor CSV includes information you have entered about third parties (vendor names, addresses, phone numbers, and 1099 tracking status).
+- **PDF reports:** You can share Schedule E and 1099-NEC reports as PDF files.
+
+Once you export a file, it leaves the Application's sandbox and is subject to the privacy policy and security of wherever you store or send it. For example, if you save a backup to iCloud Drive, Apple's privacy practices and your iCloud security settings apply. The Service Provider has no ability to access, monitor, or delete exported files.
+
+You are responsible for protecting exported files. Backup archives and CSV exports contain sensitive financial data — including third-party vendor contact information — in a single file. We recommend storing exports only in trusted, encrypted locations and deleting old exports you no longer need.
+
 ## Information Collection and Use
 
 The Application collects only the following limited, anonymous information:
@@ -24,7 +36,7 @@ The Application collects only the following limited, anonymous information:
 - **Crash diagnostics:** The Application uses Apple's MetricKit framework to collect anonymous crash reports and performance metrics. This data is not linked to your identity.
 - **Anonymous analytics:** The Application uses TelemetryDeck to collect anonymous usage analytics. TelemetryDeck does not collect personally identifiable information, does not track users across apps, and does not use the data for advertising. For more information, see [TelemetryDeck's Privacy Policy](https://telemetrydeck.com/privacy/).
 
-The Application does not collect your IP address, location, browsing activity, or any personally identifiable information. The Application does not use Artificial Intelligence (AI) technologies to process your data.
+The Application does not collect your IP address, location, browsing activity, or any personally identifiable information. The Application uses Apple's Vision framework to extract text from receipt images; this processing happens entirely on your device and no images or extracted text are sent to any server or external AI service. The Application does not use cloud-based AI services or large language models.
 
 The Service Provider does not and cannot contact you for marketing purposes, as no contact information is collected.
 
@@ -66,7 +78,7 @@ If you are a California resident, the California Consumer Privacy Act ("CCPA") p
 
 ## Security
 
-The Service Provider takes the security of your data seriously. Financial data is protected using Apple's SwiftData on-device encryption. Receipt files (images and PDFs) and exported files are protected with iOS file protection. Biometric authentication (Face ID, Touch ID, or Optic ID) is available to restrict access to the Application.
+The Service Provider takes the security of your data seriously. Financial data stored on-device is protected using iOS file protection (NSFileProtectionComplete), meaning it is encrypted while your device is locked. Receipt files and in-app data are stored in the Application's sandbox. Files you export from the Application (backups, CSVs, PDFs) are no longer under the Application's control once saved or shared; their security depends on the destination you choose. Biometric authentication (Face ID, Touch ID, or Optic ID) is available to restrict access to the Application.
 
 ## Changes
 
