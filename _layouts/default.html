@@ -1,0 +1,354 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} — RentLedger</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+
+    <link rel="canonical" href="https://rentledger.org{{ page.permalink }}">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="theme-color" content="#0F0F14">
+
+    <meta name="apple-itunes-app" content="app-id=6761083476">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RentLedger">
+    <meta property="og:url" content="https://rentledger.org{{ page.permalink }}">
+    <meta property="og:title" content="{{ page.title }} — RentLedger">
+    <meta property="og:description" content="{{ page.description | default: site.description }}">
+    <meta property="og:image" content="https://rentledger.org/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="RentLedger — Rental property tracker for landlords on iOS">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://rentledger.org{{ page.permalink }}">
+    <meta name="twitter:title" content="{{ page.title }} — RentLedger">
+    <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+    <meta name="twitter:image" content="https://rentledger.org/og-image.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;1,400&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0F0F14;
+            --surface: #1A1A24;
+            --primary: #C8BFFF;
+            --primary-fill: #715CE4;
+            --accent: #FFB688;
+            --success: #4ADE80;
+            --text-primary: #E4E1E9;
+            --text-secondary: #CAC3D8;
+            --text-tertiary: #B0AAC0;
+            --ghost-border: rgba(200, 191, 255, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ─── NAV ─── */
+
+        nav {
+            position: fixed;
+            top: 1rem; left: 1.5rem; right: 1.5rem;
+            z-index: 50;
+            background: rgba(26, 26, 36, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            padding: 0.875rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav .logo {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+
+        nav .logo:hover { color: var(--text-primary); }
+
+        nav .logo svg { width: 32px; height: 32px; border-radius: 7px; }
+
+        nav .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+        nav .nav-links a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 200ms ease-out;
+        }
+
+        nav .nav-links a:hover { color: var(--text-primary); }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-fill);
+            color: var(--text-primary);
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(113, 92, 228, 0.3);
+            color: var(--text-primary);
+        }
+
+        /* ─── PROSE (legal docs) ─── */
+
+        main.prose { padding-top: 8rem; padding-bottom: 5rem; }
+
+        .prose h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(2.25rem, 4.5vw, 3rem);
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .prose h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.625rem;
+            line-height: 1.3;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .prose h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.25rem;
+            line-height: 1.4;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .prose p, .prose li {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .prose ul, .prose ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .prose li { margin-bottom: 0.5rem; }
+
+        .prose a {
+            color: var(--primary);
+            text-decoration: underline;
+            text-decoration-color: rgba(200, 191, 255, 0.3);
+            text-underline-offset: 3px;
+            transition: color 200ms ease-out, text-decoration-color 200ms ease-out;
+        }
+
+        .prose a:hover { color: var(--accent); text-decoration-color: currentColor; }
+
+        .prose strong { color: var(--text-primary); font-weight: 600; }
+
+        .prose code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875em;
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 4px;
+            padding: 0.125rem 0.375rem;
+        }
+
+        .prose hr {
+            border: none;
+            border-top: 1px solid var(--ghost-border);
+            margin: 2.5rem 0;
+        }
+
+        /* ─── FOOTER ─── */
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--ghost-border);
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand .logo {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+
+        .footer-brand .logo:hover { color: var(--text-primary); }
+
+        .footer-brand .logo svg { width: 28px; height: 28px; border-radius: 6px; }
+
+        .footer-brand p { font-size: 0.8125rem; color: var(--text-tertiary); }
+
+        .footer-links { display: flex; gap: 2.5rem; }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-col a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-col a:hover { color: var(--text-primary); }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--ghost-border);
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ─── RESPONSIVE ─── */
+
+        @media (max-width: 768px) {
+            nav { left: 1rem; right: 1rem; padding: 0.75rem 1rem; }
+            nav .nav-links a:not(.btn-primary) { display: none; }
+            main.prose { padding-top: 7rem; }
+            .footer-grid { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .prose h1 { font-size: 1.875rem; }
+            .prose h2 { font-size: 1.375rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .btn-primary { transition: none; }
+            .btn-primary:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="nav-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="nav-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#nav-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#nav-accent)"/></g></svg>RentLedger</a>
+        <div class="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#pricing">Pricing</a>
+            <a href="/support/">Support</a>
+            <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary" aria-label="Download RentLedger on the App Store">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                App Store
+            </a>
+        </div>
+    </nav>
+
+    <main class="prose">
+        <div class="container">
+            {{ content }}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ft-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="ft-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#ft-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#ft-accent)"/></g></svg>RentLedger</a>
+                    <p>Rental portfolio tracking for iOS.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="/privacy/">Privacy Policy</a></li>
+                            <li><a href="/terms/">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="/support/">Help & FAQ</a></li>
+                            <li><a href="mailto:support@rentledger.org">support@rentledger.org</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 RentLedger. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

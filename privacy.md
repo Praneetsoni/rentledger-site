@@ -1,5 +1,7 @@
 ---
+layout: default
 title: Privacy Policy
+description: RentLedger's privacy policy. Your rental data stays on your device — no servers, no accounts, no tracking. Local-first financial privacy for landlords.
 permalink: /privacy/
 ---
 
