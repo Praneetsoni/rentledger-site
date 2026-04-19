@@ -3,6 +3,46 @@
    to every page. Page-specific styles follow this include.
    ========================================================================== */
 
+/* Design scale variables — new components should reference these instead
+   of hardcoded values. Existing ad-hoc values are kept to avoid churning
+   the whole codebase; migrate opportunistically. */
+:root {
+    /* Spacing scale, 4pt base unit (matches Material Design) */
+    --space-1: 0.25rem;    /*  4px */
+    --space-2: 0.5rem;     /*  8px */
+    --space-3: 0.75rem;    /* 12px */
+    --space-4: 1rem;       /* 16px */
+    --space-5: 1.5rem;     /* 24px */
+    --space-6: 2rem;       /* 32px */
+    --space-7: 2.5rem;     /* 40px */
+    --space-8: 3rem;       /* 48px */
+    --space-9: 4rem;       /* 64px */
+    --space-10: 6rem;      /* 96px */
+
+    /* Type scale, ~1.25 ratio */
+    --text-xs: 0.75rem;      /* 12px */
+    --text-sm: 0.875rem;     /* 14px */
+    --text-base: 1rem;       /* 16px */
+    --text-lg: 1.125rem;     /* 18px */
+    --text-xl: 1.25rem;      /* 20px */
+    --text-2xl: 1.5rem;      /* 24px */
+    --text-3xl: 2rem;        /* 32px */
+    --text-4xl: 2.5rem;      /* 40px */
+    --text-5xl: 3.5rem;      /* 56px */
+
+    /* Z-index scale — reserve each tier to prevent ad-hoc collisions */
+    --z-base: 0;
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-fixed: 30;
+    --z-overlay: 40;
+    --z-nav: 50;
+    --z-modal: 60;
+    --z-popover: 70;
+    --z-toast: 80;
+    --z-skip-link: 100;
+}
+
 /* Screen-reader-only utility. Content stays in the DOM for AT but is
    visually hidden. */
 .visually-hidden {
