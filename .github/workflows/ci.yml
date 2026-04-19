@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Weekly run catches external link rot and Schema.org spec drift.
+  schedule:
+    - cron: '0 14 * * 1'  # Mondays 14:00 UTC (6am PT)
+
+# Cancel in-progress runs when a new commit is pushed to the same branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Install gems
+        run: |
+          gem install jekyll -v '~> 4.3' --no-document
+          gem install html-proofer -v '~> 5.0' --no-document
+
+      - name: Build Jekyll site
+        run: jekyll build --destination _site --strict_front_matter
+
+      - name: Validate HTML + internal links
+        run: |
+          htmlproofer ./_site \
+            --disable-external \
+            --allow-hash-href \
+            --ignore-empty-alt \
+            --no-check-sri \
+            --ignore-urls "/apps.apple.com/"
+
+      - name: Validate external links (non-blocking)
+        continue-on-error: true
+        run: |
+          htmlproofer ./_site \
+            --only-check-external-hash-urls=false \
+            --allow-hash-href \
+            --ignore-urls "/apps.apple.com/" \
+            --hydra-config '{"max_concurrency": 5}' \
+            --typhoeus-config '{"timeout": 10, "ssl_verifyhost": 2}'
