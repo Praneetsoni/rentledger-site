@@ -75,6 +75,14 @@
 
     .nav-mobile { display: none; }
 
+    /* Keep nav links on one line; prevent "How It Works" from wrapping mid-label. */
+    nav .nav-links a { white-space: nowrap; }
+
+    /* Tablet (641-1023px): tighten the gap so all 7 items + CTA fit without wrapping. */
+    @media (min-width: 641px) and (max-width: 1023px) {
+        nav .nav-links { gap: 1rem; }
+    }
+
     /* Hamburger shows only on true mobile (<=640px). iPad portrait keeps full nav. */
     @media (max-width: 640px) {
         .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }

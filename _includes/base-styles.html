@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Shared base styles — accessibility + interaction primitives that apply
+   to every page. Page-specific styles follow this include.
+   ========================================================================== */
+
+/* Screen-reader-only utility. Content stays in the DOM for AT but is
+   visually hidden. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Universal visible focus for keyboard users. Per-component rules may
+   override with tighter spec if needed. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+details:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Remove the 300ms tap delay on touch devices; treat events as taps. */
+a,
+button,
+summary,
+[role="button"] {
+    touch-action: manipulation;
+}
+
+/* Image sensible defaults — prevent stretching, respect declared dims. */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Respect user's OS-level motion preference. This is the aggressive
+   pattern — it kills transitions and animations site-wide when the
+   user asks for it. Per-component animations still need declarative
+   durations; this just short-circuits them at run time. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -32,6 +32,8 @@
 
     {% include fonts.html %}
     <style>
+        {% include base-styles.html %}
+
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -722,8 +724,9 @@
     </section>
 
     <!-- CATEGORIES -->
-    <section class="categories">
+    <section class="categories" aria-labelledby="help-topics-heading">
         <div class="container">
+            <h2 id="help-topics-heading" class="visually-hidden">Browse help topics</h2>
             <div class="category-grid">
                 <a href="#faq-data" class="category-card">
                     <div class="category-icon">
