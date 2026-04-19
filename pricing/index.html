@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — RentLedger | Rental Property Tracker for iOS</title>
+    <meta name="description" content="RentLedger pricing: $4.99/month, $39.99/year, or $79.99 lifetime. Same features at every tier. Free trial for new subscribers. Lifetime pays for itself after year 2.">
+
+    <link rel="canonical" href="https://rentledger.org/pricing/">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="theme-color" content="#0F0F14">
+
+    <meta name="apple-itunes-app" content="app-id=6761083476">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RentLedger">
+    <meta property="og:url" content="https://rentledger.org/pricing/">
+    <meta property="og:title" content="Pricing — RentLedger | Rental Property Tracker for iOS">
+    <meta property="og:description" content="$4.99/month, $39.99/year, or $79.99 lifetime. Same features at every tier. Free trial available. Local-first app, no accounts.">
+    <meta property="og:image" content="https://rentledger.org/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://rentledger.org/pricing/">
+    <meta name="twitter:title" content="Pricing — RentLedger">
+    <meta name="twitter:description" content="$4.99/month, $39.99/year, or $79.99 lifetime. Same features at every tier. Free trial available.">
+    <meta name="twitter:image" content="https://rentledger.org/og-image.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "RentLedger Premium",
+      "description": "Premium subscription for RentLedger — the rental property tracker for iOS. Unlocks tax reports, receipt scanning, CSV export, and all future features.",
+      "brand": {
+        "@type": "Brand",
+        "name": "RentLedger"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Subscription",
+          "price": "4.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476"
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Subscription",
+          "price": "39.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476"
+        },
+        {
+          "@type": "Offer",
+          "name": "Lifetime Purchase",
+          "price": "79.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476"
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;1,400&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0F0F14;
+            --surface: #1A1A24;
+            --surface-elevated: #2A292F;
+            --primary: #C8BFFF;
+            --primary-fill: #715CE4;
+            --accent: #FFB688;
+            --success: #4ADE80;
+            --text-primary: #E4E1E9;
+            --text-secondary: #CAC3D8;
+            --text-tertiary: #B0AAC0;
+            --ghost-border: rgba(200, 191, 255, 0.08);
+            --ghost-border-hover: rgba(200, 191, 255, 0.18);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 200ms ease-out;
+        }
+
+        a:hover { color: var(--accent); }
+
+        a:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        .section-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .container--narrow {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ─── NAV ─── (matches home) */
+
+        nav {
+            position: fixed;
+            top: 1rem; left: 1.5rem; right: 1.5rem;
+            z-index: 50;
+            background: rgba(26, 26, 36, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            padding: 0.875rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav .logo {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+        nav .logo:hover { color: var(--text-primary); }
+        nav .logo svg { width: 32px; height: 32px; border-radius: 7px; }
+        nav .nav-links { display: flex; gap: 2rem; align-items: center; }
+        nav .nav-links a {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: color 200ms ease-out;
+        }
+        nav .nav-links a:hover { color: var(--text-primary); }
+        nav .nav-links a.active { color: var(--primary); }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-fill);
+            color: var(--text-primary);
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(113, 92, 228, 0.3);
+            color: var(--text-primary);
+        }
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+        }
+
+        /* ─── HERO ─── */
+
+        .hero {
+            padding-top: 9rem;
+            padding-bottom: 3rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.25rem, 4.5vw, 3rem);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ─── PRICING CARDS ─── */
+
+        .pricing-section { padding: 3rem 0 5rem; }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 200ms ease-out, border-color 200ms ease-out;
+        }
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ghost-border-hover);
+        }
+        .pricing-card.featured {
+            border-color: var(--primary-fill);
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: 'Best Value';
+            position: absolute;
+            top: -0.75rem;
+            left: 1.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+            color: var(--text-primary);
+            background: var(--primary-fill);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        .pricing-tier {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
+        }
+        .pricing-amount {
+            font-family: 'Fira Code', monospace;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        .pricing-period {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1.5rem;
+        }
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .pricing-features li svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--success);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+        .pricing-card .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .pricing-note {
+            margin-top: 2rem;
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+            text-align: center;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ─── BREAK-EVEN CALLOUT ─── */
+
+        .breakeven {
+            padding: 4rem 0;
+            background: linear-gradient(180deg, transparent, rgba(113, 92, 228, 0.03), transparent);
+        }
+        .breakeven-card {
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 14px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        .breakeven-card h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1rem;
+        }
+        .breakeven-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 1.5rem;
+        }
+        .breakeven-math {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .breakeven-math-item {
+            text-align: left;
+            min-width: 180px;
+        }
+        .breakeven-math-item .label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.25rem;
+        }
+        .breakeven-math-item .value {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .breakeven-math-item .value.accent { color: var(--accent); }
+        .breakeven-math-item .value.success { color: var(--success); }
+
+        /* ─── COMPARISON TABLE ─── */
+
+        .compare { padding: 4rem 0; }
+        .compare h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .compare .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .compare-table th, .compare-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-size: 0.9375rem;
+            border-bottom: 1px solid var(--ghost-border);
+        }
+        .compare-table tr:last-child th,
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table th {
+            background: rgba(200, 191, 255, 0.03);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+        .compare-table td.check svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--success);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .compare-table td.label {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .compare-table td.center { text-align: center; }
+
+        /* ─── FAQ ─── */
+
+        .faq { padding: 4rem 0 5rem; }
+        .faq h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .faq .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--ghost-border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 200ms ease-out;
+        }
+        .faq-item:hover { border-color: var(--ghost-border-hover); }
+        .faq-item[open] { border-color: rgba(200, 191, 255, 0.18); }
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1.125rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: -2px;
+            border-radius: 10px;
+        }
+        .faq-item summary h3 {
+            font-family: 'Fira Sans', sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .faq-icon {
+            width: 20px; height: 20px; flex-shrink: 0;
+            stroke: var(--text-tertiary);
+            fill: none; stroke-width: 2;
+            stroke-linecap: round; stroke-linejoin: round;
+            transition: transform 250ms ease-out;
+        }
+        .faq-item[open] .faq-icon {
+            transform: rotate(45deg);
+            stroke: var(--primary);
+        }
+        .faq-content {
+            padding: 0 1.5rem 1.25rem;
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        /* ─── FOOTER ─── */
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--ghost-border);
+            margin-top: 2rem;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .footer-brand .logo {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+        .footer-brand .logo svg { width: 28px; height: 28px; border-radius: 6px; }
+        .footer-brand p { font-size: 0.8125rem; color: var(--text-tertiary); }
+        .footer-links { display: flex; gap: 2.5rem; }
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.75rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.1rem;
+            color: var(--text-tertiary); margin-bottom: 0.75rem;
+        }
+        .footer-col ul {
+            list-style: none; display: flex; flex-direction: column; gap: 0.5rem;
+        }
+        .footer-col a { font-size: 0.875rem; color: var(--text-secondary); }
+        .footer-col a:hover { color: var(--text-primary); }
+        .footer-bottom {
+            margin-top: 2rem; padding-top: 1.5rem;
+            border-top: 1px solid var(--ghost-border);
+            font-size: 0.75rem; color: var(--text-tertiary);
+        }
+
+        @media (max-width: 768px) {
+            nav { left: 1rem; right: 1rem; padding: 0.75rem 1rem; }
+            nav .nav-links a:not(.btn-primary) { display: none; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .compare-table { font-size: 0.8125rem; }
+            .compare-table th, .compare-table td { padding: 0.75rem; }
+            .footer-grid { flex-direction: column; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .btn-primary, .pricing-card { transition: none; }
+            .btn-primary:hover, .pricing-card:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="nav-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="nav-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#nav-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#nav-accent)"/></g></svg>RentLedger</a>
+        <div class="nav-links">
+            <a href="/#how-it-works">How It Works</a>
+            <a href="/#features">Features</a>
+            <a href="/#faq">FAQ</a>
+            <a href="/pricing/" class="active">Pricing</a>
+            <a href="/support/">Support</a>
+            <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary" aria-label="Download RentLedger on the App Store">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                App Store
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <p class="section-label">Pricing</p>
+            <h1>Same app. <span style="color: var(--primary);">Three ways</span> to pay.</h1>
+            <p class="subtitle">Every tier unlocks the same features. Pick the cadence that matches how you manage rentals — a tax-season subscription, a yearly plan, or a one-time Lifetime purchase that ends billing forever.</p>
+        </div>
+    </section>
+
+    <!-- PRICING CARDS -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <span class="pricing-tier">Monthly</span>
+                    <span class="pricing-amount">$4.99</span>
+                    <span class="pricing-period">billed monthly</span>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Everything unlocked</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cancel any month, no lock-in</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Free trial before you're charged</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ideal if you only need it at tax time</li>
+                    </ul>
+                    <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary">Start Free Trial</a>
+                </div>
+                <div class="pricing-card">
+                    <span class="pricing-tier">Annual</span>
+                    <span class="pricing-amount">$39.99</span>
+                    <span class="pricing-period">$3.33/mo — save 33%</span>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Everything unlocked</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Save ~$20/yr vs monthly</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Free trial before you're charged</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Best for landlords who track year-round</li>
+                    </ul>
+                    <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary">Start Free Trial</a>
+                </div>
+                <div class="pricing-card featured">
+                    <span class="pricing-tier">Lifetime</span>
+                    <span class="pricing-amount">$79.99</span>
+                    <span class="pricing-period">one-time — no renewals, ever</span>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Everything unlocked, forever</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Every future update included</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Pays for itself after year 2</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>No renewals, no billing emails, no drama</li>
+                    </ul>
+                    <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary">Buy Lifetime</a>
+                </div>
+            </div>
+            <p class="pricing-note">Free trial available for new subscribers. Subscriptions auto-renew and can be canceled anytime via Apple ID settings. Lifetime is a one-time purchase; no refunds after download per Apple's standard App Store terms.</p>
+        </div>
+    </section>
+
+    <!-- BREAK-EVEN CALLOUT -->
+    <section class="breakeven">
+        <div class="container--narrow">
+            <div class="breakeven-card">
+                <p class="section-label" style="text-align: center;">The Lifetime math</p>
+                <h2>If you own rentals for 2+ years, Lifetime is cheaper.</h2>
+                <p>Most landlords hold property for a decade. Annual at $39.99/yr costs $400 over ten years. Lifetime costs $79.99 once — and you own every future update.</p>
+                <div class="breakeven-math">
+                    <div class="breakeven-math-item">
+                        <div class="label">Monthly over 2 yrs</div>
+                        <div class="value">$119.76</div>
+                    </div>
+                    <div class="breakeven-math-item">
+                        <div class="label">Annual over 2 yrs</div>
+                        <div class="value">$79.98</div>
+                    </div>
+                    <div class="breakeven-math-item">
+                        <div class="label">Lifetime (forever)</div>
+                        <div class="value success">$79.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="compare">
+        <div class="container--narrow">
+            <p class="section-label" style="text-align: center;">What's included</p>
+            <h2>Same features. Just different billing.</h2>
+            <p class="subtitle">No hidden tier splits. Every Premium plan gets the full app.</p>
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="center">Monthly</th>
+                        <th class="center">Annual</th>
+                        <th class="center">Lifetime</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="label">Unlimited properties, units, tenants</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Rent payment tracking with late/partial/paid status</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Expense logging with Schedule E categories (lines 5–19)</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Receipt scanning with on-device Vision OCR</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Schedule E PDF reports per property/year</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">1099-NEC vendor tracking + thresholds</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">CSV export (payments, expenses, vendors)</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Recurring rent/expense templates</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Cash flow + vendor insights</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Biometric lock (Face ID / Touch ID)</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Backup &amp; restore (.rentledger archive)</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                    <tr>
+                        <td class="label">All future features</td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                        <td class="check center"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- BILLING FAQ -->
+    <section class="faq">
+        <div class="container--narrow">
+            <p class="section-label" style="text-align: center;">Billing FAQ</p>
+            <h2>Common pricing questions</h2>
+            <p class="subtitle">Product questions? See the <a href="/support/">full support FAQ</a>.</p>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>
+                        <h3>Is there a free trial?</h3>
+                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Yes — new subscribers get a free trial with full access to every feature. Start the trial from within the app. Cancel any time before the trial ends and you won't be charged. The current trial length is shown on the in-app paywall.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>
+                        <h3>Which plan should I pick?</h3>
+                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </summary>
+                    <div class="faq-content">
+                        <p><strong>Monthly</strong> if you only use RentLedger at tax time (Feb–April) and cancel the rest of the year. <strong>Annual</strong> if you track year-round and want the 33% discount over monthly billing. <strong>Lifetime</strong> if you plan to own rental property for at least 2 years — it breaks even vs Annual after year 2 and ends billing forever.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>
+                        <h3>Can I switch plans later?</h3>
+                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Yes. Upgrade from Monthly to Annual via your Apple ID subscription settings at any time. Switching from a subscription to Lifetime is a one-time purchase — after you buy Lifetime, you can cancel your active subscription and keep full access forever.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>
+                        <h3>How do I cancel a subscription?</h3>
+                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Subscriptions are managed by Apple. On your iPhone, open Settings → your name → Subscriptions → RentLedger → Cancel. You keep access until the end of the current billing period.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>
+                        <h3>What happens if I cancel — do I lose my data?</h3>
+                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </summary>
+                    <div class="faq-content">
+                        <p>No. Your rental data stays on your device regardless of subscription status. Premium features (receipt scanning, tax reports, CSV export) lock until you renew or purchase Lifetime, but everything you've logged remains intact and exportable.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>
+                        <h3>How do I restore a purchase on a new iPhone?</h3>
+                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Your subscription or Lifetime purchase is tied to your Apple ID. On a new iPhone, install RentLedger, open Settings in the app, and tap "Restore Purchases." Make sure you're signed in to the same Apple ID used for the original purchase.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ft-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="ft-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#ft-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#ft-accent)"/></g></svg>RentLedger</a>
+                    <p>Rental portfolio tracking for iOS.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="/#features">Features</a></li>
+                            <li><a href="/pricing/">Pricing</a></li>
+                            <li><a href="/changelog/">Changelog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="/about/">About</a></li>
+                            <li><a href="/support/">Support</a></li>
+                            <li><a href="mailto:support@rentledger.org">Email</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="/privacy/">Privacy Policy</a></li>
+                            <li><a href="/terms/">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 RentLedger. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
