@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Privacy Policy
-description: RentLedger's privacy policy. Your rental data stays on your device — no servers, no accounts, no tracking. Local-first financial privacy for landlords.
+description: RentLedger's privacy policy. Your rental data stays on your device — no servers, no user accounts, no personal data collected. Local-first financial privacy for landlords.
 permalink: /privacy/
 ---
 
@@ -81,7 +81,7 @@ If you are a California resident, the California Consumer Privacy Act ("CCPA") p
 
 ## Security
 
-The Service Provider takes the security of your data seriously. Financial data stored on-device is protected using iOS file protection (NSFileProtectionComplete), meaning it is encrypted while your device is locked. Receipt files and in-app data are stored in the Application's sandbox. Files you export from the Application (backups, CSVs, PDFs) are no longer under the Application's control once saved or shared; their security depends on the destination you choose. Biometric authentication (Face ID, Touch ID, or Optic ID) is available to restrict access to the Application. Sensitive items stored in the Keychain — including your anonymous installation identifier and cached Apple transaction identifier — use the "after first unlock, this device only" accessibility class, meaning they are readable only after the device has been unlocked at least once since restart and are never synced to iCloud.
+The Service Provider takes the security of your data seriously. Financial data stored on-device is protected using iOS file protection (NSFileProtectionComplete), meaning it is encrypted while your device is locked. Receipt files and in-app data are stored in the Application's sandbox. Files you export from the Application (backups, CSVs, PDFs) are no longer under the Application's control once saved or shared; their security depends on the destination you choose. Biometric authentication (Face ID or Touch ID, with passcode fallback) is available to restrict access to the Application. Sensitive items stored in the Keychain — including your anonymous installation identifier and cached Apple transaction identifier — use the "after first unlock, this device only" accessibility class, meaning they are readable only after the device has been unlocked at least once since restart and are never synced to iCloud.
 
 ## Changes
 

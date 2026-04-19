@@ -43,12 +43,12 @@
       "operatingSystem": "iOS 26.0",
       "featureList": [
         "Track rental income and expenses",
-        "Generate IRS Schedule E reports",
+        "Generate IRS Schedule E PDF reports",
         "1099-NEC vendor tracking",
         "Receipt scanning with on-device OCR",
-        "Biometric lock (Face ID, Touch ID, Optic ID)",
+        "Biometric lock (Face ID or Touch ID)",
         "Local-first data storage",
-        "CSV import and export"
+        "CSV export for payments, expenses, and vendors"
       ],
       "offers": [
         {
@@ -99,31 +99,7 @@
           "name": "Does RentLedger sync across devices or to iCloud?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No — RentLedger is intentionally local-first. All data stays on your device, which is why there are no servers, no accounts, and no privacy compromises. If you want a backup, export to CSV any time and save it to iCloud Drive or email it to yourself."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I import my existing rental data from a spreadsheet?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. RentLedger supports CSV import with Premium. Bring over historical rent payments, expenses, and property info from any spreadsheet or bookkeeping export."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens if I lose my phone?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Export regular CSV backups to iCloud Drive, Dropbox, or email for peace of mind. On a new iPhone, reimport the CSV to restore your records. Your Premium subscription is tied to your Apple ID, so it follows you."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can my accountant or CPA access my data?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes — export any report or transaction list as CSV or PDF and email it to them. Reports follow IRS Schedule E and 1099-NEC formats, so CPAs and tax software can ingest them directly."
+            "text": "No — RentLedger is intentionally local-first. All data stays on your device, which is why there are no servers, no accounts, and no privacy compromises. Your data is automatically included in standard iCloud and device backups, and you can export CSVs any time for an independent copy."
           }
         },
         {
@@ -139,23 +115,7 @@
           "name": "How accurate are the Schedule E and 1099-NEC reports?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Reports use IRS-aligned categories (Schedule E lines 3 through 22 and 1099-NEC thresholds). RentLedger is a tracking tool — not a tax advisor — so always review your filings with a qualified CPA or tax preparer."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What if I cancel my subscription — will I lose my data?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Your data stays on your device regardless of subscription status. If you cancel, core tracking remains usable; Premium features (tax reports, receipt scanning, CSV export) lock until you renew or purchase Lifetime."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is there a free trial?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. RentLedger is free to download — add properties and log rent without paying. Premium (tax reports, receipt OCR, CSV export) includes a free trial. Start from within the app and cancel anytime via Apple ID settings."
+            "text": "Reports use IRS-aligned categories mapped to Schedule E lines 5 through 19 (advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and more) and 1099-NEC thresholds. RentLedger is a tracking tool — not a tax advisor — so always review your filings with a qualified CPA or tax preparer."
           }
         }
       ]
@@ -1191,8 +1151,8 @@
                         <img src="/assets/screenshots/07_expenses.png" alt="RentLedger expenses screen with Schedule E category breakdown" width="368" height="800" loading="lazy">
                     </div>
                     <div class="step-content">
-                        <h3>Snap receipts, categorize automatically</h3>
-                        <p>Photograph a receipt and RentLedger files it under the right Schedule E category — repairs, insurance, utilities, 1099 vendors. Your phone becomes your bookkeeping system.</p>
+                        <h3>Scan receipts, tag the category</h3>
+                        <p>Photograph a receipt — RentLedger's on-device OCR captures the vendor, date, and amount. Pick a Schedule E category once (repairs, insurance, utilities, and more) and it's filed in seconds. No cloud upload, no data leaves your phone.</p>
                     </div>
                 </div>
                 <div class="step-card">
@@ -1254,7 +1214,7 @@
                 <div>
                     <p class="section-label">Privacy First</p>
                     <h2>Your data, your control</h2>
-                    <p>Face ID protected. No tracking. No ads. Your financial data belongs to you — there are no servers, no accounts, and no way for anyone to access your information.</p>
+                    <p>Face ID protected. No ads. No personal data collected. Your financial data belongs to you — there are no servers, no accounts, and no way for anyone to access your information.</p>
                     <ul class="privacy-points">
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1270,7 +1230,7 @@
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Biometric lock with Face ID, Touch ID, or Optic ID
+                            Biometric lock with Face ID or Touch ID (passcode fallback)
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1296,7 +1256,7 @@
         <div class="container">
             <p class="section-label">Frequently Asked Questions</p>
             <h2>Answers before you install.</h2>
-            <p class="subtitle">The questions landlords ask most. Didn't find yours? <a href="mailto:support@rentledger.org" style="color: var(--primary);">Email support</a>.</p>
+            <p class="subtitle">The questions landlords ask most often before downloading. Looking for billing, backup, or account help? See the <a href="/support/#faq-data" style="color: var(--primary);">full support FAQ</a>.</p>
             <div class="faq-list">
                 <details class="faq-item">
                     <summary>
@@ -1313,34 +1273,7 @@
                         <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </summary>
                     <div class="faq-content">
-                        <p>No — RentLedger is intentionally local-first. All data stays on your device, which is why there are no servers, no accounts, and no privacy compromises. If you want a backup, export to CSV any time and save it to iCloud Drive or email it to yourself.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>
-                        <h3>Can I import my existing rental data from a spreadsheet?</h3>
-                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </summary>
-                    <div class="faq-content">
-                        <p>Yes. RentLedger supports CSV import with Premium. Bring over historical rent payments, expenses, and property info from any spreadsheet or bookkeeping export — no more starting from scratch.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>
-                        <h3>What happens if I lose my phone?</h3>
-                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </summary>
-                    <div class="faq-content">
-                        <p>Export regular CSV backups to iCloud Drive, Dropbox, or email for peace of mind. On a new iPhone, reimport the CSV to restore your records. Your Premium subscription is tied to your Apple ID, so it follows you.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>
-                        <h3>Can my accountant or CPA access my data?</h3>
-                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </summary>
-                    <div class="faq-content">
-                        <p>Yes — export any report or transaction list as CSV or PDF and email it to them. Reports follow IRS Schedule E and 1099-NEC formats, so CPAs and tax software can ingest them directly without cleanup.</p>
+                        <p>No — RentLedger is intentionally local-first. All data stays on your device, which is why there are no servers, no accounts, and no privacy compromises. Your data is automatically included in standard iCloud and device backups, and you can export CSVs any time for an independent copy.</p>
                     </div>
                 </details>
                 <details class="faq-item">
@@ -1358,28 +1291,13 @@
                         <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </summary>
                     <div class="faq-content">
-                        <p>Reports use IRS-aligned categories (Schedule E lines 3–22 and 1099-NEC thresholds). RentLedger is a tracking tool — not a tax advisor — so always review your filings with a qualified CPA or tax preparer.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>
-                        <h3>What if I cancel my subscription — will I lose my data?</h3>
-                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </summary>
-                    <div class="faq-content">
-                        <p>Your data stays on your device regardless of subscription status. If you cancel, core tracking remains usable; Premium features (tax reports, receipt scanning, CSV export) lock until you renew or purchase Lifetime.</p>
-                    </div>
-                </details>
-                <details class="faq-item">
-                    <summary>
-                        <h3>Is there a free trial?</h3>
-                        <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </summary>
-                    <div class="faq-content">
-                        <p>Yes. RentLedger is free to download — add properties and log rent without paying. Premium (tax reports, receipt OCR, CSV export) includes a free trial. Start from within the app and cancel anytime via Apple ID settings.</p>
+                        <p>Reports use IRS-aligned categories mapped to Schedule E lines 5–19 (advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and more) and 1099-NEC thresholds. RentLedger is a tracking tool — not a tax advisor — so always review your filings with a qualified CPA or tax preparer.</p>
                     </div>
                 </details>
             </div>
+            <p style="margin-top: 2rem; font-size: 0.9375rem; color: var(--text-tertiary);">
+                More questions on billing, backups, data export, and cancellation? <a href="/support/" style="color: var(--primary); text-decoration: underline; text-decoration-color: rgba(200, 191, 255, 0.3); text-underline-offset: 3px;">See the full support FAQ →</a>
+            </p>
         </div>
     </section>
 

@@ -796,7 +796,7 @@
                     </button>
                     <div class="faq-panel" id="faq-a3" role="region">
                         <div class="faq-panel-inner">
-                            <p class="faq-panel-content">You can export your payments and expenses as CSV files from the Reports tab. Tap the export button and choose how to share the file — email it to your accountant, save to Files, or send via AirDrop.</p>
+                            <p class="faq-panel-content">You can export your payments, expenses, and vendors as CSV files from Settings → Export Data. Choose how to share the file — email it to your accountant, save to Files or iCloud Drive, or send via AirDrop. Schedule E summaries also export as PDF from the Reports tab.</p>
                         </div>
                     </div>
                 </div>
@@ -821,7 +821,7 @@
                     </button>
                     <div class="faq-panel" id="faq-b1" role="region">
                         <div class="faq-panel-inner">
-                            <p class="faq-panel-content">All new subscribers receive a 2-week free trial with full access to every feature. After the trial, you can continue with a monthly ($4.99/mo) or annual ($39.99/yr) subscription, or make a one-time lifetime purchase.</p>
+                            <p class="faq-panel-content">New subscribers receive a free trial with full access to every feature. After the trial, you can continue with a monthly ($4.99/mo) or annual ($39.99/yr) subscription, or make a one-time lifetime purchase ($79.99). Current trial length is shown on the in-app paywall.</p>
                         </div>
                     </div>
                 </div>
@@ -883,6 +883,42 @@
                     <div class="faq-panel" id="faq-c2" role="region">
                         <div class="faq-panel-inner">
                             <p class="faq-panel-content">Yes. RentLedger works entirely offline. All data is stored on-device and all features — including receipt scanning, report generation, and CSV export — work without an internet connection.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-c3">
+                        <h3>Is RentLedger available on Android?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-c3" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">No — RentLedger is iOS-only and requires iOS 26 or later. The app uses Apple's on-device frameworks (SwiftData, Vision for receipt OCR, Face ID / Touch ID) to keep data private and local. Android isn't on the roadmap.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-c4">
+                        <h3>Does RentLedger integrate with Stripe, Zelle, Venmo, or Plaid?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-c4" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">No. RentLedger uses manual entry by design — no bank-sync services, no open-banking permissions, no third-party data sharing. That's the trade-off for being a true local-first app with no accounts and no servers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-c5">
+                        <h3>How accurate are the Schedule E and 1099-NEC reports?</h3>
+                        <span class="icon-plus" aria-hidden="true"></span>
+                    </button>
+                    <div class="faq-panel" id="faq-c5" role="region">
+                        <div class="faq-panel-inner">
+                            <p class="faq-panel-content">Expense categories map to IRS Schedule E lines 5–19 (advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and more) and generate PDF Schedule E summaries per property/year. 1099-NEC vendor tracking follows IRS thresholds. RentLedger is a record-keeping tool — not a tax advisor — so always review your filings with a qualified CPA or tax preparer.</p>
                         </div>
                     </div>
                 </div>
