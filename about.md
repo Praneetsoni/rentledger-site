@@ -50,7 +50,7 @@ Honesty is part of the deal:
 
 ## Who's behind this
 
-RentLedger is a solo indie project. No VC funding, no sales team, no growth hacking. Built by a landlord who also happens to be a software engineer — which is why the code is available to audit, the privacy policy is readable, and the app works offline by default.
+RentLedger is a solo indie project. No VC funding, no sales team, no growth hacking. Built by a landlord who also happens to be a software engineer — which is why the privacy policy reads like English, the app works offline by default, and every feature has to earn its place.
 
 If the tool saves you a weekend at tax time, it paid for itself ten times over.
 
