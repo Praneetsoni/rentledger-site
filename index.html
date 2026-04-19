@@ -973,10 +973,6 @@
                 padding: 0.75rem 1rem;
             }
 
-            nav .nav-links a:not(.btn-primary) {
-                display: none;
-            }
-
             .hero-grid {
                 grid-template-columns: 1fr;
                 gap: 3rem;
@@ -1019,6 +1015,20 @@
             }
         }
 
+        /* Mobile-only: collapse nav to hamburger. iPad portrait (768px) keeps full nav. */
+        @media (max-width: 640px) {
+            nav .nav-links a:not(.btn-primary) {
+                display: none;
+            }
+        }
+
+        /* Tablet (641-1023px): 2-column grids for better use of screen width */
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 480px) {
             .hero h1 {
                 font-size: 2rem;
@@ -1056,7 +1066,7 @@
     {% include nav.html %}
 
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-content">

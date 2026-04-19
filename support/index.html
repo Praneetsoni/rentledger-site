@@ -653,8 +653,6 @@
                 padding: 0.75rem 1rem;
             }
 
-            nav .nav-links a:not(.btn-primary) { display: none; }
-
             .category-grid { grid-template-columns: 1fr; }
 
             .contact-grid { grid-template-columns: 1fr; }
@@ -666,6 +664,16 @@
             }
 
             .footer-grid { flex-direction: column; }
+        }
+
+        /* Mobile-only: collapse nav to hamburger. iPad portrait keeps full nav. */
+        @media (max-width: 640px) {
+            nav .nav-links a:not(.btn-primary) { display: none; }
+        }
+
+        /* Tablet: 2-column category + contact grids */
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .category-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 480px) {
@@ -705,7 +713,7 @@
     {% include nav.html active="support" %}
 
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <div class="container">
             <p class="section-label">Support</p>
             <h1>How can we <span class="highlight">help</span>?</h1>

@@ -280,9 +280,13 @@
 
         @media (max-width: 768px) {
             nav { left: 1rem; right: 1rem; padding: 0.75rem 1rem; }
-            nav .nav-links a:not(.btn-primary) { display: none; }
             main.prose { padding-top: 7rem; }
             .footer-grid { flex-direction: column; }
+        }
+
+        /* Mobile-only: collapse nav to hamburger. iPad portrait keeps full nav. */
+        @media (max-width: 640px) {
+            nav .nav-links a:not(.btn-primary) { display: none; }
         }
 
         @media (max-width: 480px) {
@@ -301,7 +305,7 @@
 
     {% include nav.html %}
 
-    <main class="prose">
+    <main class="prose" id="main-content">
         <div class="container">
             {{ content }}
         </div>

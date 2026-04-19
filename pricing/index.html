@@ -561,11 +561,21 @@
 
         @media (max-width: 768px) {
             nav { left: 1rem; right: 1rem; padding: 0.75rem 1rem; }
-            nav .nav-links a:not(.btn-primary) { display: none; }
             .pricing-grid { grid-template-columns: 1fr; }
             .compare-table { font-size: 0.8125rem; }
             .compare-table th, .compare-table td { padding: 0.75rem; }
             .footer-grid { flex-direction: column; }
+        }
+
+        /* Mobile-only: collapse nav to hamburger. iPad portrait keeps full nav. */
+        @media (max-width: 640px) {
+            nav .nav-links a:not(.btn-primary) { display: none; }
+        }
+
+        /* Tablet: 2-column pricing grid fits iPad portrait better than 1-column stack */
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid .pricing-card.featured { grid-column: 1 / -1; max-width: 440px; margin: 0 auto; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -580,7 +590,7 @@
     {% include nav.html active="pricing" %}
 
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <div class="container">
             <p class="section-label">Pricing</p>
             <h1>Same app. <span style="color: var(--primary);">Three ways</span> to pay.</h1>

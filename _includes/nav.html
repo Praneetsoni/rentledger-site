@@ -1,3 +1,5 @@
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <nav>
     <a href="/" class="logo"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="nav-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1A24"/><stop offset="100%" stop-color="#0F0F14"/></linearGradient><linearGradient id="nav-accent" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#CC7A40"/><stop offset="50%" stop-color="#FFB688"/><stop offset="100%" stop-color="#CC7A40"/></linearGradient></defs><rect width="1024" height="1024" rx="230" fill="url(#nav-bg)"/><g transform="translate(250, 250)"><path d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z" fill="#DDD8F0"/><rect x="0" y="240" width="80" height="280" fill="url(#nav-accent)"/></g></svg>RentLedger</a>
     <div class="nav-links">
@@ -27,12 +29,36 @@
 </div>
 
 <style>
+    .skip-link {
+        position: absolute;
+        top: -100px;
+        left: 1rem;
+        padding: 0.75rem 1.25rem;
+        background: var(--primary-fill);
+        color: var(--text-primary);
+        font-family: 'Fira Sans', sans-serif;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        border-radius: 0 0 8px 8px;
+        text-decoration: none;
+        z-index: 100;
+        transition: top 200ms ease-out;
+    }
+    .skip-link:focus-visible {
+        top: 0;
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+        color: var(--text-primary);
+    }
+
     .nav-toggle {
         display: none;
         background: transparent;
         border: 1px solid var(--ghost-border);
         color: var(--text-primary);
-        padding: 0.5rem;
+        width: 44px;
+        height: 44px;
+        padding: 0;
         border-radius: 8px;
         cursor: pointer;
         transition: border-color 200ms ease-out, background 200ms ease-out;
@@ -45,13 +71,14 @@
         outline: 2px solid var(--primary);
         outline-offset: 2px;
     }
-    .nav-toggle svg { display: block; }
+    .nav-toggle svg { display: block; margin: auto; }
 
     .nav-mobile { display: none; }
 
-    @media (max-width: 768px) {
+    /* Hamburger shows only on true mobile (<=640px). iPad portrait keeps full nav. */
+    @media (max-width: 640px) {
         .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
-        nav .nav-links { gap: 0.625rem; }
+        nav .nav-links { gap: 0.5rem; }
 
         .nav-mobile {
             display: flex;
