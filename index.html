@@ -91,7 +91,7 @@
           "name": "Is RentLedger available on Android?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No — RentLedger is iOS-only and requires iOS 26 or later. This lets us lean into Apple's on-device frameworks (SwiftData, Vision for receipt OCR, Face ID) without compromises. Android isn't on the roadmap."
+            "text": "No — RentLedger is iOS-only and requires iOS 26 or later. Going all-in on iPhone is how we ship a genuinely local-first app: SwiftData, on-device Vision OCR, and Face ID all live on Apple's stack. Android isn't on the roadmap."
           }
         },
         {
@@ -99,7 +99,7 @@
           "name": "Does RentLedger sync across devices or to iCloud?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No — RentLedger is intentionally local-first. All data stays on your device, which is why there are no servers, no accounts, and no privacy compromises. Your data is automatically included in standard iCloud and device backups, and you can export CSVs any time for an independent copy."
+            "text": "No, and that's on purpose. Your rental data never touches a server, so there's no account to create, no breach to worry about, and nothing subpoena-able sitting in a database. Standard iPhone iCloud and device backups already include your data; CSV exports give you a second copy whenever you want one."
           }
         },
         {
@@ -107,7 +107,7 @@
           "name": "Does RentLedger integrate with Stripe, Zelle, Venmo, or Plaid?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. RentLedger uses manual entry by design — no bank-sync services, no open-banking permissions, no third-party data sharing. That's the trade-off for being a true local-first app with no accounts and no servers."
+            "text": "No, and it's a deliberate trade-off. Bank syncing means open-banking permissions, third-party data sharing, and a remote database holding your financial trail. RentLedger trades automation for absolute privacy: you enter payments manually (about a minute a month) and nothing about your rentals leaves your phone."
           }
         },
         {
@@ -115,7 +115,7 @@
           "name": "How accurate are the Schedule E and 1099-NEC reports?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Reports use IRS-aligned categories mapped to Schedule E lines 5 through 19 (advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and more) and 1099-NEC thresholds. RentLedger is a tracking tool — not a tax advisor — so always review your filings with a qualified CPA or tax preparer."
+            "text": "Expense categories map one-for-one to IRS Schedule E lines 5 through 19 — advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and more. Vendor payments roll up against 1099-NEC thresholds so the forms you owe are already summed. That said, RentLedger is record-keeping, not tax advice. Always have a qualified CPA or tax preparer review your return before you file."
           }
         }
       ]
@@ -1073,9 +1073,9 @@
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-content">
-                    <p class="section-label">Rental Property Tracker for iOS</p>
+                    <p class="section-label">Rental income + Schedule E tracking · iOS</p>
                     <h1>Ditch the <span class="highlight">Spreadsheet</span></h1>
-                    <p class="tagline">Track rent, expenses, and taxes — all on your phone. Built for landlords who'd rather manage properties than wrestle rows and columns.</p>
+                    <p class="tagline">One iPhone app for rent payments, receipts, and Schedule E reports. So tax season stops eating your weekends — and your receipts stop living in a kitchen drawer.</p>
                     <div class="hero-cta-group">
                         <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="app-store-badge" aria-label="Download RentLedger on the App Store">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 40" role="img" aria-hidden="true" focusable="false">
@@ -1132,8 +1132,8 @@
     <section class="how-it-works" id="how-it-works">
         <div class="container">
             <p class="section-label">How It Works</p>
-            <h2>Three steps. Then tax season just&nbsp;works.</h2>
-            <p class="subtitle">From first property to IRS-ready reports — no spreadsheets, no late-night math.</p>
+            <h2>Three habits that pay off every&nbsp;April.</h2>
+            <p class="subtitle">Add your properties once. Log payments and receipts as they happen. Export clean Schedule E and 1099-NEC reports the week your CPA needs them.</p>
             <div class="steps-grid">
                 <div class="step-card">
                     <div class="step-screenshot">
@@ -1141,8 +1141,8 @@
                         <img src="/assets/screenshots/10_properties.png" alt="RentLedger properties screen showing multiple rental units" width="368" height="800" loading="lazy">
                     </div>
                     <div class="step-content">
-                        <h3>Add your properties</h3>
-                        <p>Set up each unit in under a minute. RentLedger tracks every dollar of rent per property so you always know who's paid, who's late, and what's overdue.</p>
+                        <h3>Add your properties and units</h3>
+                        <p>Set up properties, units, and tenants in one screen. The dashboard then keeps score for you: who paid this month, who's partial, who's late, who's not yet due — color-coded at a glance.</p>
                     </div>
                 </div>
                 <div class="step-card">
@@ -1152,7 +1152,7 @@
                     </div>
                     <div class="step-content">
                         <h3>Scan receipts, tag the category</h3>
-                        <p>Photograph a receipt — RentLedger's on-device OCR captures the vendor, date, and amount. Pick a Schedule E category once (repairs, insurance, utilities, and more) and it's filed in seconds. No cloud upload, no data leaves your phone.</p>
+                        <p>Photograph the receipt. On-device OCR reads the vendor, date, and amount. Tap a Schedule E category (repairs, insurance, utilities, and more) and the expense is logged — with the original image attached and zero cloud uploads.</p>
                     </div>
                 </div>
                 <div class="step-card">
@@ -1161,8 +1161,8 @@
                         <img src="/assets/screenshots/04_reports_top.png" alt="RentLedger tax reports screen showing Schedule E and 1099-NEC summaries" width="368" height="800" loading="lazy">
                     </div>
                     <div class="step-content">
-                        <h3>Export tax reports</h3>
-                        <p>At tax time, tap export. Schedule E and 1099-NEC reports generate from everything you've already tracked — ready to hand to your CPA or file yourself.</p>
+                        <h3>Export the reports your CPA actually wants</h3>
+                        <p>When tax season hits, tap export. Schedule E summaries come out as PDFs, transaction-level data as CSVs, and 1099-NEC vendor totals are already there. Drop them in an email to your CPA — done in one minute, not one weekend.</p>
                     </div>
                 </div>
             </div>
@@ -1179,29 +1179,29 @@
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     </div>
-                    <h3>Still chasing rent by text?</h3>
-                    <p>See who's paid, who's late, and who owes — all in one place. No awkward follow-ups. Clear visual indicators for paid, partial, and overdue rent.</p>
+                    <h3>Stop texting "hey, did you Venmo yet?"</h3>
+                    <p>One screen shows every tenant's rent status — paid, partial, late, or not yet due — color-coded so you spot trouble in two seconds. No more scrolling through texts to remember who owes what.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
                     </div>
-                    <h3>Every lost receipt is a missed deduction</h3>
-                    <p>Categorize expenses with IRS-aligned Schedule E categories. Track repairs, insurance, utilities, and more — with 1099 vendor tracking built in.</p>
+                    <h3>Every lost receipt is a missed deduction.</h3>
+                    <p>Log expenses against IRS Schedule E categories (lines 5–19) as they happen. Tag 1099 vendors so come January you already know who needs a form. Your shoebox of receipts turns into a searchable, exportable record.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                     </div>
-                    <h3>Tax season, handled</h3>
-                    <p>Schedule E and 1099-NEC reports generate automatically from what you've already tracked. Income, expenses, and trends — ready to file. No spreadsheets.</p>
+                    <h3>Tax season becomes a two-tap export</h3>
+                    <p>Schedule E PDFs and 1099-NEC vendor totals generate from the payments and expenses you already logged — organized per property, per year. Hand them to your CPA, drop them into TurboTax, or file the paper yourself.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                     </div>
-                    <h3>Point. Scan. Done.</h3>
-                    <p>Snap a photo. RentLedger files it to the right property and Schedule E category instantly. Receipts to records in seconds — all on-device.</p>
+                    <h3>Point. Scan. File.</h3>
+                    <p>Snap a receipt — Vision OCR reads the vendor, date, and total. Assign the property and Schedule E category, and the expense is stored with the original image attached. Zero cloud uploads.</p>
                 </div>
             </div>
         </div>
@@ -1264,7 +1264,7 @@
                         <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </summary>
                     <div class="faq-content">
-                        <p>No — RentLedger is iOS-only and requires iOS 26 or later. This lets us lean into Apple's on-device frameworks (SwiftData, Vision for receipt OCR, Face ID) without compromises. Android isn't on the roadmap.</p>
+                        <p>No — RentLedger is iOS-only and requires iOS 26 or later. Going all-in on iPhone is how we ship a genuinely local-first app: SwiftData, on-device Vision OCR, and Face ID all live on Apple's stack. Android isn't on the roadmap.</p>
                     </div>
                 </details>
                 <details class="faq-item">
@@ -1273,7 +1273,7 @@
                         <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </summary>
                     <div class="faq-content">
-                        <p>No — RentLedger is intentionally local-first. All data stays on your device, which is why there are no servers, no accounts, and no privacy compromises. Your data is automatically included in standard iCloud and device backups, and you can export CSVs any time for an independent copy.</p>
+                        <p>No, and that's on purpose. Your rental data never touches a server, so there's no account to create, no breach to worry about, and nothing subpoena-able sitting in a database. Standard iPhone iCloud and device backups already include your data; CSV exports give you a second copy whenever you want one.</p>
                     </div>
                 </details>
                 <details class="faq-item">
@@ -1282,7 +1282,7 @@
                         <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </summary>
                     <div class="faq-content">
-                        <p>No. RentLedger uses manual entry by design — no bank-sync services, no open-banking permissions, no third-party data sharing. That's the trade-off for being a true local-first app with no accounts and no servers.</p>
+                        <p>No, and it's a deliberate trade-off. Bank syncing means open-banking permissions, third-party data sharing, and a remote database holding your financial trail. RentLedger trades automation for absolute privacy: you enter payments manually (about a minute a month) and nothing about your rentals leaves your phone.</p>
                     </div>
                 </details>
                 <details class="faq-item">
@@ -1291,7 +1291,7 @@
                         <svg class="faq-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </summary>
                     <div class="faq-content">
-                        <p>Reports use IRS-aligned categories mapped to Schedule E lines 5–19 (advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and more) and 1099-NEC thresholds. RentLedger is a tracking tool — not a tax advisor — so always review your filings with a qualified CPA or tax preparer.</p>
+                        <p>Expense categories map one-for-one to IRS Schedule E lines 5–19 — advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and more. Vendor payments roll up against 1099-NEC thresholds so the forms you owe are already summed. That said, RentLedger is record-keeping, not tax advice. Always have a qualified CPA or tax preparer review your return before you file.</p>
                     </div>
                 </details>
             </div>
@@ -1304,9 +1304,9 @@
     <!-- PRICING -->
     <section class="pricing" id="pricing">
         <div class="container">
-            <p class="section-label">Premium</p>
+            <p class="section-label">Premium · Pick your cadence</p>
             <h2>Stop managing rentals in spreadsheets</h2>
-            <p class="subtitle">Same features across every tier. Pick the billing cycle that fits.</p>
+            <p class="subtitle">Same app, same features, three ways to pay. A free trial unlocks everything before you're charged a cent.</p>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <span class="pricing-tier">Monthly</span>
@@ -1315,19 +1315,19 @@
                     <ul class="pricing-features">
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Full Premium features
+                            Everything unlocked
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Cancel anytime, no lock-in
+                            Cancel any month, no lock-in
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Free trial for new subscribers
+                            Free trial before you're charged
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Perfect for tax season only
+                            Ideal if you only need it at tax time
                         </li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary">Start Free Trial</a>
@@ -1339,19 +1339,19 @@
                     <ul class="pricing-features">
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Full Premium features
+                            Everything unlocked
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Save $20/year vs monthly
+                            Save ~$20/yr vs monthly
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Free trial for new subscribers
+                            Free trial before you're charged
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Best fit for year-round landlords
+                            Best for landlords who track year-round
                         </li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary">Start Free Trial</a>
@@ -1363,19 +1363,19 @@
                     <ul class="pricing-features">
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Full Premium features
+                            Everything unlocked, forever
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            All future updates included
+                            Every future update included
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Break-even in 2 years vs Annual
+                            Pays for itself after year 2
                         </li>
                         <li>
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Pay once. Done. Forever.
+                            No renewals, no billing emails, no drama
                         </li>
                     </ul>
                     <a href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476" class="btn-primary">Buy Lifetime</a>
