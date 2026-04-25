@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Terms of Service
 description: RentLedger's terms of service. Subscription terms, acceptable use, liability, and refund policy for the iOS rental property tracker app.
 permalink: /terms/

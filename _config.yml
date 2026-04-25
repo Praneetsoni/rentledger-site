@@ -2,3 +2,17 @@ title: RentLedger
 description: Rental portfolio tracking for iOS
 theme: null
 markdown: kramdown
+permalink: pretty
+
+exclude:
+  - _design/
+  - .playwright-cli/
+  - README.md
+  - DESIGN_NOTES.md
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default

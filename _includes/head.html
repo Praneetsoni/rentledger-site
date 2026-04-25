@@ -1,0 +1,37 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0F0F14">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+
+<title>{% if page.title_full %}{{ page.title_full }}{% else %}{{ page.title }} — RentLedger{% endif %}</title>
+<meta name="description" content="{{ page.description | default: site.description }}">
+{% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
+
+<link rel="canonical" href="https://rentledger.org{{ page.permalink | default: page.url }}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="apple-itunes-app" content="app-id=6761083476">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RentLedger">
+<meta property="og:url" content="https://rentledger.org{{ page.permalink | default: page.url }}">
+<meta property="og:title" content="{% if page.title_full %}{{ page.title_full }}{% else %}{{ page.title }} — RentLedger{% endif %}">
+<meta property="og:description" content="{{ page.description | default: site.description }}">
+<meta property="og:image" content="https://rentledger.org/og-image.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="RentLedger — Rental property tracker for landlords on iOS">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://rentledger.org{{ page.permalink | default: page.url }}">
+<meta name="twitter:title" content="{% if page.title_full %}{{ page.title_full }}{% else %}{{ page.title }} — RentLedger{% endif %}">
+<meta name="twitter:description" content="{{ page.description | default: site.description }}">
+<meta name="twitter:image" content="https://rentledger.org/og-image.webp">
+
+{% if page.schema_json %}<script type="application/ld+json">
+{{ page.schema_json }}
+</script>{% endif %}
+
+{% if page.preload_image %}<link rel="preload" as="image" href="{{ page.preload_image }}" fetchpriority="high">{% endif %}
+
+{% include fonts.html %}
+<link rel="stylesheet" href="/assets/css/site.css">
