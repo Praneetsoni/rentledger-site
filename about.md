@@ -1,61 +1,61 @@
 ---
 layout: default
 title: About
-description: Why RentLedger exists. Built by a landlord who wanted a record-keeping system that was structured, audit-ready, and free of a lifetime subscription.
+title_full: "About — RentLedger"
+description: "Why RentLedger exists. Built by a landlord who got tired of the spreadsheet — audit-ready records, Lifetime pricing, and the three things a landlord does in three taps each."
 permalink: /about/
+nav_active: about
+schema_json: |
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About RentLedger",
+    "url": "https://rentledger.org/about/",
+    "description": "Why RentLedger exists — built by a landlord, audit-ready, Lifetime pricing, no servers, no accounts."
+  }
 ---
 
-# Why RentLedger exists
+<section class="band" style="padding-top: 120px; padding-bottom: 40px;">
+    <div class="container" style="max-width:1000px;">
+      <span class="section-tag">About</span>
+      <h1 class="hero-title" style="text-align: left; max-width: 920px; margin-top: 24px;">Built by a landlord who got tired of the <em>spreadsheet</em>.</h1>
+      <p class="lede" style="max-width: 680px; margin-top: 28px;">Every landlord starts with a spreadsheet. A tab for rent, a tab for expenses, a column for receipts that never get scanned. It works — until the year an HVAC repair receipt vanishes into an email thread, and tax season eats another April weekend. RentLedger is what we built so neither happens again — every receipt captured, every deduction defensible, tax season done in an afternoon.</p>
+    </div>
+  </section>
+  <section class="band" style="padding-top: 40px;">
+    <div class="container" style="max-width:1000px;">
+      <h2 class="visually-hidden">Why landlords pick RentLedger</h2>
+      <div class="about-grid" data-reveal-group>
+        <div class="about-story">
+          <h3>Audit-ready from day one.</h3>
+          <p>The receipt you lose in 2026 is the deduction you can't defend in 2030. IRS audits don't ask for spreadsheets — they ask for dated records, categorized totals, and the original receipt. Every expense in RentLedger is photographed, dated, tagged to a Schedule E line, and tied to a specific property. Hand the export to your CPA, drop it into TurboTax, or file it yourself. Nothing to reconcile.</p>
+          <h3>Pay once. Own the tool.</h3>
+          <p>Most landlords hold a property for ten, twenty, thirty years. A $15/month rental tracker costs $1,800 over that same decade — to track your own money. RentLedger's Lifetime is $79.99, once, with every future update included. That's break-even in six months versus a $15/month tracker, then free forever. Monthly and annual plans exist for tax-season-only use, but for year-round tracking, Lifetime ends billing for good.</p>
+          <h3>The three things a landlord does, in three taps each.</h3>
+          <p>Logging a rent payment should take seconds. Scanning a receipt should take the time it takes to point your phone. Pulling a year-end Schedule E should not eat a weekend. That's what we optimized for — log, scan, export — and dropped everything else. No tenant portals nobody asked for. No dashboards you don't need. No lead-gen hooks.</p>
+        </div>
+        <aside class="principles">
+          <h4>Principles</h4>
+          <ul>
+            <li><span class="k">Local-first</span><span class="v">yes</span></li>
+            <li><span class="k">Cloud sync</span><span class="v no">no</span></li>
+            <li><span class="k">User accounts</span><span class="v no">no</span></li>
+            <li><span class="k">Bank integration</span><span class="v no">no</span></li>
+            <li><span class="k">Receipt scanning</span><span class="v">on your phone</span></li>
+            <li><span class="k">Analytics</span><span class="v">anonymous</span></li>
+            <li><span class="k">Ads</span><span class="v no">no</span></li>
+            <li><span class="k">Data ownership</span><span class="v">user</span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
 
-Every landlord I know starts with a spreadsheet. A tab for rent. A tab for expenses. A column for receipts they swore they'd scan later. It works — until the year you own three units and an HVAC repair receipt vanishes into an email thread.
-
-RentLedger started the way most tools worth building do: I got tired of my own spreadsheet.
-
-## What I actually wanted
-
-I'm a landlord. Not an accountant, not a developer building for the "rental vertical" — just someone who owns property and wanted a better way to track it. When I started looking at what was on the App Store, nothing matched what I needed. So I wrote down the short list.
-
-### 1. Structured and robust, not a spreadsheet
-
-A spreadsheet doesn't stop you from typing "$1,00" instead of "$1,000." It doesn't remind you which property a payment belongs to. It doesn't know that "repairs" and "Repairs " are the same category. At scale, it quietly rots.
-
-RentLedger enforces the structure — properties, units, tenants, payments, expenses, vendors. Amounts are stored as integers in cents so there are no rounding errors. Categories are fixed to the IRS Schedule E form so they line up with your tax return.
-
-### 2. Cheap over the long haul
-
-Monthly subscriptions are great for the company billing you. They're less great for a landlord who'll own a property for 10, 20, or 30 years. Paying $15/month for a decade is $1,800 to track your own rent.
-
-RentLedger offers monthly and annual subscriptions for people who want them, but the **Lifetime purchase at $79.99** is the real answer for anyone treating rentals as a long-term hold. Pay once, own the tool, get every future update. No renewal emails. No surprise price hikes.
-
-### 3. Audit-ready from day one
-
-The receipt you lost in 2023 is the deduction you can't defend in 2027. IRS audits don't ask for spreadsheets — they ask for dated records, supporting documents, and categorized totals. The tool you use for records should produce that stack natively.
-
-In RentLedger, every expense is attached to its receipt image, dated, tagged to a Schedule E category, and linked to a specific property and (if relevant) vendor. When you export, the report is already in the shape the IRS expects. When you hand it to your CPA, there's nothing to reconcile.
-
-### 4. Easy in, easy out
-
-The best record-keeping system is the one you actually use. Logging rent should take seconds. Scanning a receipt should take the time it takes to point your phone. Pulling a year-end report should not require a weekend.
-
-RentLedger does the three things a landlord does constantly — log payment, log expense, export report — in as few taps as possible. No dashboards you don't need. No tenant portals nobody asked for. No lead-gen hooks.
-
-## What RentLedger is not
-
-Honesty is part of the deal:
-
-- **It's not a tax advisor.** Reports follow IRS format but a qualified CPA should still review your return.
-- **It's not a tenant-communications platform.** No rent-collection portal, no maintenance tickets, no chat. Use what you already use for those.
-- **It's not syncing to your bank.** No open-banking permissions, no third-party data sharing, no cloud database of your finances. You enter payments manually — about a minute a month — and everything stays on your phone.
-- **It's not on Android.** Going all-in on iOS is how we can be truly local-first (SwiftData, on-device Vision OCR, Face ID). Splitting across platforms would mean servers. We chose the opposite.
-
-## Who's behind this
-
-RentLedger is a solo indie project. No VC funding, no sales team, no growth hacking. Built by a landlord who also happens to be a software engineer — which is why the privacy policy reads like English, the app works offline by default, and every feature has to earn its place.
-
-If the tool saves you a weekend at tax time, it paid for itself ten times over.
-
-## The one-line version
-
-RentLedger is the app for landlords who want spreadsheet-grade simplicity, accountant-grade records, and subscription-free pricing — all on an iPhone that works offline.
-
-[Download on the App Store →](https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476)
+  <!-- End CTA -->
+  <section class="end-cta">
+    <div class="container">
+      <h2>Try it for the next tax season.</h2>
+      <p class="lede">Free trial unlocks everything. Cancel before it bills if it isn't a fit.</p>
+      <a class="btn btn-primary" href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476">Download on the App Store</a>
+    </div>
+  </section>

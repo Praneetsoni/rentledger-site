@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: prose
 title: Changelog
 description: RentLedger release notes and product updates. Recurring rent, backup/restore, improved receipt OCR, Lifetime pricing, and more.
 permalink: /changelog/
