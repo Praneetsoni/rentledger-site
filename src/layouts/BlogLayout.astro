@@ -1,0 +1,80 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Article from "../components/schema/Article.astro";
+import Person from "../components/schema/Person.astro";
+import FAQPage from "../components/schema/FAQPage.astro";
+import BreadcrumbList from "../components/schema/BreadcrumbList.astro";
+import type { FAQ } from "../components/schema/FAQPage.astro";
+
+export interface Props {
+  /** Article title — also used as <title>. */
+  title: string;
+  /** Optional full <title> override. */
+  titleFull?: string;
+  /** Used as <meta description> AND Article.description. */
+  description: string;
+  keywords?: string;
+  /** Path relative to site root. Defaults to current route. */
+  canonicalPath?: string;
+  /** Hero image URL relative to site root, e.g. "/images/blog/foo-hero.webp".
+   * Used for OG preview AND Article.image. */
+  heroImage?: string;
+  /** ISO date (YYYY-MM-DD) — when the article was first published. */
+  datePublished: string;
+  /** ISO date (YYYY-MM-DD) — when the article was last edited or its
+   * VerifiedField data was re-verified. */
+  dateModified: string;
+  /** True when Praneet has spot-checked the data per §12.3. */
+  reviewed?: boolean;
+  /** FAQs rendered on the page AND emitted as FAQPage JSON-LD. Per §11.6,
+   * every blog page should ship 4–8 entity-linked FAQs. */
+  faqs?: FAQ[];
+  /** Breadcrumb trail. The current page's name is the last item without a path. */
+  breadcrumbs?: { name: string; path?: string }[];
+}
+
+const {
+  title,
+  titleFull,
+  description,
+  keywords,
+  canonicalPath,
+  heroImage,
+  datePublished,
+  dateModified,
+  reviewed = false,
+  faqs,
+  breadcrumbs,
+} = Astro.props;
+
+---
+
+<BaseLayout
+  title={title}
+  titleFull={titleFull}
+  description={description}
+  keywords={keywords}
+  canonicalPath={canonicalPath}
+  preloadImage={heroImage}
+>
+  <Fragment slot="schema">
+    <Article
+      headline={title}
+      description={description}
+      pagePath={canonicalPath}
+      datePublished={datePublished}
+      dateModified={dateModified}
+      image={heroImage}
+      reviewed={reviewed}
+    />
+    <Person mode="inline" />
+    {faqs && faqs.length > 0 && <FAQPage faqs={faqs} />}
+    {
+      breadcrumbs && breadcrumbs.length > 0 && (
+        <BreadcrumbList items={breadcrumbs} />
+      )
+    }
+  </Fragment>
+
+  <slot />
+</BaseLayout>

@@ -1,0 +1,55 @@
+---
+import { SCHEMA_IDS, SITE_URL } from "./ids";
+
+interface Props {
+  name: string;
+  description: string;
+  /** Thumbnail image URL — absolute or relative to site root. */
+  thumbnailUrl: string;
+  /** ISO date (YYYY-MM-DD) — when the video was uploaded. */
+  uploadDate: string;
+  /** ISO 8601 duration, e.g. "PT3M42S" for 3 min 42 sec. */
+  duration?: string;
+  /** Direct URL to the video file (e.g. .mp4 on a CDN) when self-hosted. */
+  contentUrl?: string;
+  /** Embed URL for an iframe (YouTube/Vimeo/etc.). At least one of contentUrl
+   * or embedUrl is required for Google rich-result eligibility. */
+  embedUrl?: string;
+  /** Transcript text — recommended for accessibility and AI citation. */
+  transcript?: string;
+}
+
+const {
+  name,
+  description,
+  thumbnailUrl,
+  uploadDate,
+  duration,
+  contentUrl,
+  embedUrl,
+  transcript,
+} = Astro.props;
+
+const resolveUrl = (u: string) =>
+  u.startsWith("http") ? u : `${SITE_URL}${u}`;
+
+const video = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name,
+  description,
+  thumbnailUrl: resolveUrl(thumbnailUrl),
+  uploadDate,
+  ...(duration ? { duration } : {}),
+  ...(contentUrl ? { contentUrl: resolveUrl(contentUrl) } : {}),
+  ...(embedUrl ? { embedUrl: resolveUrl(embedUrl) } : {}),
+  ...(transcript ? { transcript } : {}),
+  publisher: { "@id": SCHEMA_IDS.organization },
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(video)}
+/>

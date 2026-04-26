@@ -1,12 +1,12 @@
 // Canonical entity URIs for @id cross-referencing across the schema graph.
-// Per SEO-PLAYBOOK §11.7: every reference to an entity uses these stable IDs
-// so Knowledge Graph resolves all mentions to the same node.
+// Per SEO-PLAYBOOK §11.7 table: every reference to an entity uses these
+// stable IDs so Knowledge Graph resolves all mentions to the same node.
 
 export const SCHEMA_IDS = {
   organization: "https://rentledger.org/#organization",
   website: "https://rentledger.org/#website",
-  person: "https://rentledger.org/#person",
-  mobileApplication: "https://rentledger.org/#mobile-app",
+  person: "https://rentledger.org/about/#praneet",
+  mobileApplication: "https://rentledger.org/#mobileapp",
 } as const;
 
 export const SITE_URL = "https://rentledger.org";
