@@ -1,0 +1,57 @@
+---
+import { SCHEMA_IDS, SITE_URL, APP_STORE_URL } from "./ids";
+
+const mobileApp = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "@id": SCHEMA_IDS.mobileApplication,
+  name: "RentLedger",
+  description:
+    "The iPhone app for landlords to track rental income, log expenses, and auto-generate Schedule E and 1099-NEC reports at tax time. Private, offline, no accounts.",
+  url: `${SITE_URL}/`,
+  downloadUrl: APP_STORE_URL,
+  installUrl: APP_STORE_URL,
+  applicationCategory: "FinanceApplication",
+  applicationSubCategory: "Rental Property Management",
+  operatingSystem: "iOS 26.0",
+  featureList: [
+    "Track rental income and expenses",
+    "Generate IRS Schedule E PDF reports",
+    "1099-NEC vendor tracking",
+    "Receipt scanning with on-device OCR",
+    "Biometric lock (Face ID or Touch ID)",
+    "Local-first data storage",
+    "CSV export for payments, expenses, and vendors",
+  ],
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Monthly Subscription",
+      price: "4.99",
+      priceCurrency: "USD",
+      category: "subscription",
+    },
+    {
+      "@type": "Offer",
+      name: "Annual Subscription",
+      price: "39.99",
+      priceCurrency: "USD",
+      category: "subscription",
+    },
+    {
+      "@type": "Offer",
+      name: "Lifetime Purchase",
+      price: "79.99",
+      priceCurrency: "USD",
+      category: "one-time",
+    },
+  ],
+  publisher: { "@id": SCHEMA_IDS.organization },
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(mobileApp)}
+/>

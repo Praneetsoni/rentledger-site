@@ -1,0 +1,36 @@
+---
+import { SCHEMA_IDS, SITE_URL, TWITTER_URL } from "./ids";
+
+interface Props {
+  /**
+   * Per SEO-PLAYBOOK §11.7 canonical+repeated pattern:
+   * - "canonical": full Person object on /about/ (single source of truth)
+   * - "inline": full object on author-bylined pages (FAQs, blog posts) for stronger signal
+   * - "reference": just { "@id": ... } for nested contexts where Person is referenced but not introduced
+   */
+  mode?: "canonical" | "inline" | "reference";
+}
+
+const { mode = "inline" } = Astro.props;
+
+const personFull = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": SCHEMA_IDS.person,
+  name: "Praneet Soni",
+  url: `${SITE_URL}/about/`,
+  jobTitle: "Founder",
+  worksFor: { "@id": SCHEMA_IDS.organization },
+  sameAs: [TWITTER_URL],
+};
+
+const personRef = { "@id": SCHEMA_IDS.person };
+
+const payload = mode === "reference" ? personRef : personFull;
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(payload)}
+/>

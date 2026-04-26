@@ -6,3 +6,8 @@ _site/
 Gemfile.lock
 _design/
 .migration-snapshots/
+
+# Astro
+node_modules/
+dist/
+.astro/

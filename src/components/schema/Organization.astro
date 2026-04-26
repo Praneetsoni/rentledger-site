@@ -1,0 +1,19 @@
+---
+import { SCHEMA_IDS, SITE_URL } from "./ids";
+
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": SCHEMA_IDS.organization,
+  name: "RentLedger",
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon.svg`,
+  founder: { "@id": SCHEMA_IDS.person },
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(organization)}
+/>
