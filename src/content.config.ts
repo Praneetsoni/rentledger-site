@@ -36,6 +36,27 @@ const blog = defineCollection({
      * be wired in without changing the schema. */
     author: z.string().default("Praneet Soni"),
     tags: z.array(z.string()).default([]),
+    /**
+     * Overrides the default schema type emitted on the rendered page.
+     * Per SEO-PLAYBOOK §M1.3 frontmatter spec.
+     * - `Article` (default) — standard editorial post; emits Article schema
+     * - `HowTo` — step-by-step guide; renderer pulls steps from a `steps` field
+     * - `Review` — comparison or review; renderer pulls itemReviewed from frontmatter
+     * The default Article path covers ~95% of content. Override only when
+     * the post's structure genuinely fits HowTo or Review.
+     */
+    schemaType: z.enum(["Article", "HowTo", "Review"]).default("Article"),
+    /** Required when schemaType="HowTo". Step text + optional image/url. */
+    steps: z
+      .array(
+        z.object({
+          name: z.string().min(1),
+          text: z.string().min(1),
+          image: z.string().optional(),
+          url: z.string().optional(),
+        }),
+      )
+      .optional(),
     /** True when Praneet has spot-checked the data per §12.3. Sets
      * Article.reviewedBy in the rendered schema. */
     reviewed: z.boolean().default(false),

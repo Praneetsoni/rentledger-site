@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { VerifiedFieldSchema, type VerifiedField } from "./types";
+import { VerifiedFieldSchema, validateAll, type VerifiedField } from "./types";
 
 // Per SEO-PLAYBOOK §12.2: each state requires 9 VerifiedFields.
 // Real data is collected per-state in M5.1 (10-state pilot, then expand).
@@ -120,20 +120,16 @@ const titleize = (slug: string) =>
     .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
     .join(" ");
 
-export const states: Record<string, StateData> = Object.fromEntries(
+const _statesRecord: Record<string, StateData> = Object.fromEntries(
   STATE_LIST.map(([slug, abbr]) => [
     slug,
     placeholderState(titleize(slug), abbr),
   ]),
 );
 
-// Validate every entry at module-load time.
-for (const [slug, entry] of Object.entries(states)) {
-  try {
-    StateSchema.parse(entry);
-  } catch (err) {
-    throw new Error(
-      `[states.ts] '${slug}' failed validation: ${err instanceof Error ? err.message : String(err)}`,
-    );
-  }
-}
+// Validate every entry at module-load time + warn at >300 days per §12.1.
+export const states = validateAll(
+  _statesRecord,
+  (entry) => StateSchema.parse(entry),
+  "states.ts",
+);

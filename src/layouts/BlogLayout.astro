@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Article from "../components/schema/Article.astro";
+import HowTo from "../components/schema/HowTo.astro";
 import Person from "../components/schema/Person.astro";
 import FAQPage from "../components/schema/FAQPage.astro";
 import BreadcrumbList from "../components/schema/BreadcrumbList.astro";
 import type { FAQ } from "../components/schema/FAQPage.astro";
+import type { HowToStep } from "../components/schema/HowTo.astro";
 
 export interface Props {
   /** Article title — also used as <title>. */
@@ -34,6 +36,14 @@ export interface Props {
   /** True for placeholder programmatic pages and drafts. Sets robots
    * meta to noindex,nofollow so unfinished pages don't leak into Google. */
   noindex?: boolean;
+  /**
+   * Per SEO-PLAYBOOK §M1.3 frontmatter spec: override the default schema
+   * type emitted by the layout. Default `Article` covers ~95% of blog
+   * posts. Use `HowTo` for genuine step-by-step guides — requires `steps`.
+   */
+  schemaType?: "Article" | "HowTo";
+  /** Required when schemaType === "HowTo". */
+  steps?: HowToStep[];
 }
 
 const {
@@ -49,7 +59,15 @@ const {
   faqs,
   breadcrumbs,
   noindex,
+  schemaType = "Article",
+  steps,
 } = Astro.props;
+
+if (schemaType === "HowTo" && (!steps || steps.length === 0)) {
+  throw new Error(
+    `BlogLayout: schemaType="HowTo" requires non-empty steps[]. Add steps to the post frontmatter or use the default Article type.`,
+  );
+}
 
 ---
 
@@ -63,15 +81,21 @@ const {
   noindex={noindex}
 >
   <Fragment slot="schema">
-    <Article
-      headline={title}
-      description={description}
-      pagePath={canonicalPath}
-      datePublished={datePublished}
-      dateModified={dateModified}
-      image={heroImage}
-      reviewed={reviewed}
-    />
+    {
+      schemaType === "HowTo" ? (
+        <HowTo name={title} description={description} steps={steps!} />
+      ) : (
+        <Article
+          headline={title}
+          description={description}
+          pagePath={canonicalPath}
+          datePublished={datePublished}
+          dateModified={dateModified}
+          image={heroImage}
+          reviewed={reviewed}
+        />
+      )
+    }
     <Person mode="inline" />
     {faqs && faqs.length > 0 && <FAQPage faqs={faqs} />}
     {

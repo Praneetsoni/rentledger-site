@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { VerifiedFieldSchema, type VerifiedField } from "./types";
+import { VerifiedFieldSchema, validateAll, type VerifiedField } from "./types";
 
 // Per SEO-PLAYBOOK §12.2: each property type requires 7 VerifiedFields.
 // Real data sourced from IRS Pub 527 + Pub 946 (depreciation) + IRC §280A
@@ -60,17 +60,13 @@ const TYPE_SLUGS = [
   ["partnership", "Partnership / LLC Rental"],
 ] as const;
 
-export const propertyTypes: Record<string, PropertyTypeData> =
+const _propertyTypesRecord: Record<string, PropertyTypeData> =
   Object.fromEntries(
     TYPE_SLUGS.map(([slug, name]) => [slug, placeholderType(name)]),
   );
 
-for (const [slug, entry] of Object.entries(propertyTypes)) {
-  try {
-    PropertyTypeSchema.parse(entry);
-  } catch (err) {
-    throw new Error(
-      `[property-types.ts] '${slug}' failed validation: ${err instanceof Error ? err.message : String(err)}`,
-    );
-  }
-}
+export const propertyTypes = validateAll(
+  _propertyTypesRecord,
+  (entry) => PropertyTypeSchema.parse(entry),
+  "property-types.ts",
+);

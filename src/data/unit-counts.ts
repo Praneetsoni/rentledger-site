@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { VerifiedFieldSchema, type VerifiedField } from "./types";
+import { VerifiedFieldSchema, validateAll, type VerifiedField } from "./types";
 
 // Per SEO-PLAYBOOK §12.2: each scale bucket requires 7 VerifiedFields.
 // `/bookkeeping-for/[scale]-rentals` is the M3.3 pilot template — these
@@ -56,16 +56,12 @@ const SCALES: Array<[string, string]> = [
   ["accidental", "Accidental Landlord"],
 ];
 
-export const scales: Record<string, ScaleData> = Object.fromEntries(
+const _scalesRecord: Record<string, ScaleData> = Object.fromEntries(
   SCALES.map(([slug, name]) => [slug, placeholderScale(slug, name)]),
 );
 
-for (const [slug, entry] of Object.entries(scales)) {
-  try {
-    ScaleSchema.parse(entry);
-  } catch (err) {
-    throw new Error(
-      `[unit-counts.ts] '${slug}' failed validation: ${err instanceof Error ? err.message : String(err)}`,
-    );
-  }
-}
+export const scales = validateAll(
+  _scalesRecord,
+  (entry) => ScaleSchema.parse(entry),
+  "unit-counts.ts",
+);

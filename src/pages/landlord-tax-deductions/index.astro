@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbList from "../../components/schema/BreadcrumbList.astro";
+import { states } from "../../data/states";
+
+// Index of state pages. Per §12.5 staged rollout, only non-placeholder
+// states are listed (real M5.1 pilot pages first; expansion later).
+// While every state is still placeholder, this page is noindex'd.
+const allStates = Object.entries(states).map(([slug, state]) => ({
+  slug,
+  ...state,
+}));
+const liveStates = allStates.filter((s) => !s.placeholder);
+const noindex = liveStates.length === 0;
+---
+
+<BaseLayout
+  title="Landlord tax deductions by state"
+  titleFull="Landlord Tax Deductions by State — Rental Property Schedule E Guides"
+  description="State-by-state guides to landlord tax deductions for rental property — federal Schedule E rules plus state-specific tax rates, filing deadlines, and rent control."
+  canonicalPath="/landlord-tax-deductions/"
+  noindex={noindex}
+>
+  <Fragment slot="schema">
+    <BreadcrumbList
+      items={[
+        { name: "Home", path: "/" },
+        { name: "Landlord tax deductions" },
+      ]}
+    />
+  </Fragment>
+
+  <section class="band" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="container" style="max-width: 920px;">
+      <span class="section-tag">By state</span>
+      <h1 class="hero-title" style="text-align: left; margin-top: 24px;">
+        Landlord tax deductions, state by state.
+      </h1>
+      <p class="lede" style="max-width: 680px; margin-top: 24px;">
+        Federal Schedule E rules apply everywhere, but every state layers on
+        its own tax rate, filing deadline, security-deposit limits, and rent
+        control. These guides walk through the state-specific details.
+      </p>
+
+      {
+        liveStates.length === 0 ? (
+          <p style="margin-top: 3rem; color: var(--rl-text-secondary);">
+            Per-state guides ship during the M5.1 staged rollout. The first 10
+            states publish after the M3.3 pilot validates the data-collection
+            pipeline.
+          </p>
+        ) : (
+          <ul
+            style="list-style: none; padding: 0; margin-top: 3rem; columns: 2; column-gap: 2rem;"
+          >
+            {liveStates.map((s) => (
+              <li style="margin-bottom: 0.75rem; break-inside: avoid;">
+                <a href={`/landlord-tax-deductions/${s.slug}/`}>{s.name}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -45,6 +45,10 @@ const breadcrumbs = post.data.breadcrumbs ?? [
   reviewed={post.data.reviewed}
   faqs={post.data.faqs}
   breadcrumbs={breadcrumbs}
+  schemaType={post.data.schemaType === "Review"
+    ? "Article"
+    : post.data.schemaType}
+  steps={post.data.steps}
 >
   <article
     class="container--prose"

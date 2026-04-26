@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { validateAll } from "./types";
 
 // `/compare/[competitor]` is more bespoke than the data-driven programmatic
 // pages — each comparison is a hand-curated narrative + feature matrix.
@@ -132,16 +133,12 @@ const COMPETITORS: CompetitorData[] = [
   },
 ];
 
-export const competitors: Record<string, CompetitorData> = Object.fromEntries(
+const _competitorsRecord: Record<string, CompetitorData> = Object.fromEntries(
   COMPETITORS.map((c) => [c.slug, c]),
 );
 
-for (const [slug, entry] of Object.entries(competitors)) {
-  try {
-    CompetitorSchema.parse(entry);
-  } catch (err) {
-    throw new Error(
-      `[competitors.ts] '${slug}' failed validation: ${err instanceof Error ? err.message : String(err)}`,
-    );
-  }
-}
+export const competitors = validateAll(
+  _competitorsRecord,
+  (entry) => CompetitorSchema.parse(entry),
+  "competitors.ts",
+);
