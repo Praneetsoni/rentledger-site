@@ -31,6 +31,9 @@ export interface Props {
   faqs?: FAQ[];
   /** Breadcrumb trail. The current page's name is the last item without a path. */
   breadcrumbs?: { name: string; path?: string }[];
+  /** True for placeholder programmatic pages and drafts. Sets robots
+   * meta to noindex,nofollow so unfinished pages don't leak into Google. */
+  noindex?: boolean;
 }
 
 const {
@@ -45,6 +48,7 @@ const {
   reviewed = false,
   faqs,
   breadcrumbs,
+  noindex,
 } = Astro.props;
 
 ---
@@ -56,6 +60,7 @@ const {
   keywords={keywords}
   canonicalPath={canonicalPath}
   preloadImage={heroImage}
+  noindex={noindex}
 >
   <Fragment slot="schema">
     <Article

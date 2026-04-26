@@ -1,0 +1,146 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { states } from "../../data/states";
+import type { GetStaticPaths } from "astro";
+
+// Per SEO-PLAYBOOK §M1.3 + §12.5: this template generates 50 placeholder
+// pages today so we can verify the build path; real per-state content
+// rolls out in M5.1 (10-state pilot first, then expand).
+//
+// Placeholder pages render with a top-of-page "Draft" banner and remain
+// noindex until the state's `placeholder: true` flag flips to false.
+export const getStaticPaths = (() => {
+  return Object.keys(states).map((slug) => ({
+    params: { state: slug },
+    props: { state: states[slug]! },
+  }));
+}) satisfies GetStaticPaths;
+
+const { state } = Astro.props;
+const path = `/landlord-tax-deductions/${Astro.params.state}/`;
+
+const pubDate = state.placeholder
+  ? new Date()
+  : new Date(state.stateTaxRate.verified);
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Landlord tax deductions", path: "/landlord-tax-deductions/" },
+  { name: state.name },
+];
+
+// Per §11.6 every Tier 1/2/3 page emits FAQPage with 4–8 entity-linked Qs.
+// At placeholder stage we ship a generic 4-Q stub; real per-state Qs are
+// authored during M5.1 and replace these.
+const faqs = state.placeholder
+  ? [
+      {
+        question: `Does ${state.name} require a state Schedule E equivalent?`,
+        answer:
+          "Placeholder. Real answer cites the state Department of Revenue / Franchise Tax Board page during M5.1 staged rollout.",
+      },
+      {
+        question: `What rental expenses are deductible in ${state.name}?`,
+        answer:
+          "Federal Schedule E deductions (lines 5–19) apply: advertising, cleaning, insurance, mortgage interest, repairs, supplies, taxes, utilities, depreciation. State-specific rules covered during M5.1.",
+      },
+      {
+        question: `Is rent control in effect in ${state.name}?`,
+        answer:
+          "Placeholder. Real answer references the state's current statutes during M5.1.",
+      },
+      {
+        question: `Can I deduct travel to my ${state.name} rental property?`,
+        answer:
+          "Yes — mileage and travel expenses for property management are deductible per IRS Pub 527, regardless of state. State-specific limits covered during M5.1.",
+      },
+    ]
+  : [];
+
+// Pages with `placeholder: true` are noindex'd so unfinished content
+// doesn't leak into Google before M5.1 verifies the data.
+const noindex = state.placeholder;
+---
+
+<BlogLayout
+  title={`${state.name} landlord tax deductions`}
+  titleFull={`${state.name} Landlord Tax Deductions for Rental Property — Schedule E Guide`}
+  description={`How ${state.name} landlords claim rental property deductions on Schedule E — state tax rate, filing deadline, eligible expenses, and a worked example. Built by RentLedger.`}
+  canonicalPath={path}
+  datePublished={pubDate.toISOString().slice(0, 10)}
+  dateModified={pubDate.toISOString().slice(0, 10)}
+  reviewed={false}
+  faqs={faqs}
+  breadcrumbs={breadcrumbs}
+  noindex={noindex}
+>
+  <article class="container--prose" style="padding-top: 8rem; padding-bottom: 5rem;">
+    {
+      state.placeholder && (
+        <aside
+          class="placeholder-banner"
+          style="border: 1px solid var(--rl-border); background: var(--rl-surface); padding: 16px 20px; border-radius: 12px; margin-bottom: 32px;"
+        >
+          <strong>Draft.</strong> This page is scaffolded but the per-state
+          data is still being collected and verified. Real publish during
+          M5.1 staged rollout.
+        </aside>
+      )
+    }
+
+    <h1>{state.name} landlord tax deductions</h1>
+
+    <p class="lede">
+      Everything {state.name} landlords need to know about claiming rental
+      property deductions on IRS Schedule E — from federal pass-through rules
+      to {state.name}-specific tax filings. {state.placeholder &&
+        " (Placeholder — real content during M5.1.)"}
+    </p>
+
+    <h2>Tax basics</h2>
+    <ul>
+      <li>
+        <strong>State tax rate:</strong> {state.stateTaxRate.value}
+        <small style="display: block; color: var(--rl-text-secondary);">
+          Source: <a href={state.stateTaxRate.source}>{state.stateTaxRate.source}</a>
+          · verified {state.stateTaxRate.verified}
+        </small>
+      </li>
+      <li>
+        <strong>Filing deadline:</strong> {state.filingDeadline.value}
+        <small style="display: block; color: var(--rl-text-secondary);">
+          Source: <a href={state.filingDeadline.source}>{state.filingDeadline.source}</a>
+          · verified {state.filingDeadline.verified}
+        </small>
+      </li>
+      <li>
+        <strong>Security deposit limit:</strong> {state.securityDepositLimit.value}
+      </li>
+      <li>
+        <strong>Rent control status:</strong> {state.rentControlStatus.value}
+      </li>
+    </ul>
+
+    <h2>Key deductions for {state.name} landlords</h2>
+    <ul>
+      {state.keyDeductions.map((d: string) => <li>{d}</li>)}
+    </ul>
+
+    <h2>Worked example</h2>
+    <p>{state.workedExample}</p>
+
+    <h2>Sources</h2>
+    <ol>
+      <li><a href={state.stateTaxRate.source}>State tax rate</a> — verified {state.stateTaxRate.verified}</li>
+      <li><a href={state.filingDeadline.source}>Filing deadline</a> — verified {state.filingDeadline.verified}</li>
+      <li><a href={state.smallClaimsLimit.source}>Small claims limit</a> — verified {state.smallClaimsLimit.verified}</li>
+      <li><a href={state.rentControlStatus.source}>Rent control status</a> — verified {state.rentControlStatus.verified}</li>
+      <li><a href={state.securityDepositLimit.source}>Security deposit limit</a> — verified {state.securityDepositLimit.verified}</li>
+    </ol>
+
+    <p style="margin-top: 3rem; color: var(--rl-text-secondary); font-size: 0.875rem;">
+      <strong>Not tax advice.</strong> Figures current as of {state.stateTaxRate.verified}.
+      Verify with the {state.name} Department of Revenue before filing.
+    </p>
+  </article>
+</BlogLayout>
