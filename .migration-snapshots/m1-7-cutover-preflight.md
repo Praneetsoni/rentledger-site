@@ -100,9 +100,9 @@ During this window the live site may serve a brief TLS error (typically < 90 s).
 # Confirm Cloudflare Fonts auto-rewrite kicked in — this is the diagnosis
 # from the "Cloudflare Fonts caveat" section. If 0/0/3+ instead of
 # 68/68/0, Gate 4b will fail the next PSI run.
-echo "@font-face count: $(/usr/bin/curl -s https://rentledger.org/ | grep -c '@font-face')"
-echo "cf-fonts paths:   $(/usr/bin/curl -s https://rentledger.org/ | grep -oc 'cf-fonts')"
-echo "googleapis refs:  $(/usr/bin/curl -s https://rentledger.org/ | grep -oc 'fonts\.googleapis')"
+echo "@font-face occurrences: $(/usr/bin/curl -s https://rentledger.org/ | grep -oc '@font-face')"
+echo "cf-fonts paths:         $(/usr/bin/curl -s https://rentledger.org/ | grep -oc 'cf-fonts')"
+echo "googleapis refs:        $(/usr/bin/curl -s https://rentledger.org/ | grep -oc 'fonts\.googleapis')"
 ```
 
 Expected:
