@@ -5,7 +5,13 @@ _site/
 .jekyll-cache/
 Gemfile.lock
 _design/
-.migration-snapshots/
+# Migration audit artifacts. Track the closure docs (markdown + sitemap
+# snapshot) so reviewers can see why milestones closed; ignore the binaries
+# (Lighthouse JSON + PNG diffs) — large, regenerable, declared
+# "informational only" by cwv-baseline.md.
+.migration-snapshots/*
+!.migration-snapshots/*.md
+!.migration-snapshots/*.xml
 
 # Astro
 node_modules/
