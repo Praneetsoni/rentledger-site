@@ -11,11 +11,14 @@ interface Props {
   /** ISO date (YYYY-MM-DD) — when the review was last meaningfully edited
    * or when the most recent VerifiedField was re-verified. */
   dateModified: string;
-  /** What's being reviewed. For /compare/* this is the canonical RentLedger
-   * MobileApplication node — pass `selfReview = true` to use the @id ref. */
-  selfReview?: boolean;
-  /** When `selfReview` is false, supply the competitor's name and an optional
-   * sameAs URL to identify them. */
+  /**
+   * Per SEO-PLAYBOOK §11.6: every /compare/* page is a Review of RentLedger
+   * itself (the comparison context = our app, evaluated against the
+   * competitor named in `about`). `itemReviewed` resolves to the canonical
+   * MobileApplication @id rather than re-stating the app on every page.
+   * The competitor identity flows through `about` so the Review still
+   * carries the comparison entity in its graph.
+   */
   competitor?: {
     name: string;
     sameAs?: string;
@@ -35,22 +38,12 @@ const {
   pagePath,
   datePublished,
   dateModified,
-  selfReview = false,
   competitor,
   reviewRating,
   reviewBody,
 } = Astro.props;
 
 const path = pagePath ?? Astro.url.pathname;
-
-const itemReviewed = selfReview
-  ? { "@id": SCHEMA_IDS.mobileApplication }
-  : {
-      "@type": "SoftwareApplication",
-      name: competitor?.name ?? "Unknown",
-      applicationCategory: "FinanceApplication",
-      ...(competitor?.sameAs ? { sameAs: [competitor.sameAs] } : {}),
-    };
 
 const review = {
   "@context": "https://schema.org",
@@ -59,7 +52,17 @@ const review = {
   url: `${SITE_URL}${path}`,
   datePublished,
   dateModified,
-  itemReviewed,
+  itemReviewed: { "@id": SCHEMA_IDS.mobileApplication },
+  ...(competitor
+    ? {
+        about: {
+          "@type": "SoftwareApplication",
+          name: competitor.name,
+          applicationCategory: "FinanceApplication",
+          ...(competitor.sameAs ? { sameAs: [competitor.sameAs] } : {}),
+        },
+      }
+    : {}),
   author: { "@id": SCHEMA_IDS.person },
   publisher: { "@id": SCHEMA_IDS.organization },
   reviewBody,

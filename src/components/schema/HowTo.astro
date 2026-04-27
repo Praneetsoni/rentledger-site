@@ -1,5 +1,5 @@
 ---
-import { SCHEMA_IDS } from "./ids";
+import { SCHEMA_IDS, SITE_URL } from "./ids";
 
 export interface HowToStep {
   name: string;
@@ -21,8 +21,6 @@ interface Props {
 }
 
 const { name, description, steps, totalTime, supply } = Astro.props;
-
-const SITE_URL = "https://rentledger.org";
 
 const howTo = {
   "@context": "https://schema.org",

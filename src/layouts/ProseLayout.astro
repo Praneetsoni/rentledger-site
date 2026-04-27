@@ -1,5 +1,11 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import BreadcrumbList from "../components/schema/BreadcrumbList.astro";
+
+interface Crumb {
+  name: string;
+  path?: string;
+}
 
 export interface Props {
   title?: string;
@@ -7,6 +13,9 @@ export interface Props {
   description?: string;
   canonicalPath?: string;
   navActive?: "home" | "pricing" | "about" | "support";
+  /** Breadcrumb trail. Per SEO-PLAYBOOK §M1.4, BreadcrumbList ships on every
+   * non-homepage page. Frontmatter on prose .md files supplies this. */
+  breadcrumbs?: Crumb[];
   /** Astro injects this when the layout is referenced from a .md file's frontmatter. */
   frontmatter?: {
     title?: string;
@@ -14,6 +23,7 @@ export interface Props {
     description?: string;
     canonicalPath?: string;
     navActive?: "home" | "pricing" | "about" | "support";
+    breadcrumbs?: Crumb[];
   };
 }
 
@@ -26,10 +36,16 @@ const props = {
   canonicalPath: direct.canonicalPath ?? fm.canonicalPath,
   navActive: direct.navActive ?? fm.navActive,
 };
+const breadcrumbs = direct.breadcrumbs ?? fm.breadcrumbs;
 ---
 
 <BaseLayout {...props}>
-  <slot name="schema" slot="schema" />
+  <Fragment slot="schema">
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <BreadcrumbList items={breadcrumbs} />
+    )}
+    <slot name="schema" />
+  </Fragment>
 
   <div class="prose-page">
     <div class="container--prose">

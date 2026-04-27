@@ -4,6 +4,10 @@ title: Privacy Policy
 titleFull: "Privacy Policy — RentLedger"
 description: "RentLedger's privacy policy. Your rental data stays on your device — no servers, no user accounts, no personal data collected. Local-first financial privacy for landlords."
 canonicalPath: /privacy/
+breadcrumbs:
+  - name: Home
+    path: /
+  - name: Privacy Policy
 ---
 
 # Privacy Policy

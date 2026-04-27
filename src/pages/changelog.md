@@ -4,6 +4,10 @@ title: Changelog
 titleFull: "Changelog — RentLedger"
 description: "RentLedger release notes and product updates. Recurring rent, backup/restore, improved receipt OCR, Lifetime pricing, and more."
 canonicalPath: /changelog/
+breadcrumbs:
+  - name: Home
+    path: /
+  - name: Changelog
 ---
 
 # Changelog

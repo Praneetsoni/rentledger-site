@@ -4,6 +4,10 @@ title: Terms of Service
 titleFull: "Terms of Service — RentLedger"
 description: "RentLedger's terms of service. Subscription terms, acceptable use, liability, and refund policy for the iOS rental property tracker app."
 canonicalPath: /terms/
+breadcrumbs:
+  - name: Home
+    path: /
+  - name: Terms of Service
 ---
 
 # Terms of Service
