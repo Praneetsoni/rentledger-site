@@ -16,7 +16,8 @@ DNS. Each row gates the next — a "hold" anywhere means stop and resolve.
 | 1 | M1.6 preview deploy is live | Cloudflare Pages → rentledger-site → Latest deployment shows "Success" | `*.pages.dev` URL serves the build |
 | 2 | Smoke test green on preview URL | `./scripts/preview-smoke.sh https://<preview>.pages.dev` | 34/34 pass, exit 0 |
 | 3 | CI green on PR #2 (latest commit) | `gh pr checks 2 --repo Praneetsoni/rentledger-site` | build-and-validate: pass |
-| 4 | PSI lab data on preview URL ≥ baseline | Run PSI on `<preview>.pages.dev/`, `/pricing/`, `/support/` (re-runnable from `cwv-baseline.md`) | `/` Perf ≥ 84, LCP ≤ 3.8 s; `/pricing/` Perf ≥ 95, LCP ≤ 2.6 s; `/support/` Perf ≥ 98, LCP ≤ 2.3 s; A11y/BP/SEO ≥ 98 everywhere |
+| 4 | PSI lab data on preview URL — **diagnostic only** | Run PSI on `<preview>.pages.dev/`, `/pricing/`, `/support/` | Use to detect catastrophic regressions only. **Do NOT compare to baseline** — `*.pages.dev` does not receive the zone-level Cloudflare Fonts auto-rewrite (it's an `rentledger.org`-specific zone setting). Real PSI numbers come post-cutover. See "Cloudflare Fonts caveat" below for the diagnosis trail. |
+| 4b | **Post-cutover PSI ≥ baseline (HARD GATE)** | Within 15 min of Step 4 (DNS swap), re-run PSI on `https://rentledger.org/`, `/pricing/`, `/support/` | `/` Perf ≥ 84, LCP ≤ 3.8 s; `/pricing/` Perf ≥ 95, LCP ≤ 2.6 s; `/support/` Perf ≥ 98, LCP ≤ 2.3 s; A11y/BP/SEO ≥ 98 everywhere. **If this fails, execute rollback within 20 min — the assumption that Cloudflare Fonts kicks in post-cutover would be wrong.** |
 | 5 | Google Rich Results Test passes on `/` | https://search.google.com/test/rich-results — paste preview URL | "Page is eligible for rich results" with MobileApplication + FAQPage detected |
 | 6 | Schema.org validator clean | https://validator.schema.org — paste rendered HTML of `/`, `/about/`, `/compare/stessa/`, `/landlord-tax-deductions/california/` | Zero errors per page |
 | 7 | DNS access ready | `dig rentledger.org A +short` returns `172.67.176.80` and `104.21.88.102` (Cloudflare proxy) | Confirms zone is on Cloudflare DNS, ready for record swap |
@@ -166,6 +167,34 @@ If the live origin is broken after cutover and you can't immediately fix it forw
 **Rollback budget:** rollback should complete within 20 min from the first failed verification. After 20 min of broken-live-origin, you're past the point where users will notice. Don't try to "just fix it forward" if rollback is faster.
 
 ---
+
+## Cloudflare Fonts caveat (recorded 2026-04-26 from M1.6 PSI run)
+
+The first M1.6 PSI sweep against `https://rentledger-site.pages.dev/` showed
+across-the-board performance regression vs M1.1 baseline (`/` Perf 84→80,
+`/pricing/` 95→87, `/support/` 98→89; FCP/LCP up 0.3–1.8 s on every page).
+
+Diagnosis: zone-level Cloudflare Fonts auto-rewrite is a **rentledger.org**
+zone setting. It does not apply to `*.pages.dev` requests.
+
+Direct evidence captured 2026-04-26:
+
+| Origin | inlined `@font-face` | `cf-fonts` paths | `fonts.googleapis.com` requests |
+|---|---:|---:|---:|
+| `https://rentledger.org/` (Jekyll, Cloudflare Fonts active) | 68 | 68 | 0 |
+| `https://rentledger-site.pages.dev/` (Pages, no rewrite) | 0 | 0 | 3 |
+
+The preview origin makes the browser fetch render-blocking
+`fonts.googleapis.com` CSS + 4 woff2 binaries on Slow 4G — entire perf gap
+explained by that single round-trip pattern.
+
+Why this resolves itself at cutover: Cloudflare Fonts intercepts at the
+**zone edge**, before reaching origin. After DNS swap, requests hitting
+`rentledger.org/...` are still served by Cloudflare Pages content but the
+edge applies the zone setting first. Same 68 `@font-face` inlines, no
+Google Fonts round-trip. Numbers should snap back to (or beat) baseline.
+
+If they don't — Gate 4b in the table above is the rollback trigger.
 
 ## Critical-path inputs Praneet still needs to supply
 
