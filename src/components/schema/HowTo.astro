@@ -1,0 +1,51 @@
+---
+import { SCHEMA_IDS, SITE_URL } from "./ids";
+
+export interface HowToStep {
+  name: string;
+  text: string;
+  /** Optional image illustrating this step, URL relative to site root. */
+  image?: string;
+  /** Optional URL to a section of the page covering this step. */
+  url?: string;
+}
+
+interface Props {
+  name: string;
+  description: string;
+  steps: HowToStep[];
+  /** Estimated duration in ISO 8601 duration format, e.g. "PT15M" for 15 minutes. */
+  totalTime?: string;
+  /** Tools/items needed, e.g. ["iPhone with iOS 26+", "RentLedger app"]. */
+  supply?: string[];
+}
+
+const { name, description, steps, totalTime, supply } = Astro.props;
+
+const howTo = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name,
+  description,
+  ...(totalTime ? { totalTime } : {}),
+  ...(supply
+    ? { supply: supply.map((s) => ({ "@type": "HowToSupply", name: s })) }
+    : {}),
+  step: steps.map((step, i) => ({
+    "@type": "HowToStep",
+    position: i + 1,
+    name: step.name,
+    text: step.text,
+    ...(step.image ? { image: `${SITE_URL}${step.image}` } : {}),
+    ...(step.url ? { url: `${SITE_URL}${step.url}` } : {}),
+  })),
+  author: { "@id": SCHEMA_IDS.person },
+  publisher: { "@id": SCHEMA_IDS.organization },
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(howTo)}
+/>

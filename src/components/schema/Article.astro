@@ -1,0 +1,52 @@
+---
+import { SCHEMA_IDS, SITE_URL } from "./ids";
+
+interface Props {
+  headline: string;
+  description: string;
+  /** Path relative to site root, e.g. "/blog/schedule-e-for-airbnb/". Defaults to current route. */
+  pagePath?: string;
+  /** ISO date (YYYY-MM-DD) — when the article was first published. */
+  datePublished: string;
+  /** ISO date (YYYY-MM-DD) — when the article was last meaningfully edited
+   * or when the most recent VerifiedField was re-verified. */
+  dateModified: string;
+  /** Hero image URL relative to site root, e.g. "/images/blog/foo-hero.webp". */
+  image?: string;
+  /** When set, emits Article.reviewedBy referencing the canonical Person.
+   * Use when Praneet has spot-checked the data per SEO-PLAYBOOK §12.3. */
+  reviewed?: boolean;
+}
+
+const {
+  headline,
+  description,
+  pagePath,
+  datePublished,
+  dateModified,
+  image,
+  reviewed = false,
+} = Astro.props;
+
+const path = pagePath ?? Astro.url.pathname;
+
+const article = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline,
+  description,
+  mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${path}` },
+  datePublished,
+  dateModified,
+  ...(image ? { image: `${SITE_URL}${image}` } : {}),
+  author: { "@id": SCHEMA_IDS.person },
+  publisher: { "@id": SCHEMA_IDS.organization },
+  ...(reviewed ? { reviewedBy: { "@id": SCHEMA_IDS.person } } : {}),
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(article)}
+/>

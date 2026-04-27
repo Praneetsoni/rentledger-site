@@ -1,0 +1,81 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
+
+// Renders every entry in src/content/blog/. The collection is empty today;
+// real posts ship per the publishing cadence in §6.0 (1/day for first 60
+// days, 2/week thereafter). Drafts (`draft: true`) are excluded from the
+// build so unfinished posts never reach the static output.
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const path = `/blog/${post.id}/`;
+const datePublished = post.data.pubDate.toISOString().slice(0, 10);
+const dateModified = (post.data.updatedDate ?? post.data.pubDate)
+  .toISOString()
+  .slice(0, 10);
+
+const breadcrumbs = post.data.breadcrumbs ?? [
+  { name: "Home", path: "/" },
+  { name: "Blog", path: "/blog/" },
+  { name: post.data.title },
+];
+---
+
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonicalPath={path}
+  heroImage={post.data.heroImage}
+  datePublished={datePublished}
+  dateModified={dateModified}
+  reviewed={post.data.reviewed}
+  faqs={post.data.faqs}
+  breadcrumbs={breadcrumbs}
+  schemaType={post.data.schemaType === "Review"
+    ? "Article"
+    : post.data.schemaType}
+  steps={post.data.steps}
+>
+  <article
+    class="container--prose"
+    style="padding-top: 8rem; padding-bottom: 5rem;"
+  >
+    {
+      post.data.heroImage && (
+        <img
+          src={post.data.heroImage}
+          alt=""
+          width="1200"
+          height="630"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 2rem;"
+        />
+      )
+    }
+    <h1>{post.data.title}</h1>
+    <p class="lede">{post.data.description}</p>
+
+    <Content />
+
+    <p style="margin-top: 3rem; color: var(--rl-text-secondary); font-size: 0.875rem;">
+      Written by {post.data.author}. Published {datePublished}
+      {dateModified !== datePublished && <> · Updated {dateModified}</>}.
+    </p>
+  </article>
+</BlogLayout>

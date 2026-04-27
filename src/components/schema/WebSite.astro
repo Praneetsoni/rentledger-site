@@ -1,0 +1,19 @@
+---
+import { SCHEMA_IDS, SITE_URL } from "./ids";
+
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": SCHEMA_IDS.website,
+  url: SITE_URL,
+  name: "RentLedger",
+  publisher: { "@id": SCHEMA_IDS.organization },
+  inLanguage: "en-US",
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(website)}
+/>

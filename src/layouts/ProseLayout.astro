@@ -1,0 +1,149 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import BreadcrumbList from "../components/schema/BreadcrumbList.astro";
+
+interface Crumb {
+  name: string;
+  path?: string;
+}
+
+export interface Props {
+  title?: string;
+  titleFull?: string;
+  description?: string;
+  canonicalPath?: string;
+  navActive?: "home" | "pricing" | "about" | "support";
+  /** Breadcrumb trail. Per SEO-PLAYBOOK §M1.4, BreadcrumbList ships on every
+   * non-homepage page. Frontmatter on prose .md files supplies this. */
+  breadcrumbs?: Crumb[];
+  /** Astro injects this when the layout is referenced from a .md file's frontmatter. */
+  frontmatter?: {
+    title?: string;
+    titleFull?: string;
+    description?: string;
+    canonicalPath?: string;
+    navActive?: "home" | "pricing" | "about" | "support";
+    breadcrumbs?: Crumb[];
+  };
+}
+
+const direct = Astro.props;
+const fm = direct.frontmatter ?? {};
+const props = {
+  title: direct.title ?? fm.title ?? "",
+  titleFull: direct.titleFull ?? fm.titleFull,
+  description: direct.description ?? fm.description ?? "",
+  canonicalPath: direct.canonicalPath ?? fm.canonicalPath,
+  navActive: direct.navActive ?? fm.navActive,
+};
+const breadcrumbs = direct.breadcrumbs ?? fm.breadcrumbs;
+---
+
+<BaseLayout {...props}>
+  <Fragment slot="schema">
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <BreadcrumbList items={breadcrumbs} />
+    )}
+    <slot name="schema" />
+  </Fragment>
+
+  <div class="prose-page">
+    <div class="container--prose">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  /* Prose pages (privacy, terms, changelog) — long-form markdown content.
+     Inherits tokens, nav, and footer from site.css. */
+  main #main-content,
+  .prose-page {
+    padding-top: 8rem;
+    padding-bottom: 5rem;
+  }
+
+  .prose-page h1 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2.25rem, 4.5vw, 3rem);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    color: var(--rl-text);
+  }
+  .prose-page h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.625rem;
+    line-height: 1.3;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--rl-text);
+  }
+  .prose-page h3 {
+    font-family: var(--font-section);
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--rl-text);
+  }
+  .prose-page p,
+  .prose-page li {
+    color: var(--rl-text-secondary);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .prose-page ul,
+  .prose-page ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose-page li {
+    margin-bottom: 0.5rem;
+  }
+  .prose-page a {
+    color: var(--rl-primary);
+    text-decoration: underline;
+    text-decoration-color: rgba(200, 191, 255, 0.3);
+    text-underline-offset: 3px;
+    transition:
+      color 200ms ease-out,
+      text-decoration-color 200ms ease-out;
+  }
+  .prose-page a:hover {
+    color: var(--rl-accent);
+    text-decoration-color: currentColor;
+  }
+  .prose-page strong {
+    color: var(--rl-text);
+    font-weight: 600;
+  }
+  .prose-page em {
+    color: var(--rl-text-secondary);
+  }
+  .prose-page code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--rl-surface);
+    border: 1px solid var(--rl-border);
+    border-radius: 4px;
+    padding: 0.125rem 0.375rem;
+  }
+  .prose-page hr {
+    border: none;
+    border-top: 1px solid var(--rl-border);
+    margin: 2.5rem 0;
+  }
+
+  .container--prose {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+</style>

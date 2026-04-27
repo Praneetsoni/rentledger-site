@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BreadcrumbList from "../../components/schema/BreadcrumbList.astro";
+import { propertyTypes } from "../../data/property-types";
+
+const allTypes = Object.entries(propertyTypes).map(([slug, type]) => ({
+  slug,
+  ...type,
+}));
+const liveTypes = allTypes.filter((t) => !t.placeholder);
+const noindex = liveTypes.length === 0;
+---
+
+<BaseLayout
+  title="Schedule E guides by property type"
+  titleFull="IRS Schedule E Guides by Property Type — Rental Tax Filing Walk-throughs"
+  description="Property-type-specific guides to filing IRS Schedule E for rental property — single-family, multi-family, short-term rental, vacation home, and more. With worked examples."
+  canonicalPath="/schedule-e-guide/"
+  noindex={noindex}
+>
+  <Fragment slot="schema">
+    <BreadcrumbList
+      items={[{ name: "Home", path: "/" }, { name: "Schedule E guides" }]}
+    />
+  </Fragment>
+
+  <section class="band" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="container" style="max-width: 920px;">
+      <span class="section-tag">By property type</span>
+      <h1 class="hero-title" style="text-align: left; margin-top: 24px;">
+        Schedule E for every property type.
+      </h1>
+      <p class="lede" style="max-width: 680px; margin-top: 24px;">
+        Each property type has its own IRS classification, depreciation
+        schedule, and edge cases. These guides walk through the rules with
+        real worked examples.
+      </p>
+
+      {
+        liveTypes.length === 0 ? (
+          <p style="margin-top: 3rem; color: var(--rl-text-secondary);">
+            Property-type guides ship during the M6.2 rollout.
+          </p>
+        ) : (
+          <ul
+            style="list-style: none; padding: 0; margin-top: 3rem; display: grid; gap: 1rem;"
+          >
+            {liveTypes.map((t) => (
+              <li>
+                <a href={`/schedule-e-guide/${t.slug}/`}>{t.name}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

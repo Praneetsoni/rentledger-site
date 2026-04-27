@@ -1,0 +1,108 @@
+---
+import { SEO } from "astro-seo";
+import Fonts from "./Fonts.astro";
+import "../styles/site.css";
+
+export interface Props {
+  /** Used as <title> directly when titleFull is not provided; appended with " — RentLedger" */
+  title: string;
+  /** Full title override — used verbatim. Bypasses the " — RentLedger" suffix. */
+  titleFull?: string;
+  description: string;
+  keywords?: string;
+  /** Path relative to site root, e.g. "/pricing/". Defaults to current Astro.url.pathname. */
+  canonicalPath?: string;
+  /**
+   * OG/Twitter image URL relative to site root. Defaults to /og-image.webp.
+   * Per-page overrides are common for blog posts (heroImage) and programmatic
+   * pages (custom OG renders). When passed, used for both og:image and twitter:image.
+   */
+  ogImage?: string;
+  /** Optional alt text for the OG/Twitter image. */
+  ogImageAlt?: string;
+  /** Used as <link rel="preload" as="image">, e.g. "/assets/img/screens/hero-phone-center.webp" */
+  preloadImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  titleFull,
+  description,
+  keywords,
+  canonicalPath,
+  ogImage,
+  ogImageAlt,
+  preloadImage,
+  noindex = false,
+} = Astro.props;
+
+const SITE_URL = "https://rentledger.org";
+const path = canonicalPath ?? Astro.url.pathname;
+const canonical = `${SITE_URL}${path}`;
+const renderedTitle = titleFull ?? `${title} — RentLedger`;
+const resolvedOgImage = `${SITE_URL}${ogImage ?? "/og-image.webp"}`;
+const resolvedOgImageAlt =
+  ogImageAlt ?? "RentLedger — Rental property tracker for landlords on iOS";
+const TWITTER_HANDLE = "@praneets21";
+---
+
+{/* Tags astro-seo doesn't handle directly. Emitted before <SEO> so they
+    land in <head> in the conventional order. */}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0F0F14" />
+<meta name="apple-itunes-app" content="app-id=6761083476" />
+{keywords && <meta name="keywords" content={keywords} />}
+
+<SEO
+  title={renderedTitle}
+  description={description}
+  canonical={canonical}
+  noindex={noindex}
+  nofollow={noindex}
+  robotsExtras={noindex ? undefined : "max-snippet:-1,max-image-preview:large"}
+  openGraph={{
+    basic: {
+      title: renderedTitle,
+      type: "website",
+      image: resolvedOgImage,
+      url: canonical,
+    },
+    optional: {
+      siteName: "RentLedger",
+      description,
+    },
+    image: {
+      width: 1200,
+      height: 630,
+      alt: resolvedOgImageAlt,
+    },
+  }}
+  twitter={{
+    card: "summary_large_image",
+    creator: TWITTER_HANDLE,
+    title: renderedTitle,
+    description,
+    image: resolvedOgImage,
+    imageAlt: resolvedOgImageAlt,
+  }}
+  extend={{
+    link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+  }}
+/>
+
+{
+  preloadImage && (
+    <link
+      rel="preload"
+      as="image"
+      href={preloadImage}
+      fetchpriority="high"
+    />
+  )
+}
+
+<Fonts />
+
+<slot name="schema" />

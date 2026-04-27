@@ -1,0 +1,32 @@
+---
+import { SITE_URL } from "./ids";
+
+interface Crumb {
+  name: string;
+  /** Path relative to site root, e.g. "/pricing/". Omit for the current (last) item. */
+  path?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+
+const breadcrumbs = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: item.name,
+    ...(item.path ? { item: `${SITE_URL}${item.path}` } : {}),
+  })),
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(breadcrumbs)}
+/>

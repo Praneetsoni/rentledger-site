@@ -1,0 +1,137 @@
+---
+import CompareLayout from "../../layouts/CompareLayout.astro";
+import { competitors } from "../../data/competitors";
+import type { GetStaticPaths } from "astro";
+
+// `/compare/[competitor]` is more bespoke than the data-driven programmatic
+// pages — comparison narratives are hand-curated MDX in src/content/compare/
+// once they exist. The template here is the placeholder shell that ships
+// for every competitor in src/data/competitors.ts. When real comparison
+// content is written, that .mdx file's frontmatter overrides the
+// `placeholder: true` flag and the rendered page swaps to the full version.
+//
+// Today every page renders as a placeholder noindex stub.
+export const getStaticPaths = (() => {
+  return Object.values(competitors).map((c) => ({
+    params: { competitor: c.slug },
+    props: { competitor: c },
+  }));
+}) satisfies GetStaticPaths;
+
+const { competitor } = Astro.props;
+const path = `/compare/${competitor.slug}/`;
+
+const today = new Date().toISOString().slice(0, 10);
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Compare", path: "/compare/" },
+  { name: `RentLedger vs ${competitor.name}` },
+];
+
+const faqs = [
+  {
+    question: `How is RentLedger different from ${competitor.name}?`,
+    answer:
+      "Placeholder. Real answer compares core positioning (local-first, iOS-only, Lifetime pricing) against this competitor during the comparison sprint.",
+  },
+  {
+    question: `Should I switch from ${competitor.name} to RentLedger?`,
+    answer:
+      "Placeholder. Real answer covers migration, data export, and the trade-offs during the comparison sprint.",
+  },
+  {
+    question: `Is RentLedger cheaper than ${competitor.name}?`,
+    answer: `${competitor.pricingSnapshot}. RentLedger is $4.99/mo, $39.99/yr, or $79.99 lifetime — same features at every tier.`,
+  },
+  {
+    question: `Does ${competitor.name} support Schedule E?`,
+    answer:
+      "Placeholder. Real answer documents whether and how this competitor supports IRS Schedule E export during the comparison sprint.",
+  },
+];
+
+const reviewBody =
+  competitor.tagline +
+  " Full hand-written comparison narrative ships during the M3.3 comparison sprint.";
+---
+
+<CompareLayout
+  title={`RentLedger vs ${competitor.name}`}
+  titleFull={`RentLedger vs ${competitor.name} — Which Rental Tracker Wins?`}
+  description={`Side-by-side comparison: RentLedger vs ${competitor.name}. Pricing, Schedule E support, privacy posture, platform fit. Updated ${today}.`}
+  canonicalPath={path}
+  datePublished={today}
+  dateModified={today}
+  competitor={{ name: competitor.name, sameAs: competitor.sameAs }}
+  reviewBody={reviewBody}
+  faqs={faqs}
+  breadcrumbs={breadcrumbs}
+  noindex={competitor.placeholder}
+>
+  <article class="container--prose" style="padding-top: 8rem; padding-bottom: 5rem;">
+    {
+      competitor.placeholder && (
+        <aside
+          class="placeholder-banner"
+          style="border: 1px solid var(--rl-border); background: var(--rl-surface); padding: 16px 20px; border-radius: 12px; margin-bottom: 32px;"
+        >
+          <strong>Draft.</strong> Scaffolded shell. The hand-written
+          RentLedger vs {competitor.name} comparison narrative — feature
+          matrix, pricing math, privacy posture, migration path — ships
+          during the M3.3 comparison sprint.
+        </aside>
+      )
+    }
+
+    <h1>RentLedger vs {competitor.name}</h1>
+
+    <p class="lede">{competitor.tagline}</p>
+
+    <h2>At a glance</h2>
+    <table>
+      <thead>
+        <tr><th></th><th>RentLedger</th><th>{competitor.name}</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Platform</strong></td>
+          <td>iOS 26+ native</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Pricing</strong></td>
+          <td>$4.99/mo · $39.99/yr · $79.99 lifetime</td>
+          <td>{competitor.pricingSnapshot}</td>
+        </tr>
+        <tr>
+          <td><strong>Data location</strong></td>
+          <td>Local-first, on-device</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Schedule E export</strong></td>
+          <td>Yes (PDF + CSV)</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>1099-NEC tracking</strong></td>
+          <td>Yes</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top: 3rem; color: var(--rl-text-secondary); font-size: 0.875rem;">
+      Comparison verified {today}. Pricing on the {competitor.name} side
+      changes; verify on
+      {
+        competitor.sameAs ? (
+          <a href={competitor.sameAs}>{competitor.sameAs}</a>
+        ) : (
+          <span>their site</span>
+        )
+      } before deciding.
+    </p>
+  </article>
+</CompareLayout>

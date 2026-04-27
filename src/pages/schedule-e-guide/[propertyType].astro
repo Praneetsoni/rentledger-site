@@ -1,0 +1,175 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Article from "../../components/schema/Article.astro";
+import HowTo from "../../components/schema/HowTo.astro";
+import FAQPage from "../../components/schema/FAQPage.astro";
+import Person from "../../components/schema/Person.astro";
+import BreadcrumbList from "../../components/schema/BreadcrumbList.astro";
+import { propertyTypes } from "../../data/property-types";
+import type { GetStaticPaths } from "astro";
+
+// `/schedule-e-guide/[property-type]` template per playbook §M1.3 + §12.2.
+// Emits HowTo + FAQPage + Person + BreadcrumbList per §11.6 (guide pages
+// get HowTo schema in addition to Article).
+//
+// Astro requires bracket params be valid JS identifiers, so the route uses
+// [propertyType] but the URL slug stays kebab-case: pages render at
+// /schedule-e-guide/single-family/, /schedule-e-guide/short-term-rental/, etc.
+export const getStaticPaths = (() => {
+  return Object.entries(propertyTypes).map(([slug, type]) => ({
+    params: { propertyType: slug },
+    props: { type },
+  }));
+}) satisfies GetStaticPaths;
+
+const { type } = Astro.props;
+const slug = Astro.params.propertyType;
+const path = `/schedule-e-guide/${slug}/`;
+
+const pubDate = type.placeholder
+  ? new Date()
+  : new Date(type.irsClassification.verified);
+const dateStr = pubDate.toISOString().slice(0, 10);
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Schedule E guides", path: "/schedule-e-guide/" },
+  { name: type.name },
+];
+
+const faqs = type.placeholder
+  ? [
+      {
+        question: `How is a ${type.name.toLowerCase()} classified for IRS Schedule E?`,
+        answer:
+          "Placeholder. Real answer cites IRS Pub 527 + classification rules for this property type during M6.2.",
+      },
+      {
+        question: `What's the depreciation schedule for ${type.name.toLowerCase()}?`,
+        answer:
+          "Placeholder. Real answer cites IRS Pub 946 MACRS recovery period applicable to this property type during M6.2.",
+      },
+      {
+        question: `Which expenses are deductible for ${type.name.toLowerCase()}?`,
+        answer:
+          "All ordinary and necessary expenses for managing a rental are deductible — Schedule E lines 5–19. Property-type-specific eligible expenses covered during M6.2.",
+      },
+      {
+        question: `What's the most common Schedule E mistake with ${type.name.toLowerCase()}?`,
+        answer:
+          "Placeholder. Real answer documents the most common pitfalls (passive loss limits, personal use day-counts, depreciation recapture) during M6.2.",
+      },
+    ]
+  : [];
+
+const noindex = type.placeholder;
+
+// HowTo steps stub — real content shipped during M6.2.
+const howToSteps = [
+  {
+    name: "Classify the property",
+    text: type.irsClassification.value,
+  },
+  {
+    name: "Calculate depreciation",
+    text: type.depreciationSchedule.value,
+  },
+  {
+    name: "Track eligible expenses",
+    text: type.eligibleExpenses.value,
+  },
+  {
+    name: "Map expenses to Schedule E lines",
+    text: type.relatedScheduleELines.value,
+  },
+  {
+    name: "Apply special rules",
+    text: type.specialRules.value,
+  },
+];
+---
+
+<BaseLayout
+  title={`Schedule E for ${type.name}`}
+  titleFull={`Schedule E for ${type.name} — IRS Classification, Depreciation, and Worked Example`}
+  description={`How to file IRS Schedule E for a ${type.name.toLowerCase()} — classification, MACRS depreciation, eligible expenses, common pitfalls, and a worked example.`}
+  canonicalPath={path}
+  noindex={noindex}
+>
+  <Fragment slot="schema">
+    <Article
+      headline={`Schedule E for ${type.name}`}
+      description={`How to file IRS Schedule E for a ${type.name.toLowerCase()} — classification, depreciation, eligible expenses, and a worked example.`}
+      pagePath={path}
+      datePublished={dateStr}
+      dateModified={dateStr}
+      reviewed={false}
+    />
+    <HowTo
+      name={`How to file Schedule E for a ${type.name.toLowerCase()}`}
+      description={`Step-by-step Schedule E walkthrough for a ${type.name.toLowerCase()}.`}
+      steps={howToSteps}
+    />
+    <Person mode="inline" />
+    <FAQPage faqs={faqs} />
+    <BreadcrumbList items={breadcrumbs} />
+  </Fragment>
+
+  <article class="container--prose" style="padding-top: 8rem; padding-bottom: 5rem;">
+    {
+      type.placeholder && (
+        <aside
+          class="placeholder-banner"
+          style="border: 1px solid var(--rl-border); background: var(--rl-surface); padding: 16px 20px; border-radius: 12px; margin-bottom: 32px;"
+        >
+          <strong>Draft.</strong> Scaffolded for M6.2 rollout. Real content +
+          verified IRS Pub 527/946 citations fill in then.
+        </aside>
+      )
+    }
+
+    <h1>Schedule E for {type.name}</h1>
+
+    <p class="lede">
+      A walkthrough for landlords filing IRS Schedule E on a {type.name.toLowerCase()}
+      — classification, depreciation, eligible expenses, common pitfalls, and a
+      worked example with real numbers.
+    </p>
+
+    <h2>IRS classification</h2>
+    <p>{type.irsClassification.value}</p>
+
+    <h2>Depreciation schedule</h2>
+    <p>{type.depreciationSchedule.value}</p>
+
+    <h2>Eligible expenses</h2>
+    <p>{type.eligibleExpenses.value}</p>
+
+    <h2>Common pitfalls</h2>
+    <p>{type.commonPitfalls.value}</p>
+
+    <h2>Schedule E line mapping</h2>
+    <p>{type.relatedScheduleELines.value}</p>
+
+    <h2>Special rules</h2>
+    <p>{type.specialRules.value}</p>
+
+    <h2>Worked example</h2>
+    <p>{type.workedExample}</p>
+
+    <h2>Sources</h2>
+    <ol>
+      <li><a href={type.irsClassification.source}>IRS classification</a> — verified {type.irsClassification.verified}</li>
+      <li><a href={type.depreciationSchedule.source}>Depreciation schedule</a> — verified {type.depreciationSchedule.verified}</li>
+      <li><a href={type.eligibleExpenses.source}>Eligible expenses</a> — verified {type.eligibleExpenses.verified}</li>
+      <li><a href={type.commonPitfalls.source}>Common pitfalls</a> — verified {type.commonPitfalls.verified}</li>
+      <li><a href={type.relatedScheduleELines.source}>Schedule E lines</a> — verified {type.relatedScheduleELines.verified}</li>
+      <li><a href={type.specialRules.source}>Special rules</a> — verified {type.specialRules.verified}</li>
+    </ol>
+
+    <p style="margin-top: 3rem; color: var(--rl-text-secondary); font-size: 0.875rem;">
+      <strong>Not tax advice.</strong> Figures current as of {type.irsClassification.verified}.
+      Verify with a qualified CPA or tax preparer before filing.
+    </p>
+  </article>
+</BaseLayout>

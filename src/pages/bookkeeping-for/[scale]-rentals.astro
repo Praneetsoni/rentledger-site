@@ -1,0 +1,126 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { scales } from "../../data/unit-counts";
+import type { GetStaticPaths } from "astro";
+
+// Per playbook §M3.3: this is the FIRST programmatic template that ships
+// to production (Weeks 5-7 pilot). Each /bookkeeping-for/[scale]-rentals
+// page is one of 5 scale buckets in src/data/unit-counts.ts.
+export const getStaticPaths = (() => {
+  return Object.values(scales).map((scale) => ({
+    params: { scale: scale.slug },
+    props: { scale },
+  }));
+}) satisfies GetStaticPaths;
+
+const { scale } = Astro.props;
+const path = `/bookkeeping-for/${scale.slug}-rentals/`;
+
+const pubDate = scale.placeholder
+  ? new Date()
+  : new Date(scale.scaleDescription.verified);
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Bookkeeping for landlords", path: "/bookkeeping-for/" },
+  { name: scale.name },
+];
+
+const faqs = scale.placeholder
+  ? [
+      {
+        question: `How long does monthly rental bookkeeping take with ${scale.name.toLowerCase()}?`,
+        answer:
+          "Placeholder. Real answer cites typical hours-per-month and tooling cost during M3.3 pilot.",
+      },
+      {
+        question: `Do I need a bookkeeper for ${scale.name.toLowerCase()}?`,
+        answer:
+          "Placeholder. Real answer compares DIY (RentLedger / spreadsheet) vs CPA-on-retainer vs full-service bookkeeper using BLS rate data during M3.3.",
+      },
+      {
+        question: `What's the cheapest bookkeeping setup for ${scale.name.toLowerCase()}?`,
+        answer:
+          "Placeholder. Real answer breaks down monthly cost across RentLedger Lifetime, free spreadsheets, QuickBooks Self-Employed, and bookkeeper retainers during M3.3.",
+      },
+      {
+        question: `Can RentLedger handle ${scale.name.toLowerCase()}?`,
+        answer:
+          "Yes. RentLedger has unlimited properties on every tier — Monthly $4.99, Annual $39.99, Lifetime $79.99. Same feature set at every tier.",
+      },
+    ]
+  : [];
+
+const noindex = scale.placeholder;
+---
+
+<BlogLayout
+  title={`Bookkeeping for ${scale.name.toLowerCase()}`}
+  titleFull={`Bookkeeping for ${scale.name} — How Landlords Track Rentals at This Scale`}
+  description={`How landlords with ${scale.name.toLowerCase()} actually do their books — workflow, time budget, tooling cost, and when a bookkeeper pays for itself.`}
+  canonicalPath={path}
+  datePublished={pubDate.toISOString().slice(0, 10)}
+  dateModified={pubDate.toISOString().slice(0, 10)}
+  reviewed={false}
+  faqs={faqs}
+  breadcrumbs={breadcrumbs}
+  noindex={noindex}
+>
+  <article class="container--prose" style="padding-top: 8rem; padding-bottom: 5rem;">
+    {
+      scale.placeholder && (
+        <aside
+          class="placeholder-banner"
+          style="border: 1px solid var(--rl-border); background: var(--rl-surface); padding: 16px 20px; border-radius: 12px; margin-bottom: 32px;"
+        >
+          <strong>Draft.</strong> Scaffolded for M3.3 pilot. Real content +
+          verified sources fill in during the pilot.
+        </aside>
+      )
+    }
+
+    <h1>Bookkeeping for {scale.name.toLowerCase()}</h1>
+
+    <p class="lede">
+      How landlords with {scale.name.toLowerCase()} actually keep their books
+      —  workflow, time budget, tooling cost, and the break-even math on
+      hiring a bookkeeper.
+    </p>
+
+    <h2>Who this scale describes</h2>
+    <p>{scale.scaleDescription.value}</p>
+
+    <h2>Typical monthly workflow</h2>
+    <p>{scale.typicalWorkflow.value}</p>
+
+    <h2>Time budget</h2>
+    <p>{scale.timeBudget.value}</p>
+
+    <h2>Tool comparison</h2>
+    <p>{scale.toolComparison.value}</p>
+
+    <h2>Cost math</h2>
+    <p>{scale.costMath.value}</p>
+
+    <h2>Do you need a bookkeeper?</h2>
+    <p>{scale.needBookkeeperAnswer.value}</p>
+
+    <h2>Worked example</h2>
+    <p>{scale.workedExample}</p>
+
+    <h2>Sources</h2>
+    <ol>
+      <li><a href={scale.scaleDescription.source}>Scale description</a> — verified {scale.scaleDescription.verified}</li>
+      <li><a href={scale.typicalWorkflow.source}>Typical workflow</a> — verified {scale.typicalWorkflow.verified}</li>
+      <li><a href={scale.timeBudget.source}>Time budget</a> — verified {scale.timeBudget.verified}</li>
+      <li><a href={scale.toolComparison.source}>Tool comparison</a> — verified {scale.toolComparison.verified}</li>
+      <li><a href={scale.costMath.source}>Cost math</a> — verified {scale.costMath.verified}</li>
+      <li><a href={scale.needBookkeeperAnswer.source}>Bookkeeper threshold</a> — verified {scale.needBookkeeperAnswer.verified}</li>
+    </ol>
+
+    <p style="margin-top: 3rem; color: var(--rl-text-secondary); font-size: 0.875rem;">
+      <strong>Not tax or financial advice.</strong> Cost figures current as of
+      {scale.costMath.verified}.
+    </p>
+  </article>
+</BlogLayout>

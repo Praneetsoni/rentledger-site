@@ -1,0 +1,13 @@
+---
+// Cloudflare Fonts (zone-level setting on rentledger.org) intercepts these
+// Google Fonts <link>s at the edge and rewrites the served HTML to inline
+// @font-face rules pointing to /cf-fonts/* — no Google IP leak, served from
+// Cloudflare edge alongside the HTML. See SEO-PLAYBOOK §3 Q16 / §4.3.
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;1,400&family=Playfair+Display:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>

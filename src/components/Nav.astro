@@ -1,0 +1,146 @@
+---
+interface Props {
+  active?: "home" | "pricing" | "about" | "support" | undefined;
+}
+
+const { active } = Astro.props;
+---
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand" aria-label="RentLedger home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="nav-bg" x1="0%" y1="0%" x2="100%" y2="100%"
+              ><stop offset="0%" stop-color="#1A1A24"></stop><stop
+                offset="100%"
+                stop-color="#0F0F14"></stop></linearGradient
+            >
+            <linearGradient
+              id="nav-accent"
+              x1="0%"
+              y1="100%"
+              x2="100%"
+              y2="0%"
+              ><stop offset="0%" stop-color="#CC7A40"></stop><stop
+                offset="50%"
+                stop-color="#FFB688"></stop><stop
+                offset="100%"
+                stop-color="#CC7A40"></stop></linearGradient
+            >
+          </defs>
+          <rect width="1024" height="1024" rx="230" fill="url(#nav-bg)"></rect>
+          <g transform="translate(250, 250)">
+            <path
+              d="M 120 520 L 120 0 L 320 0 C 420 0, 480 60, 480 150 C 480 230, 430 280, 350 295 L 490 520 L 350 520 L 240 320 L 220 320 L 220 520 Z M 220 100 L 220 230 L 300 230 C 350 230, 370 200, 370 165 C 370 130, 350 100, 300 100 Z"
+              fill="#DDD8F0"></path>
+            <rect x="0" y="240" width="80" height="280" fill="url(#nav-accent)"
+            ></rect>
+          </g>
+        </svg>
+      </span>
+      <span class="brand-name">RentLedger</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/#how-it-works">How It Works</a>
+      <a href="/#features">Features</a>
+      <a href="/#faq">FAQ</a>
+      <a
+        href="/pricing/"
+        class={active === "pricing" ? "active" : undefined}
+        aria-current={active === "pricing" ? "page" : undefined}>Pricing</a
+      >
+      <a
+        href="/about/"
+        class={active === "about" ? "active" : undefined}
+        aria-current={active === "about" ? "page" : undefined}>About</a
+      >
+      <a
+        href="/support/"
+        class={active === "support" ? "active" : undefined}
+        aria-current={active === "support" ? "page" : undefined}>Support</a
+      >
+    </nav>
+    <a
+      class="btn btn-primary btn-sm nav-cta"
+      href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476"
+      aria-label="Download RentLedger on the App Store">Download</a
+    >
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="nav-mobile"
+    >
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+        ><line x1="4" y1="7" x2="20" y2="7"></line><line
+          x1="4"
+          y1="12"
+          x2="20"
+          y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg
+      >
+    </button>
+  </div>
+</header>
+
+<div class="nav-mobile" id="nav-mobile" aria-hidden="true" inert>
+  <a href="/#how-it-works">How It Works</a>
+  <a href="/#features">Features</a>
+  <a href="/#faq">FAQ</a>
+  <a href="/pricing/">Pricing</a>
+  <a href="/about/">About</a>
+  <a href="/support/">Support</a>
+  <a
+    href="https://apps.apple.com/us/app/rentledger-rental-expense-log/id6761083476"
+    class="btn btn-primary nav-mobile-cta">Download on the App Store</a
+  >
+</div>
+
+<script is:inline>
+  (function () {
+    var toggle = document.querySelector(".nav-toggle");
+    var panel = document.querySelector(".nav-mobile");
+    if (!toggle || !panel) return;
+
+    function setState(open) {
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      panel.setAttribute("aria-hidden", open ? "false" : "true");
+      if (open) {
+        panel.removeAttribute("inert");
+      } else {
+        panel.setAttribute("inert", "");
+      }
+      document.body.classList.toggle("nav-open", open);
+    }
+
+    toggle.addEventListener("click", function () {
+      setState(toggle.getAttribute("aria-expanded") !== "true");
+    });
+    panel.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        setState(false);
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setState(false);
+        toggle.focus();
+      }
+    });
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 768) setState(false);
+    });
+  })();
+</script>

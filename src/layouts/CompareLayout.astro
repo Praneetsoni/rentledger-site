@@ -1,0 +1,85 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Review from "../components/schema/Review.astro";
+import Person from "../components/schema/Person.astro";
+import FAQPage from "../components/schema/FAQPage.astro";
+import BreadcrumbList from "../components/schema/BreadcrumbList.astro";
+import type { FAQ } from "../components/schema/FAQPage.astro";
+
+export interface Props {
+  /** Page title, e.g. "RentLedger vs Stessa". */
+  title: string;
+  titleFull?: string;
+  description: string;
+  keywords?: string;
+  canonicalPath?: string;
+  heroImage?: string;
+  datePublished: string;
+  dateModified: string;
+  /** Competitor name + optional canonical URL for sameAs. */
+  competitor: { name: string; sameAs?: string };
+  /** The narrative body used as Review.reviewBody. Should mirror the page's
+   * main verdict / conclusion text — not the entire feature comparison. */
+  reviewBody: string;
+  /** Optional rating block — only emit when honest, sourced rating exists. */
+  reviewRating?: {
+    ratingValue: number;
+    bestRating?: number;
+    worstRating?: number;
+  };
+  /** FAQs rendered on the page + emitted as FAQPage JSON-LD. */
+  faqs?: FAQ[];
+  /** Breadcrumb trail. Current page's name is last item, no path. */
+  breadcrumbs?: { name: string; path?: string }[];
+  /** True for placeholder competitor pages until comparison narrative ships. */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  titleFull,
+  description,
+  keywords,
+  canonicalPath,
+  heroImage,
+  datePublished,
+  dateModified,
+  competitor,
+  reviewBody,
+  reviewRating,
+  faqs,
+  breadcrumbs,
+  noindex,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  titleFull={titleFull}
+  description={description}
+  keywords={keywords}
+  canonicalPath={canonicalPath}
+  preloadImage={heroImage}
+  noindex={noindex}
+>
+  <Fragment slot="schema">
+    <Review
+      name={title}
+      pagePath={canonicalPath}
+      datePublished={datePublished}
+      dateModified={dateModified}
+      competitor={competitor}
+      reviewRating={reviewRating}
+      reviewBody={reviewBody}
+    />
+    <Person mode="inline" />
+    {faqs && faqs.length > 0 && <FAQPage faqs={faqs} />}
+    {
+      breadcrumbs && breadcrumbs.length > 0 && (
+        <BreadcrumbList items={breadcrumbs} />
+      )
+    }
+  </Fragment>
+
+  <slot />
+</BaseLayout>

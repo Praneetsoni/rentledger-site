@@ -1,0 +1,24 @@
+# Cloudflare Pages configuration as code.
+#
+# Why this file exists: Cloudflare Pages settings are normally clicked in
+# the UI. That's fine until someone (you, future-you, or a teammate) clicks
+# the wrong option three months from now and the site builds with Node 18,
+# Next.js preset, or the wrong output directory. Wrangler-style config in
+# the repo means the source of truth lives next to the code that depends
+# on it — and shows up in PR diffs the moment it changes.
+#
+# Cloudflare Pages reads `name`, `compatibility_date`, and `pages_build_output_dir`
+# from this file when present and uses them as defaults for new deployments.
+# UI settings still override per-environment if needed.
+#
+# Reference: https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+
+name = "rentledger-site"
+compatibility_date = "2026-04-26"
+pages_build_output_dir = "./dist"
+
+# No Pages Functions, no bindings, no env vars needed at the platform level.
+# Build environment NODE_VERSION is set per-environment in the Cloudflare UI
+# (Settings → Environment variables → NODE_VERSION = 22). This matches the
+# CI workflow + package.json engines field; bumping one without the others
+# would silently diverge build runtimes.

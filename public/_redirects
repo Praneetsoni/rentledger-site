@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects file.
+# Format: <source> <destination> <status-code>
+# Reference: https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# This file ships intentionally empty (only this comment) so post-cutover
+# redirect rules — slug renames, retired pages, programmatic-URL changes —
+# have a known home without scattering across page metadata.
