@@ -34,27 +34,39 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
-      - name: Install lychee link checker
+      # Relaxed online sweep — catches external link rot. `fail: false` so the
+      # 116 absolute https://rentledger.org/* URLs in canonical/sitemap/schema
+      # don't break the build pre-cutover (the live origin still serves Jekyll
+      # until M1.7). Same-origin URLs are excluded until the cutover; the
+      # strict offline step below covers internal-link integrity.
+      - name: Check links (online, relaxed)
         uses: lycheeverse/lychee-action@v2
         with:
           args: >-
             --no-progress
+            --root-dir ${{ github.workspace }}/dist
             --exclude "apps.apple.com"
             --exclude "fonts.googleapis.com"
             --exclude "fonts.gstatic.com"
             --exclude "telemetrydeck.com"
             --exclude "reportaproblem.apple.com"
             --exclude "twitter.com"
+            --exclude "rentledger\\.org"
             --accept 200,204,206,301,302,308
             ./dist
           fail: false
 
+      # Strict offline check — every internal link must resolve to a built
+      # file. `--root-dir` is required for lychee to resolve root-relative
+      # hrefs like `/pricing/` against ./dist; without it lychee reports
+      # every site-internal link as broken.
       - name: Validate internal links (strict)
         uses: lycheeverse/lychee-action@v2
         with:
           args: >-
             --no-progress
             --offline
+            --root-dir ${{ github.workspace }}/dist
             --accept 200
             ./dist
           fail: true
