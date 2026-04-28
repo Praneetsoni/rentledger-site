@@ -1,0 +1,56 @@
+{
+  "generated": "2026-04-28T16:21:50.639Z",
+  "source": "public/favicon.svg",
+  "files": [
+    {
+      "path": "rentledger-logo.svg",
+      "label": "Logo (SVG, vector source)",
+      "kind": "vector"
+    },
+    {
+      "path": "rentledger-icon-512.png",
+      "label": "Icon, 512×512 (transparent)",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-icon-1024.png",
+      "label": "Icon, 1024×1024 (transparent)",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-logo-light-512.png",
+      "label": "Logo on light, 512×512",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-logo-light-1024.png",
+      "label": "Logo on light, 1024×1024",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-logo-dark-512.png",
+      "label": "Logo on dark, 512×512",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-logo-dark-1024.png",
+      "label": "Logo on dark, 1024×1024",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-app-icon-512.png",
+      "label": "App icon, 512×512",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-app-icon-1024.png",
+      "label": "App icon, 1024×1024",
+      "kind": "png"
+    },
+    {
+      "path": "rentledger-screenshots.zip",
+      "label": "App screenshots (zip, 6 WebP)",
+      "kind": "zip"
+    }
+  ]
+}

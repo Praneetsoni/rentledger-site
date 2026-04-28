@@ -17,3 +17,6 @@ _design/
 node_modules/
 dist/
 .astro/
+
+# direnv (per-developer; pulls secrets from local Keychain)
+.envrc
