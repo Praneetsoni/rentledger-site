@@ -5,7 +5,7 @@ pubDate: 2026-04-28
 heroImage: /images/blog/small-landlord-statistics-2026-hero.webp
 tags: ["statistics", "small-landlords", "rental-housing", "2026"]
 schemaType: "Article"
-reviewed: false
+reviewed: true
 dataPoints: 48
 faqs:
   - question: "How many small landlords are there in the United States?"
@@ -43,7 +43,7 @@ breadcrumbs:
 - Apartment property insurance climbed from $39 to $68 per unit per month, 2019–2024, in real terms — a 75%+ jump ([Federal Reserve FEDS Notes, Sept 2025](https://www.federalreserve.gov/econres/notes/feds-notes/rising-property-insurance-costs-and-pass-through-to-rents-for-apartment-buildings-20250919.html)).
 - April 2026 on-time payment rate: 84.5%, with a 97.2% forecast full-collection rate ([Chandan Economics / RentRedi, Apr 2026](https://www.chandan.com/post/independent-landlord-rental-performance-report-april-2026)).
 - 78.3% of independent landlords pursue communication or payment plans before legal action; only 0.81% file an eviction as their first response to a missed payment ([Avail 2026](https://www.avail.com/education/articles/2026-independent-landlord-survey)).
-- 1,115,000 eviction cases were filed by U.S. landlords in 2023; just over 1 million in 2024 — but the top 100 filers in tracked cities accounted for an average 32.6% of all filings, peaking at 58.2% in Greenville, SC ([Eviction Lab](https://evictionlab.org/ets-report-2024/)).
+- Across the jurisdictions the Eviction Lab tracks, landlords filed 1,115,000 eviction cases in 2023 and just over 1 million in 2024 — and the top 100 filers in 15 tracked cities accounted for an average 32.6% of all filings, peaking at 58.2% in Greenville, SC ([Eviction Lab](https://evictionlab.org/ets-report-2024/)). No federal database publishes a true national total.
 - 22.4 million renter households are cost-burdened — an all-time high — paying more than 30% of income on rent and utilities ([JCHS, *America's Rental Housing 2024*](https://www.jchs.harvard.edu/americas-rental-housing-2024)).
 - 32.9% of independent landlords plan to acquire more property in the next two years; only 6.6% intend to exit ([Avail 2026](https://www.avail.com/education/articles/2026-independent-landlord-survey)).
 
@@ -105,7 +105,7 @@ Where it hurts. Small landlords on net are *not* dramatically raising rents — 
 
 ## 4. Rent Collection, Late Payments, and Evictions
 
-The myth: small landlords are one missed rent away from foreclosure. The data: most are getting paid most of the time, and most respond to a missed payment with a text message, not a court filing. Chandan Economics' RentRedi-based rent-collection tracker — covering 65,000+ units of independent-landlord stock — shows on-time payment improving in early 2026 but trailing pre-pandemic norms. Eviction filings nationally are *roughly* at pre-pandemic levels, with a heavy concentration among large filers. **In 15 tracked cities, the top 100 landlords filed 32.6% of all evictions; in Greenville, SC, the top 100 filed 58.2%.** Small landlords contribute to the eviction count, but they are not driving it.
+The myth: small landlords are one missed rent away from foreclosure. The data: most are getting paid most of the time, and most respond to a missed payment with a text message, not a court filing. Chandan Economics' RentRedi-based rent-collection tracker — covering 65,000+ units of independent-landlord stock — shows on-time payment improving in early 2026 but trailing pre-pandemic norms. Within the jurisdictions the Eviction Lab tracks (~10 full states + ~30 cities — there is no federal eviction-filings database), filings are roughly at pre-pandemic levels with a heavy concentration among large filers. **In 15 tracked cities, the top 100 landlords filed 32.6% of all evictions; in Greenville, SC, the top 100 filed 58.2%.** Small landlords contribute to the eviction count, but they are not driving it.
 
 | Metric | Value | Source |
 | --- | --- | --- |
@@ -115,7 +115,7 @@ The myth: small landlords are one missed rent away from foreclosure. The data: m
 | Top-performing state for on-time payments | Alaska, 96.0% | [Chandan / RentRedi, Apr 2026](https://www.chandan.com/post/independent-landlord-rental-performance-report-april-2026) |
 | Renters who incurred a late fee in past 12 months (Nov 2024) | 14% (down from a 23% peak in early 2023) | [CFPB, *Behind on Rent*, Jan 2025](https://www.consumerfinance.gov/data-research/research-reports/behind-on-rent-examining-rental-housing-delinquencies-in-new-payment-data/) |
 | Average late fee charged (Nov 2024) | $85 (up from $70 in Sept 2021) | [CFPB, Jan 2025](https://www.consumerfinance.gov/data-research/research-reports/behind-on-rent-examining-rental-housing-delinquencies-in-new-payment-data/) |
-| U.S. eviction case filings, 2023 / 2024 | 1,115,000 / ~1,000,000+ | [Eviction Lab, ETS Report 2024](https://evictionlab.org/ets-report-2024/) |
+| Eviction filings in Eviction Lab tracked jurisdictions, 2023 / 2024 | 1,115,000 / ~1,000,000+ | [Eviction Lab, ETS Report 2024](https://evictionlab.org/ets-report-2024/) |
 | Eviction filings by top 100 filers in 15 tracked cities | 32.6% average per city (peak: 58.2%, Greenville SC) | [Eviction Lab, ETS Report 2024](https://evictionlab.org/ets-report-2024/) |
 | Independent landlords filing eviction as first response to missed rent | 0.81% | [Avail 2026 Survey](https://www.avail.com/education/articles/2026-independent-landlord-survey) |
 | Independent landlords who pursue communication / payment plans first | 78.3% | [Avail 2026 Survey](https://www.avail.com/education/articles/2026-independent-landlord-survey) |
@@ -169,7 +169,7 @@ Small landlords don't get to choose how much rent their tenants can pay. The Joi
 | Median rent receipt per unit | $1,000 / month | [Census 2021 RHFS](https://archives.hud.gov/news/2022/pr22-242.cfm) |
 | Median operating expense per unit | $380 / month | [Census 2021 RHFS](https://archives.hud.gov/news/2022/pr22-242.cfm) |
 | April 2026 on-time payment rate (independent landlords) | 84.5% | [Chandan / RentRedi, Apr 2026](https://www.chandan.com/post/independent-landlord-rental-performance-report-april-2026) |
-| 2024 eviction filings nationally | ~1 million+ | [Eviction Lab](https://evictionlab.org/ets-report-2024/) |
+| 2024 eviction filings in Eviction Lab tracked jurisdictions | ~1 million+ | [Eviction Lab](https://evictionlab.org/ets-report-2024/) |
 | Top-100-landlord share of evictions in 15 tracked cities | 32.6% avg | [Eviction Lab](https://evictionlab.org/ets-report-2024/) |
 | Independent landlords using or open to AI | 75.7% | [Avail 2026 Survey](https://www.avail.com/education/articles/2026-independent-landlord-survey) |
 | U.S. cost-burdened renter households (2022) | 22.4 million | [JCHS 2024](https://www.jchs.harvard.edu/americas-rental-housing-2024) |
