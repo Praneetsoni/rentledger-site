@@ -191,9 +191,17 @@ a.btn-ghost:hover, .btn-ghost:hover { background-color: rgba(200, 191, 255, 0.10
 .dot-slate { background: var(--rl-text-tertiary); }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.55} }
 .hero-inner { text-align: center; max-width: 860px; margin: 0 auto; position: relative; }
-/* Hero title: Libre Baskerville italic — matches the live site's .prose h1 */
+/* Hero title: Libre Baskerville italic — matches the live site's .prose h1.
+   Reserved for the homepage hero. Interior pages use `.page-title` instead. */
 .hero-title { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(48px, 7.6vw, 96px); line-height: 1.02; letter-spacing: -0.025em; margin-top: 28px; color: var(--rl-text); }
 .hero-title em { font-style: italic; color: var(--rl-primary); font-family: var(--font-display); }
+
+/* Interior page H1 — sized to match the visible band-header H2 used on
+   /pricing/ so heading sizes stay uniform across /about/, /support/, and
+   any other top-level interior page. Use this for the visible page title;
+   reserve `.hero-title` for the homepage hero. */
+.page-title { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(34px, 4.6vw, 56px); line-height: 1.15; letter-spacing: -0.02em; margin-top: 24px; color: var(--rl-text); }
+.page-title em { font-style: italic; color: var(--rl-primary); font-family: var(--font-display); }
 .hero-sub { color: var(--rl-text-secondary); font-size: 19px; line-height: 1.6; margin-top: 28px; max-width: 640px; margin-left: auto; margin-right: auto; font-weight: 400; }
 .hero-cta { display: inline-flex; align-items: center; gap: 14px; margin-top: 40px; flex-wrap: wrap; justify-content: center; }
 .cta-note { color: var(--rl-text-tertiary); font-size: 13px; margin-top: 16px; }
