@@ -25,10 +25,15 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
 const path = `/blog/${post.id}/`;
-const datePublished = post.data.pubDate.toISOString().slice(0, 10);
-const dateModified = (post.data.updatedDate ?? post.data.pubDate)
-  .toISOString()
-  .slice(0, 10);
+// Full ISO 8601 datetimes (with `Z` UTC suffix) for schema.org datePublished
+// and dateModified — Google's Rich Results test flags YYYY-MM-DD as missing
+// a timezone. Keep date-only versions for the visible byline.
+const datePublishedIso = post.data.pubDate.toISOString();
+const dateModifiedIso = (
+  post.data.updatedDate ?? post.data.pubDate
+).toISOString();
+const datePublished = datePublishedIso.slice(0, 10);
+const dateModified = dateModifiedIso.slice(0, 10);
 
 const breadcrumbs = post.data.breadcrumbs ?? [
   { name: "Home", path: "/" },
@@ -67,8 +72,8 @@ const eyebrow = isStatsRoundup ? "Statistics" : "Editorial";
   description={post.data.description}
   canonicalPath={path}
   heroImage={post.data.heroImage}
-  datePublished={datePublished}
-  dateModified={dateModified}
+  datePublished={datePublishedIso}
+  dateModified={dateModifiedIso}
   reviewed={post.data.reviewed}
   faqs={post.data.faqs}
   breadcrumbs={breadcrumbs}
