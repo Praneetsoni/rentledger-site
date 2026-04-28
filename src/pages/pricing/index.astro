@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Product from "../../components/schema/Product.astro";
+import MobileApplication from "../../components/schema/MobileApplication.astro";
 import FAQPage from "../../components/schema/FAQPage.astro";
 import BreadcrumbList from "../../components/schema/BreadcrumbList.astro";
 import type { FAQ } from "../../components/schema/FAQPage.astro";
@@ -49,7 +49,7 @@ const APP_STORE_URL =
   navActive="pricing"
 >
   <Fragment slot="schema">
-    <Product />
+    <MobileApplication />
     <FAQPage faqs={faqs} />
     <BreadcrumbList items={[{ name: "Home", path: "/" }, { name: "Pricing" }]} />
   </Fragment>
