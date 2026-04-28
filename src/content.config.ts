@@ -63,6 +63,9 @@ const blog = defineCollection({
     /** Optional FAQs rendered + emitted as FAQPage JSON-LD. */
     faqs: z.array(faqSchema).optional(),
     breadcrumbs: z.array(breadcrumbSchema).optional(),
+    /** Optional integer count rendered in the article header chip row
+     * (e.g., for stats roundups). Omit for posts without a count. */
+    dataPoints: z.number().int().positive().optional(),
     draft: z.boolean().default(false),
   }),
 });

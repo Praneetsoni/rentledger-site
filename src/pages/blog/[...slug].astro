@@ -2,11 +2,13 @@
 import BlogLayout from "../../layouts/BlogLayout.astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
+import "../../styles/blog-post.css";
 
-// Renders every entry in src/content/blog/. The collection is empty today;
-// real posts ship per the publishing cadence in §6.0 (1/day for first 60
-// days, 2/week thereafter). Drafts (`draft: true`) are excluded from the
-// build so unfinished posts never reach the static output.
+// Renders every entry in src/content/blog/. Drafts (`draft: true`) are
+// excluded from the build so unfinished posts never reach the static output.
+// The editorial blog template (.blog-post) ships a distinct, data-journalism
+// aesthetic — Newsreader + IBM Plex stack — to signal factual authority and
+// remain visually separable from the marketing-site pages.
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
   return posts.map((post) => ({
@@ -20,7 +22,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 const path = `/blog/${post.id}/`;
 const datePublished = post.data.pubDate.toISOString().slice(0, 10);
@@ -33,6 +35,31 @@ const breadcrumbs = post.data.breadcrumbs ?? [
   { name: "Blog", path: "/blog/" },
   { name: post.data.title },
 ];
+
+// Reading time — built-time estimate. ~220 wpm is the standard digital-reading
+// rate cited by Pew/Medium; we use post.body length / 5 as a coarse word count.
+const wordCount = post.body ? Math.max(1, Math.round(post.body.length / 5)) : 0;
+const readingMinutes = Math.max(1, Math.round(wordCount / 220));
+
+// TOC source: H2s only. Astro's `headings` is in document order with depth.
+const tocItems = headings
+  .filter((h) => h.depth === 2)
+  .map((h, i) => ({
+    slug: h.slug,
+    text: h.text,
+    num: String(i + 1).padStart(2, "0"),
+  }));
+
+const lastVerifiedLabel = new Date(dateModified).toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
+const isStatsRoundup = post.data.tags?.includes("statistics") ?? false;
+const eyebrow = isStatsRoundup ? "Statistics" : "Editorial";
+
+// Crumbs rendered as a Last-item-current pattern: each item except the last
+// is a link; the last is the current page.
 ---
 
 <BlogLayout
@@ -50,32 +77,219 @@ const breadcrumbs = post.data.breadcrumbs ?? [
     : post.data.schemaType}
   steps={post.data.steps}
 >
-  <article
-    class="container--prose"
-    style="padding-top: 8rem; padding-bottom: 5rem;"
-  >
-    {
-      post.data.heroImage && (
-        <img
-          src={post.data.heroImage}
-          alt=""
-          width="1200"
-          height="630"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-          style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 2rem;"
-        />
-      )
-    }
-    <h1>{post.data.title}</h1>
-    <p class="lede">{post.data.description}</p>
+  <div class="blog-post">
+    <div class="bp-progress" aria-hidden="true">
+      <div class="bp-progress__bar" id="bp-progress-bar"></div>
+    </div>
 
-    <Content />
+    <div class="bp-shell">
+      <article class="bp-article">
+        <nav class="bp-breadcrumbs" aria-label="Breadcrumb">
+          {
+            breadcrumbs.map((crumb, i) => (
+              <Fragment>
+                {crumb.path ? (
+                  <a href={crumb.path}>{crumb.name}</a>
+                ) : (
+                  <span aria-current="page">{crumb.name}</span>
+                )}
+                {i < breadcrumbs.length - 1 && (
+                  <span class="bp-breadcrumbs__sep" aria-hidden="true">
+                    /
+                  </span>
+                )}
+              </Fragment>
+            ))
+          }
+        </nav>
 
-    <p style="margin-top: 3rem; color: var(--rl-text-secondary); font-size: 0.875rem;">
-      Written by {post.data.author}. Published {datePublished}
-      {dateModified !== datePublished && <> · Updated {dateModified}</>}.
-    </p>
-  </article>
+        <header>
+          <span class="bp-eyebrow">{eyebrow}</span>
+          <h1 class="bp-title">{post.data.title}</h1>
+          <p class="bp-lede">{post.data.description}</p>
+
+          <div class="bp-meta" role="contentinfo">
+            <span class="bp-meta__item">
+              <span class="bp-meta__label">By</span>
+              <span class="bp-meta__value">{post.data.author}</span>
+            </span>
+            <span class="bp-meta__item">
+              <span class="bp-meta__label">Last verified</span>
+              <span class="bp-meta__value bp-meta__verified">
+                {lastVerifiedLabel}
+              </span>
+            </span>
+            <span class="bp-meta__item">
+              <span class="bp-meta__label">Read</span>
+              <span class="bp-meta__value">{readingMinutes} min</span>
+            </span>
+            {
+              post.data.dataPoints && (
+                <span class="bp-meta__item">
+                  <span class="bp-meta__label">Data points</span>
+                  <span class="bp-meta__value">
+                    {post.data.dataPoints}+
+                  </span>
+                </span>
+              )
+            }
+          </div>
+        </header>
+
+        {
+          post.data.heroImage && (
+            <figure class="bp-hero">
+              <img
+                src={post.data.heroImage}
+                alt=""
+                width="1200"
+                height="630"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </figure>
+          )
+        }
+
+        <div class="bp-body" id="bp-body">
+          <Content />
+        </div>
+
+        <footer class="bp-footer">
+          <div class="bp-footer__row">
+            <a
+              class="bp-share-btn"
+              href="/support/"
+              aria-label="Was this useful? Visit support"
+            >
+              Was this useful?
+            </a>
+            <a
+              class="bp-share-btn"
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent("https://rentledger.org" + path)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Twitter"
+            >
+              Share on X
+            </a>
+            <button
+              class="bp-share-btn"
+              type="button"
+              id="bp-copy-link"
+              data-url={`https://rentledger.org${path}`}
+              aria-label="Copy link to this article"
+            >
+              <span data-default>Copy link</span>
+            </button>
+          </div>
+          <span>Updated {dateModified}</span>
+        </footer>
+
+        <p class="bp-byline">
+          Written by {post.data.author}. Published {datePublished}{
+            dateModified !== datePublished && (
+              <Fragment> · Updated {dateModified}</Fragment>
+            )
+          }.
+        </p>
+      </article>
+
+      {
+        tocItems.length > 1 && (
+          <aside class="bp-toc" aria-label="Table of contents">
+            <p class="bp-toc__label">In this article</p>
+            <ul class="bp-toc__list" id="bp-toc-list">
+              {tocItems.map((item) => (
+                <li class="bp-toc__item" data-target={item.slug}>
+                  <a href={`#${item.slug}`}>
+                    <span class="bp-toc__num">{item.num}</span>
+                    {item.text.replace(/^\d+\.\s+/, "")}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )
+      }
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      // Reading-progress bar — ratio of scroll position over scrollable height.
+      const bar = document.getElementById("bp-progress-bar");
+      if (bar) {
+        let ticking = false;
+        const update = () => {
+          const h = document.documentElement;
+          const max = h.scrollHeight - h.clientHeight;
+          const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+          bar.style.width = Math.min(100, Math.max(0, pct)) + "%";
+          ticking = false;
+        };
+        document.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              window.requestAnimationFrame(update);
+              ticking = true;
+            }
+          },
+          { passive: true },
+        );
+        update();
+      }
+
+      // TOC active-section highlight via IntersectionObserver.
+      const tocList = document.getElementById("bp-toc-list");
+      if (tocList && "IntersectionObserver" in window) {
+        const items = Array.from(
+          tocList.querySelectorAll("[data-target]"),
+        );
+        const targets = items
+          .map((li) => document.getElementById(li.getAttribute("data-target")))
+          .filter(Boolean);
+        const setActive = (id) => {
+          items.forEach((li) => {
+            const isActive = li.getAttribute("data-target") === id;
+            li.classList.toggle("bp-toc__item--active", isActive);
+          });
+        };
+        const io = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((e) => e.isIntersecting)
+              .sort((a, b) => a.target.offsetTop - b.target.offsetTop);
+            if (visible.length > 0) setActive(visible[0].target.id);
+          },
+          { rootMargin: "0px 0px -70% 0px", threshold: 0 },
+        );
+        targets.forEach((t) => io.observe(t));
+      }
+
+      // Copy-link button.
+      const copyBtn = document.getElementById("bp-copy-link");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+          const url = copyBtn.getAttribute("data-url") || window.location.href;
+          try {
+            await navigator.clipboard.writeText(url);
+            const span = copyBtn.querySelector("[data-default]");
+            const prev = span ? span.textContent : null;
+            if (span) span.textContent = "Copied";
+            copyBtn.setAttribute("data-state", "copied");
+            setTimeout(() => {
+              if (span && prev) span.textContent = prev;
+              copyBtn.removeAttribute("data-state");
+            }, 1800);
+          } catch {
+            // Clipboard blocked — silently fail; the URL is in the share-on-X
+            // button as a fallback.
+          }
+        });
+      }
+    })();
+  </script>
 </BlogLayout>
