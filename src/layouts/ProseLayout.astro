@@ -12,7 +12,7 @@ export interface Props {
   titleFull?: string;
   description?: string;
   canonicalPath?: string;
-  navActive?: "home" | "pricing" | "about" | "support";
+  navActive?: "home" | "pricing" | "blog" | "about" | "support";
   /** Breadcrumb trail. Per SEO-PLAYBOOK §M1.4, BreadcrumbList ships on every
    * non-homepage page. Frontmatter on prose .md files supplies this. */
   breadcrumbs?: Crumb[];
@@ -22,7 +22,7 @@ export interface Props {
     titleFull?: string;
     description?: string;
     canonicalPath?: string;
-    navActive?: "home" | "pricing" | "about" | "support";
+    navActive?: "home" | "pricing" | "blog" | "about" | "support";
     breadcrumbs?: Crumb[];
   };
 }
