@@ -2,10 +2,38 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BreadcrumbList from "../../components/schema/BreadcrumbList.astro";
 import { getCollection } from "astro:content";
+import "../../styles/blog-post.css";
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+// Index page for /blog/. Drops the marketing-site type styles in favor of
+// the editorial template's Newsreader + IBM Plex stack, so navigating
+// from the index → a post → back feels typographically continuous.
+// Each post row shows a mono date + tag + reading-time chip rail above the
+// serif title link. Reading time is computed at build time from post body.
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((post) => {
+    const wordCount = post.body
+      ? Math.max(1, Math.round(post.body.length / 5))
+      : 0;
+    const readingMinutes = Math.max(1, Math.round(wordCount / 220));
+    return {
+      ...post,
+      readingMinutes,
+    };
+  });
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+const primaryTag = (tags: string[]) => {
+  if (!tags || tags.length === 0) return null;
+  const skip = new Set(["2026", "2025", "2024"]);
+  return tags.find((t) => !skip.has(t)) ?? tags[0];
+};
 ---
 
 <BaseLayout
@@ -13,62 +41,63 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   titleFull="RentLedger Blog — Tax, Bookkeeping, and Rental Property Guides"
   description="Tax filing, Schedule E, rental bookkeeping, and landlord guides — written by Praneet Soni, founder of RentLedger."
   canonicalPath="/blog/"
+  navActive="blog"
   noindex={posts.length === 0}
 >
   <Fragment slot="schema">
     <BreadcrumbList items={[{ name: "Home", path: "/" }, { name: "Blog" }]} />
   </Fragment>
 
-  <section class="band" style="padding-top: 120px; padding-bottom: 60px;">
-    <div class="container" style="max-width: 920px;">
-      <span class="section-tag">Blog</span>
-      <h1 class="hero-title" style="text-align: left; margin-top: 24px;">
-        Tax and bookkeeping guides for landlords.
-      </h1>
-      <p class="lede" style="max-width: 680px; margin-top: 24px;">
-        Written by <a class="inline-link" href="/about/">Praneet Soni</a>,
-        founder of RentLedger. Schedule E walk-throughs, deduction guides,
-        and the bookkeeping reality at every portfolio scale.
-      </p>
+  <section class="blog-index">
+    <span class="blog-index__eyebrow">Blog</span>
+    <h1 class="blog-index__title">
+      Tax and bookkeeping guides for landlords.
+    </h1>
+    <p class="blog-index__lede">
+      Written by <a href="/about/">Praneet Soni</a>, founder of RentLedger.
+      Schedule E walk-throughs, deduction guides, original-source statistics,
+      and the bookkeeping reality at every portfolio scale.
+    </p>
 
-      {
-        posts.length === 0 ? (
-          <p style="margin-top: 3rem; color: var(--rl-text-secondary);">
-            First post lands soon.{" "}
-            <a class="inline-link" href="/blog/rss.xml">
-              Subscribe to the RSS feed
-            </a>{" "}
-            to know when.
-          </p>
-        ) : (
-          <ul
-            style="list-style: none; padding: 0; margin-top: 3rem; display: grid; gap: 2rem;"
-          >
-            {posts.map((post) => (
-              <li
-                style="border-top: 1px solid var(--rl-border); padding-top: 2rem;"
-              >
-                <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">
-                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-                </h2>
-                <p
-                  style="color: var(--rl-text-secondary); margin-bottom: 0.75rem;"
-                >
-                  {post.data.description}
-                </p>
-                <small
-                  style="color: var(--rl-text-secondary); font-family: var(--font-mono);"
-                >
-                  {post.data.pubDate.toISOString().slice(0, 10)}
-                  {post.data.tags.length > 0 && (
-                    <> · {post.data.tags.join(", ")}</>
-                  )}
-                </small>
-              </li>
-            ))}
+    {
+      posts.length === 0 ? (
+        <p class="blog-index__empty">
+          First post lands soon.{" "}
+          <a href="/blog/rss.xml">Subscribe to the RSS feed</a> to know when.
+        </p>
+      ) : (
+        <Fragment>
+          <p class="blog-index__list-label">Latest</p>
+          <ul class="blog-index__list">
+            {posts.map((post) => {
+              const tag = primaryTag(post.data.tags);
+              return (
+                <li class="blog-index__post">
+                  <p class="blog-index__post-meta">
+                    <span class="blog-index__post-date">
+                      {formatDate(post.data.pubDate)}
+                    </span>
+                    {tag && (
+                      <span class="blog-index__post-tag">{tag}</span>
+                    )}
+                    <span class="blog-index__post-readtime">
+                      {post.readingMinutes} min
+                    </span>
+                  </p>
+                  <h2 class="blog-index__post-title">
+                    <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                  </h2>
+                  <p class="blog-index__post-desc">{post.data.description}</p>
+                  <a class="blog-index__post-cta" href={`/blog/${post.id}/`}>
+                    Read article
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
-        )
-      }
-    </div>
+        </Fragment>
+      )
+    }
   </section>
 </BaseLayout>

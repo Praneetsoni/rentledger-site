@@ -6,10 +6,13 @@ interface Props {
   description: string;
   /** Path relative to site root, e.g. "/blog/schedule-e-for-airbnb/". Defaults to current route. */
   pagePath?: string;
-  /** ISO date (YYYY-MM-DD) — when the article was first published. */
+  /** ISO 8601 datetime (e.g., "2026-04-28T00:00:00.000Z") — when the article
+   * was first published. Google Rich Results requires the timezone offset;
+   * date-only YYYY-MM-DD triggers a non-critical warning. */
   datePublished: string;
-  /** ISO date (YYYY-MM-DD) — when the article was last meaningfully edited
-   * or when the most recent VerifiedField was re-verified. */
+  /** ISO 8601 datetime (with timezone) — when the article was last
+   * meaningfully edited or when the most recent VerifiedField was
+   * re-verified. */
   dateModified: string;
   /** Hero image URL relative to site root, e.g. "/images/blog/foo-hero.webp". */
   image?: string;
