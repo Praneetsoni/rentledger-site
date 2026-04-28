@@ -6,7 +6,6 @@ heroImage: /images/blog/small-landlord-statistics-2026-hero.webp
 tags: ["statistics", "small-landlords", "rental-housing", "2026"]
 schemaType: "Article"
 reviewed: false
-draft: true
 faqs:
   - question: "How many small landlords are there in the United States?"
     answer: "The U.S. Census Bureau's 2021 Rental Housing Finance Survey counts 19.3 million rental properties, with about 70% owned by individual investors. That works out to roughly 13.5 million individual-investor-owned rental properties. The most recent (2024) RHFS release shows individual investors still own 59.6% of single-unit rental properties, down from 70.9% in 2021."
