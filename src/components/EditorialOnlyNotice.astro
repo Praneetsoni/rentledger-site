@@ -1,0 +1,51 @@
+---
+// Affiliate / endorsement disclosure per SEO-PLAYBOOK §12.7.5.
+// Renders the canonical "Editorial only — no compensation" line on every
+// /compare/* page (and any page making a competitor recommendation).
+// Component-enforced because the line is a commercial-speech truth claim
+// — drift across 14+ comparison pages would create Lanham Act §43(a)
+// false-advertising exposure if a writer accepts a free product or comp
+// account from a competitor without removing the "accepts no compensation"
+// language for that page.
+//
+// Per FTC Endorsement Guides (16 CFR Part 255), if RentLedger ever
+// receives a free product, demo seat, NDA briefing, or comp account from
+// a covered competitor, this component must be removed for that page +
+// replaced with an FTC-compliant material-connection disclosure block.
+// Do NOT paraphrase this line on individual pages.
+
+interface Props {
+  /** Canonical competitor name as it appears on the page (e.g., "QuickBooks"). */
+  competitor: string;
+}
+
+const { competitor } = Astro.props;
+---
+
+<aside class="editorial-only-notice" role="note" aria-label="Editorial disclosure">
+  <p>
+    <strong>Editorial only.</strong> RentLedger has no affiliate
+    relationship with {competitor}, earns no commission if you sign up with
+    them, and accepts no compensation, free product, or comp account from
+    any product reviewed on this page.
+  </p>
+</aside>
+
+<style>
+  .editorial-only-notice {
+    border-left: 3px solid var(--rl-primary);
+    background: var(--rl-surface);
+    padding: 12px 18px;
+    margin: 24px 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--rl-text-secondary);
+    border-radius: 0 8px 8px 0;
+  }
+  .editorial-only-notice p {
+    margin: 0;
+  }
+  .editorial-only-notice strong {
+    color: var(--rl-text);
+  }
+</style>

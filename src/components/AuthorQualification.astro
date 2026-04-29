@@ -31,11 +31,18 @@ const { cpaReviewer } = Astro.props;
   <p>
     Praneet Soni is a software engineer and small landlord who built
     RentLedger after years of frustration with disorganized rental
-    bookkeeping. He is <strong>not</strong> a licensed CPA, tax attorney,
-    or financial advisor. RentLedger content reflects his first-hand
-    experience as a small-portfolio landlord and is reviewed for accuracy
-    against IRS publications and state Department of Revenue sources. For
-    personalized filing or planning advice, consult a licensed tax
+    bookkeeping. He is <strong>not</strong> a licensed CPA, Enrolled
+    Agent, tax attorney, or financial advisor.
+  </p>
+  <p>
+    RentLedger content reflects Praneet's first-hand experience as a
+    small-portfolio landlord. Factual claims (rates, thresholds, deduction
+    categories) are cited inline to IRS publications and state Department
+    of Revenue sources, which readers should consult directly.
+    {!cpaReviewer && (
+      <span><strong>No CPA, Enrolled Agent, or tax attorney has reviewed
+      this content.</strong></span>
+    )} For personalized filing or planning advice, consult a licensed tax
     professional in your jurisdiction.
   </p>
   {
