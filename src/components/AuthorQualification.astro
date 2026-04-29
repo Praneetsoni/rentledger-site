@@ -1,0 +1,90 @@
+---
+// Author qualification block per SEO-PLAYBOOK §12.7.6.
+// Renders the "About the author" block at the bottom of every YMYL page
+// (any page making tax/legal/financial-comparison claims). Discloses
+// qualification limit explicitly (defeats reliance claims), names the
+// review process so the page isn't pure opinion, redirects readers to a
+// licensed tax professional in their jurisdiction.
+//
+// When a CPA reviewer is engaged later (per §12.7.6), pass `cpaReviewer`
+// — the block expands to include their credentials, the page emits
+// Article.reviewedBy via the parent layout's schema. Until then, only
+// Praneet's name appears.
+
+interface CpaReviewer {
+  name: string;
+  credentials: string;
+  jurisdiction: string;
+  reviewDate: string;
+  url?: string;
+}
+
+interface Props {
+  cpaReviewer?: CpaReviewer;
+}
+
+const { cpaReviewer } = Astro.props;
+---
+
+<aside class="author-qualification" aria-label="About the author">
+  <h3 class="author-qualification-heading">About the author</h3>
+  <p>
+    Praneet Soni is a software engineer and small landlord who built
+    RentLedger after years of frustration with disorganized rental
+    bookkeeping. He is <strong>not</strong> a licensed CPA, tax attorney,
+    or financial advisor. RentLedger content reflects his first-hand
+    experience as a small-portfolio landlord and is reviewed for accuracy
+    against IRS publications and state Department of Revenue sources. For
+    personalized filing or planning advice, consult a licensed tax
+    professional in your jurisdiction.
+  </p>
+  {
+    cpaReviewer && (
+      <p class="author-qualification-cpa">
+        Reviewed by{" "}
+        {cpaReviewer.url ? (
+          <a href={cpaReviewer.url} rel="external">
+            {cpaReviewer.name}
+          </a>
+        ) : (
+          cpaReviewer.name
+        )}
+        , {cpaReviewer.credentials}, {cpaReviewer.jurisdiction}, on{" "}
+        <time datetime={cpaReviewer.reviewDate}>{cpaReviewer.reviewDate}</time>.
+      </p>
+    )
+  }
+</aside>
+
+<style>
+  .author-qualification {
+    border-top: 1px solid var(--rl-border);
+    padding: 32px 0 16px 0;
+    margin-top: 56px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--rl-text-secondary);
+  }
+  .author-qualification-heading {
+    font-family: var(--font-section);
+    font-size: 11px;
+    color: var(--rl-text-tertiary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+    font-weight: 500;
+  }
+  .author-qualification p {
+    margin: 0 0 12px 0;
+  }
+  .author-qualification p:last-child {
+    margin: 0;
+  }
+  .author-qualification-cpa {
+    color: var(--rl-text);
+  }
+  .author-qualification a {
+    color: var(--rl-text);
+    text-decoration: underline;
+  }
+</style>

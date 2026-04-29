@@ -1,0 +1,53 @@
+---
+// Wraps outbound competitor links per SEO-PLAYBOOK §12.7.5 + §12.7.7.
+// Auto-applies `rel="nofollow noopener noreferrer"`. Throws a build-time
+// error if `rel="sponsored"` is passed — that requires re-opening §12.7.5
+// (no-affiliate-links policy) first.
+//
+// Usage:
+//   <CompetitorLink href="https://stessa.com">Stessa</CompetitorLink>
+//
+// Why nofollow + noopener + noreferrer:
+//   nofollow — RentLedger doesn't pass authority to competitors; comparison
+//              pages link to them as references, not endorsements.
+//   noopener — security hardening; prevents new-tab targets from accessing
+//              window.opener (tabnabbing).
+//   noreferrer — privacy hardening; doesn't leak the rentledger.org URL
+//                that landed the user on the competitor site.
+
+interface Props {
+  href: string;
+  /**
+   * Additional rel values to merge in. `sponsored` is forbidden — see
+   * §12.7.5. Passing it throws at build time.
+   */
+  rel?: string;
+  /** Open in a new tab. Defaults to true for outbound competitor links. */
+  newTab?: boolean;
+  class?: string;
+}
+
+const { href, rel = "", newTab = true, class: className } = Astro.props;
+
+const baseRel = ["nofollow", "noopener", "noreferrer"];
+const extraRel = rel
+  .split(/\s+/)
+  .map((r) => r.trim())
+  .filter(Boolean);
+
+if (extraRel.includes("sponsored")) {
+  throw new Error(
+    `CompetitorLink: rel="sponsored" is forbidden per SEO-PLAYBOOK §12.7.5 ` +
+      `(no-affiliate-links policy). Adding affiliate links requires ` +
+      `revisiting §12.7.5 + adding FTC-compliant disclosure first. ` +
+      `Offending link: ${href}`,
+  );
+}
+
+const finalRel = [...new Set([...baseRel, ...extraRel])].join(" ");
+const target = newTab ? "_blank" : undefined;
+---
+
+<a href={href} rel={finalRel} target={target} class={className}>
+  <slot />
+</a>

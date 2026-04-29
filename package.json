@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "audit:disclaimers": "node scripts/audit-disclaimers.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
