@@ -1,0 +1,280 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Person from "../../components/schema/Person.astro";
+import MobileApplication from "../../components/schema/MobileApplication.astro";
+import BreadcrumbList from "../../components/schema/BreadcrumbList.astro";
+import { APP_STORE_URL } from "../../components/schema/ids";
+
+const PAGE_TITLE = "Press kit";
+const PAGE_DESC =
+  "Press kit for RentLedger — local-first iOS app for landlords. Logo, app icon, screenshots, founder bio, and key facts. Press inquiries: support@rentledger.org.";
+
+// Asset list mirrors public/press/assets/manifest.json. Hand-typed here so
+// the page renders deterministically without runtime fs reads.
+const assets: { path: string; label: string; size: string }[] = [
+  { path: "rentledger-logo.svg", label: "Logo (SVG, vector source)", size: "SVG" },
+  { path: "rentledger-icon-512.png", label: "Icon, 512×512 (transparent)", size: "PNG" },
+  { path: "rentledger-icon-1024.png", label: "Icon, 1024×1024 (transparent)", size: "PNG" },
+  { path: "rentledger-logo-light-512.png", label: "Logo on light, 512×512", size: "PNG" },
+  { path: "rentledger-logo-light-1024.png", label: "Logo on light, 1024×1024", size: "PNG" },
+  { path: "rentledger-logo-dark-512.png", label: "Logo on dark, 512×512", size: "PNG" },
+  { path: "rentledger-logo-dark-1024.png", label: "Logo on dark, 1024×1024", size: "PNG" },
+  { path: "rentledger-app-icon-512.png", label: "App icon, 512×512", size: "PNG" },
+  { path: "rentledger-app-icon-1024.png", label: "App icon, 1024×1024", size: "PNG" },
+  { path: "download-on-the-app-store.svg", label: "Apple App Store badge (SVG)", size: "SVG" },
+  { path: "rentledger-screenshots.zip", label: "App screenshots (6 WebP)", size: "ZIP" },
+];
+---
+
+<BaseLayout
+  title={PAGE_TITLE}
+  titleFull="Press kit — RentLedger"
+  description={PAGE_DESC}
+  canonicalPath="/press/"
+>
+  <Fragment slot="schema">
+    <Person mode="inline" />
+    <MobileApplication />
+    <BreadcrumbList items={[{ name: "Home", path: "/" }, { name: "Press" }]} />
+  </Fragment>
+
+  <section class="band" style="padding-top: 120px; padding-bottom: 40px;">
+    <div class="container" style="max-width:1000px;">
+      <span class="section-tag">Press</span>
+      <h1
+        class="hero-title"
+        style="text-align: left; max-width: 920px; margin-top: 24px;"
+      >
+        Press kit for <em>RentLedger</em>.
+      </h1>
+      <p class="lede" style="max-width: 680px; margin-top: 28px;">
+        RentLedger is a local-first iOS app for individual landlords and
+        small-portfolio property owners (1–10 units). It tracks rental income
+        and expenses, scans receipts on-device with iOS Vision OCR, and
+        auto-generates IRS Schedule E and 1099-NEC reports — all without
+        accounts, servers, or cloud sync. Pricing is Monthly $4.99, Annual
+        $39.99, or Lifetime $79.99. RentLedger sits between two unfit
+        alternatives for a single-digit-unit landlord: spreadsheets (no tax
+        forms, no receipt scanning) and full accounting suites like
+        QuickBooks ($38/mo+) or per-unit landlord apps that scale costs as
+        portfolios grow. It is built for the landlord who wants 15 minutes
+        per week, not a second job.
+      </p>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top: 40px;">
+    <div class="container" style="max-width:1000px;">
+      <h2 class="visually-hidden">Quick facts and founder bio</h2>
+      <div class="about-grid">
+        <div class="about-story">
+          <h3>Founder bio</h3>
+          <p>
+            Praneet Soni is a software engineer and small landlord. He built
+            RentLedger after years of trying to track rental expenses in
+            spreadsheets — losing receipts, scrambling at tax season, and
+            watching deductions slip away because nothing was logged the same
+            way twice. The existing options didn't fit: QuickBooks was
+            overkill, a bookkeeper wasn't worth the cost for a few units, and
+            every other landlord app pushed cloud accounts and bank linking.
+            RentLedger is the structured, auditable, on-device expense log
+            Praneet wanted for himself — built so tax season takes an
+            afternoon and no deduction goes unclaimed.
+          </p>
+          <p style="margin-top: 16px;">
+            Founder byline: <strong>Praneet Soni</strong>, Founder, RentLedger.
+            <a href="https://twitter.com/praneets21" rel="me">@praneets21</a> ·
+            <a href="mailto:support@rentledger.org">support@rentledger.org</a>
+          </p>
+
+          <h3 style="margin-top: 40px;">Boilerplate (100–150 words)</h3>
+          <p>
+            RentLedger is a local-first iOS app for landlords with 1–10 units.
+            It replaces spreadsheets and overkill accounting tools with a
+            purpose-built expense log that captures rent, scans receipts on
+            the device with iOS Vision OCR, categorizes them against all 15
+            IRS Schedule E line items, and generates the Schedule E and
+            1099-NEC reports a CPA or self-filer can use directly. Every
+            entry stays on the iPhone — no accounts, no servers, no bank
+            linking, no cloud sync. Pricing is Monthly $4.99, Annual $39.99,
+            or Lifetime $79.99 (one-time, all future updates included). Built
+            and maintained by Praneet Soni, a software engineer and landlord
+            who got tired of the year-end scramble. Available on the App
+            Store for iPhone running iOS 26 or later.
+          </p>
+
+          <h3 style="margin-top: 40px;">App Store</h3>
+          <p>
+            Direct link: <a href={APP_STORE_URL}>RentLedger on the App
+              Store</a>
+          </p>
+          <p style="margin-top: 16px;">
+            <a href={APP_STORE_URL} aria-label="Download RentLedger on the App Store">
+              <img
+                src="/press/assets/download-on-the-app-store.svg"
+                alt="Download on the App Store"
+                width="180"
+                height="60"
+                style="display:block;"
+              />
+            </a>
+          </p>
+          <p class="press-note" style="margin-top: 8px;">
+            The badge above is Apple's official "Download on the App Store"
+            artwork (also in the asset list below). Use per <a
+              href="https://developer.apple.com/app-store/marketing/guidelines/"
+              rel="external">Apple's App Store Marketing Guidelines</a
+            > — don't recolor or resize disproportionately.
+          </p>
+
+          <h3 style="margin-top: 40px;">Downloadable assets</h3>
+          <ul class="press-assets">
+            {
+              assets.map((a) => (
+                <li>
+                  <a href={`/press/assets/${a.path}`} download>
+                    {a.label}
+                  </a>
+                  <span class="press-kind">{a.size}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="press-note">
+            License: free to use unmodified for editorial coverage of
+            RentLedger. Please don't crop, recolor, or apply effects to the
+            mark. Questions: <a href="mailto:support@rentledger.org"
+              >support@rentledger.org</a
+            >.
+          </p>
+
+          <h3 style="margin-top: 40px;">Press inquiries</h3>
+          <p>
+            Email <a href="mailto:support@rentledger.org"
+              >support@rentledger.org</a
+            >. We aim to reply within one business day. Founder is available
+            for written Q&amp;A, recorded interviews, and product demos.
+          </p>
+        </div>
+
+        <aside class="principles">
+          <h4>Quick facts</h4>
+          <ul>
+            <li>
+              <span class="k">Product</span><span class="v"
+                >iOS app (iPhone)</span
+              >
+            </li>
+            <li>
+              <span class="k">Platform</span><span class="v">iOS 26+</span>
+            </li>
+            <li>
+              <span class="k">Category</span><span class="v"
+                >Business / Finance</span
+              >
+            </li>
+            <li>
+              <span class="k">Launch</span><span class="v">2026</span>
+            </li>
+            <li>
+              <span class="k">Pricing — Monthly</span><span class="v"
+                >$4.99</span
+              >
+            </li>
+            <li>
+              <span class="k">Pricing — Annual</span><span class="v"
+                >$39.99</span
+              >
+            </li>
+            <li>
+              <span class="k">Pricing — Lifetime</span><span class="v"
+                >$79.99 once</span
+              >
+            </li>
+            <li>
+              <span class="k">Free trial</span><span class="v">2 weeks</span>
+            </li>
+            <li>
+              <span class="k">Founder</span><span class="v">Praneet Soni</span>
+            </li>
+            <li>
+              <span class="k">Team size</span><span class="v">solo founder</span
+              >
+            </li>
+            <li>
+              <span class="k">Cloud sync</span><span class="v no">no</span>
+            </li>
+            <li>
+              <span class="k">User accounts</span><span class="v no">no</span>
+            </li>
+            <li>
+              <span class="k">Bank linking</span><span class="v no">no</span>
+            </li>
+            <li>
+              <span class="k">Press contact</span><span class="v"
+                >support@rentledger.org</span
+              >
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="end-cta">
+    <div class="container">
+      <h2>See the app.</h2>
+      <p class="lede">
+        Free trial unlocks everything. Cancel before it bills if it isn't a
+        fit.
+      </p>
+      <a class="btn btn-primary" href={APP_STORE_URL}
+        >Download on the App Store</a
+      >
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .press-assets {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .press-assets li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--rl-surface);
+    border: 1px solid var(--rl-border);
+    border-radius: 10px;
+    font-size: 14px;
+  }
+  .press-assets a {
+    color: var(--rl-text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .press-assets a:hover {
+    text-decoration: underline;
+  }
+  .press-kind {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--rl-text-secondary);
+    letter-spacing: 0.04em;
+    background: var(--rl-primary-10);
+    border-radius: 6px;
+    padding: 3px 10px;
+  }
+  .press-note {
+    color: var(--rl-text-secondary);
+    font-size: 14px;
+    margin-top: 16px;
+  }
+</style>
