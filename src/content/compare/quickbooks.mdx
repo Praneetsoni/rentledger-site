@@ -1,0 +1,165 @@
+---
+competitorSlug: quickbooks
+title: "QuickBooks for Landlords: Do You Actually Need It?"
+titleFull: "QuickBooks for Landlords: Worth It for 1–10 Units? — RentLedger Alternative"
+description: "QuickBooks Online costs $38–$275/mo and isn't built for rentals. We walk a 4-unit landlord through every QBO tier, the Schedule E categorization gap, and where a $79.99 lifetime tracker beats it for small portfolios."
+pubDate: 2026-05-02
+heroImage: /images/compare/quickbooks-hero.webp
+reviewBody: "QuickBooks Online is overkill for most 1–10 unit landlords. None of its tiers ship a rental-property chart of accounts, only Plus and Advanced support the class/location tracking landlords need to map expenses to Schedule E line items, and the regular monthly cost runs from $38 (Simple Start) to $275 (Advanced) before any add-ons. For DIY small landlords filing Schedule E, a purpose-built rental tracker like RentLedger ($79.99 lifetime) lines up with IRS Schedule E categories out of the box. QuickBooks earns its price for landlords running 5+ properties under an LLC with a CPA, multi-entity bookkeeping, or any S-corp election; for the 1–10 unit DIY landlord asking 'is it overkill?', the answer is usually yes."
+faqs:
+  - question: "Do I need QuickBooks for 2 rentals?"
+    answer: "No. For 2 rental properties, QuickBooks Online is overkill — none of its base tiers ship a rental chart of accounts, and the cheapest tier with class/location tracking (which is what you'd need to keep two properties' books separate) is Plus at $115/mo regular pricing, or $1,380/yr. A $79.99 lifetime rental tracker that maps expenses to IRS Schedule E line items will get you a cleaner Schedule E in less time. QuickBooks starts paying for itself somewhere around 5+ properties combined with an LLC, multi-entity bookkeeping, or a CPA who's already running it on your behalf."
+  - question: "Do I need QuickBooks for rental property?"
+    answer: "Most 1–10 unit landlords don't. The IRS Schedule E (Form 1040) requires you to map expenses to 15 specific line items (advertising, auto, cleaning, commissions, insurance, legal, management, mortgage interest, repairs, supplies, taxes, utilities, depreciation, and 'other') — none of QuickBooks' default chart of accounts is shaped to those categories without manual setup. You'd be paying for general-ledger sophistication (invoicing, AP, payroll, inventory) that rentals don't use, while still hand-mapping every transaction at year-end. The exception is multi-property portfolios where you need real double-entry accounting across multiple LLCs, a CPA who already runs QuickBooks for clients, or an S-corp election that ties rental income to W-2 wages."
+  - question: "Is QuickBooks good for landlords?"
+    answer: "It's adequate-but-overkill for most. QuickBooks Online's class and location tracking (available on Plus and above) can keep multiple properties' books separate, and TurboTax can pull QBO data for Schedule E if you cleanly tag income/expenses by class. Where QuickBooks falls short for landlords: no built-in 1099-NEC tracking flow tied to vendor W-9s per property, no MACRS depreciation helper, no automatic mapping to the 15 IRS Schedule E line items, and no rental-specific reporting (rent roll, vacancy stats, per-unit P&L). You can build all of these on top of QuickBooks — but at $1,380/yr (Plus tier) before any setup work, the ROI math is hard to justify for portfolios under 5 units."
+  - question: "What's the cheapest QuickBooks tier that works for rental properties?"
+    answer: "QuickBooks Online Plus, at $115/mo regular pricing (verified 2026-05-01 at quickbooks.intuit.com/pricing). Plus is the cheapest tier with class/location tracking, which is the QBO feature that lets you tag income and expenses to a specific property — required if you want to produce a Schedule E that separates each rental. Simple Start ($38/mo) and Essentials ($75/mo) lack class tracking, so a multi-property landlord on those tiers would have to set up a separate QBO company per property — multiplying the subscription cost. Solopreneur (a separate Intuit product line for single-person businesses) lacks the rental-relevant features entirely; verify current Solopreneur pricing at quickbooks.intuit.com/solopreneur if you're considering it."
+  - question: "Should I just hire a bookkeeper instead of buying software?"
+    answer: "Run the math on a 5-year horizon. A US-based bookkeeper for rentals typically charges $200–$500/mo per portfolio for transaction categorization, monthly reconciliation, and Schedule E prep. Five years at $300/mo = $18,000. A $79.99 lifetime rental-tracker plus a $50–$100/yr tax-prep tool (TurboTax / FreeTaxUSA) runs about $580 over the same horizon — a 30× difference. The math flips when complexity rises: 5+ properties with mixed entity structures, depreciation recapture on a sale, real estate professional status filings, or a 1031 exchange all benefit from professional help. For 1–10 unit DIY landlords with steady rentals, the lifetime-tracker math wins on cost, beats QuickBooks on rental-specific UX, and avoids the 'I have to learn double-entry accounting' on-ramp that QuickBooks demands."
+  - question: "Can RentLedger replace QuickBooks for my rental business?"
+    answer: "RentLedger generates a Schedule E PDF from data you've entered, tracks 1099-NEC vendor payments per property, captures receipts via on-device OCR, and runs MACRS depreciation per asset — every workflow a 1–10 unit DIY landlord actually uses on Schedule E. It does NOT do invoicing, accounts payable, payroll, inventory, or multi-entity general-ledger accounting; if you need any of those, QuickBooks (or a CPA running QuickBooks for you) is the right tool. The honest replacement scope is 'small landlord doing personal Schedule E filings' — which is the majority of US landlord households per the Census 2021 Rental Housing Finance Survey, but not the entire market."
+breadcrumbs:
+  - name: Home
+    path: /
+  - name: Compare
+    path: /compare/
+  - name: RentLedger vs QuickBooks
+---
+
+import EditorialOnlyNotice from "../../components/EditorialOnlyNotice.astro";
+import TaxDisclaimer from "../../components/TaxDisclaimer.astro";
+import AuthorQualification from "../../components/AuthorQualification.astro";
+import CompetitorLink from "../../components/CompetitorLink.astro";
+import PricingClaim from "../../components/PricingClaim.astro";
+import { QUICKBOOKS_PRICING, RENTLEDGER_PRICING } from "../../data/quickbooks-pricing";
+
+<EditorialOnlyNotice competitor="QuickBooks" />
+<TaxDisclaimer verifiedDate="2026-05-02" />
+
+QuickBooks is the best-known small-business accounting platform in the US. So a sensible question if you own a rental or two: do you actually need it? The short version is no — most landlords with 1–10 units, filing personal Schedule E, are paying for general-ledger sophistication they don't use, while still hand-mapping every transaction to the IRS's 15 Schedule E line items at filing time. The longer answer depends on portfolio size, entity structure, and whether a CPA is already running QuickBooks on your behalf.
+
+This is a comparison written by a small landlord who built a rental-specific alternative ([RentLedger](/)). The RentLedger side of the comparison is going to be biased — we believe a purpose-built tool serves the small landlord better than a general accounting platform. The QuickBooks side cites <CompetitorLink href="https://quickbooks.intuit.com/pricing/">Intuit's own pricing page</CompetitorLink> directly, not from memory, and we'll flag where the analysis is opinion versus where it's documentable fact.
+
+## TL;DR
+
+- **QuickBooks Online costs <PricingClaim field={QUICKBOOKS_PRICING.simpleStart} mode="bare" /> at the entry tier and <PricingClaim field={QUICKBOOKS_PRICING.advanced} mode="bare" /> at the top tier**, regular monthly pricing as of May 2026.
+- **The cheapest QBO tier with class/location tracking — the feature multi-property landlords need — is <PricingClaim field={QUICKBOOKS_PRICING.plus} mode="bare" /> Plus.** Simple Start and Essentials don't have it.
+- **None of the QBO tiers ship a rental-property chart of accounts** mapped to the 15 IRS Schedule E line items. You build it yourself or pay a CPA to build it for you.
+- **For 1–10 unit DIY landlords, the math doesn't pencil out.** $1,380/yr for Plus, plus the time to set up class tracking and map a chart of accounts to Schedule E, versus $79.99 once for a rental-purpose-built tool.
+- **QuickBooks earns its price** for portfolios with multi-entity LLCs, S-corp election against rental income, depreciation-recapture-heavy sales, or any case where a CPA is already running QBO for you.
+
+## QuickBooks Online pricing — every tier
+
+Quoted directly from <CompetitorLink href="https://quickbooks.intuit.com/pricing/">quickbooks.intuit.com/pricing</CompetitorLink>, regular monthly rates (Intuit runs frequent 50%-off promotions for the first three months on new annual signups; we quote regular pricing because that's what you'll pay starting month four):
+
+| Tier | Regular monthly | What's included for a landlord |
+|---|---|---|
+| **Simple Start** | <PricingClaim field={QUICKBOOKS_PRICING.simpleStart} mode="bare" /> | Single-user; basic income/expense tracking; no class or location tracking; no per-property breakdown |
+| **Essentials** | <PricingClaim field={QUICKBOOKS_PRICING.essentials} mode="bare" /> | 3 users; bill management; still no class/location tracking |
+| **Plus** | <PricingClaim field={QUICKBOOKS_PRICING.plus} mode="bare" /> | 5 users; **class and location tracking** (this is the feature that makes QBO usable for multi-property landlords); inventory; project profitability |
+| **Advanced** | <PricingClaim field={QUICKBOOKS_PRICING.advanced} mode="bare" /> | 25 users; workflow automation; dedicated account manager; analytics |
+
+Pricing verified <PricingClaim field={QUICKBOOKS_PRICING.simpleStart} mode="bare" />'s `verified` date — see the linked source. Per SEO-PLAYBOOK §12.7.3, this page re-verifies pricing every 90 days; the build will block if the data file goes stale.
+
+Intuit also offers <CompetitorLink href="https://quickbooks.intuit.com/solopreneur/">QuickBooks Solopreneur</CompetitorLink>, a stripped-down tier for single-person businesses. Solopreneur's current monthly price isn't on the main QBO pricing page; verify it directly on Intuit's Solopreneur page if you're considering it. For most small landlords, Solopreneur's lack of class/location tracking and generalist (not rental-specific) feature set means it doesn't meaningfully change the analysis.
+
+## Where QuickBooks Self-Employed and Solopreneur fall short
+
+Intuit phased out QuickBooks Self-Employed for new US customers in 2024, replacing it with Solopreneur as the entry-level Intuit product. Both target gig-economy single-person businesses — Uber drivers, Etsy sellers, freelancers — not rental landlords. The features they prioritize (mileage tracking from a phone, simplified Schedule C income/expense categories, quarterly estimated-tax reminders) don't map cleanly to rental ownership: rentals file Schedule E, not Schedule C, and the deduction categories are different.
+
+Specifically, Solopreneur and the legacy Self-Employed product are missing:
+
+- **Class or location tracking** — without it, a multi-property landlord can't keep books separate for Schedule E line-by-line reporting per property.
+- **Schedule E-shaped chart of accounts** — both products are built around Schedule C categorization (advertising, car expenses, contract labor, etc.), which overlaps with Schedule E but uses different line groupings.
+- **MACRS depreciation tracking** — neither product runs the 27.5-year residential rental depreciation schedule from IRS Pub 946 on a per-asset basis.
+- **1099-NEC workflow per property** — gig-economy users typically issue zero 1099-NECs; rental landlords routinely issue several per year (plumber, painter, property manager). The W-9-collection-then-1099-filing flow is a separate add-on or workaround.
+
+If your portfolio is one rental and you're already a Solopreneur user for a separate gig business, you can make it work — but you'll be hand-categorizing rental transactions to Schedule E categories at year-end. We'd argue that's most of the work a rental-specific tool exists to eliminate.
+
+## Where QuickBooks Plus does work for landlords
+
+Class and location tracking is the feature on Plus that makes QBO usable for landlords. You set up each property as a class (or location), tag every transaction with that class, and run a profit-and-loss report filtered by class — that gives you per-property income and expense numbers that map (with manual category-to-Schedule-E mapping) onto Schedule E line items.
+
+The catch: this is bring-your-own-setup. Out of the box, QBO doesn't ship rental-specific:
+
+- **Chart of accounts** matching IRS Schedule E lines 5–19 (advertising, auto and travel, cleaning and maintenance, commissions, insurance, legal and other professional fees, management fees, mortgage interest paid to banks, other interest, repairs, supplies, taxes, utilities, depreciation expense or depletion, and other). Setting up a Schedule E-aligned chart of accounts is typically the first thing a CPA does for a landlord client on QuickBooks.
+- **Per-property 1099-NEC summarization**. You can run a vendor report filtered by class, but the W-9 collection → year-end 1099 file → CSV export workflow is generic, not rental-shaped.
+- **Depreciation calculator**. You enter a fixed asset and pick a useful life; QBO does straight-line. MACRS residential rental at 27.5 years works as a manual entry but isn't pre-baked.
+- **Rent-roll or vacancy reporting**. These aren't accounting outputs; they're property-management outputs. QBO doesn't do them; you'd add a property-management product on top.
+
+If you're already paying a CPA who runs QBO Plus for several rental clients, the setup work is amortized — you piggyback on the playbook the CPA already knows. If you're DIY-ing it from scratch, the up-front setup time (we'd ballpark 8–15 hours for a multi-property landlord including chart of accounts setup, class tagging conventions, and a Schedule E mapping spreadsheet) is the cost most "QuickBooks for landlords" tutorials don't quote.
+
+## Should I just hire a bookkeeper instead?
+
+This is the single most-asked question we get from landlords pricing both options. The math, on a 5-year horizon:
+
+| Option | 5-year cost | What you get |
+|---|---|---|
+| **QuickBooks Plus** | ~$6,900 (60 × $115/mo) | DIY books in QBO; you do all categorization, reconciliation, year-end close |
+| **QuickBooks Plus + bookkeeper** | $24,900–42,900 ($300–$600/mo bookkeeper + QBO) | Bookkeeper does monthly transaction categorization and reconciliation; you do strategy and tax decisions |
+| **Standalone bookkeeper (no QBO)** | $18,000–30,000 ($300–$500/mo) | Bookkeeper uses their own tooling; you receive monthly P&Ls and a year-end Schedule E worksheet |
+| **RentLedger lifetime + tax-prep tool** | ~$580 ($79.99 once + $100/yr TurboTax) | DIY rental tracking purpose-built for Schedule E; export PDF Schedule E worksheet at filing time |
+
+For 1–10 unit landlords, the standalone-bookkeeper option is 30× the cost of the lifetime-software option. The bookkeeper option starts to pencil out at portfolios where:
+
+- 5+ properties under separate LLCs (real bookkeeping complexity)
+- Depreciation-recapture-heavy property sales in a given year (the recapture math is mistake-prone)
+- An S-corp election against rental income (rare; specific to real estate professional status filers)
+- Income above the $150K passive activity loss phase-out, where strategic deductibility decisions matter
+- 1031 exchanges (strict 45/180-day rules; mistakes are expensive)
+
+If none of those apply, the math says: ship the books yourself with a rental-specific tool, and pay a CPA for tax prep ($150–$400 per Schedule E) plus an annual review (1 hour, ~$200–$400). Total: $350–$800/yr — versus $3,600–$7,200/yr for the bookkeeper.
+
+## RentLedger vs QuickBooks at a glance
+
+| | RentLedger | QuickBooks (Plus tier) |
+|---|---|---|
+| **Pricing** | <PricingClaim field={RENTLEDGER_PRICING.lifetime} mode="bare" /> · or <PricingClaim field={RENTLEDGER_PRICING.monthly} mode="bare" /> / <PricingClaim field={RENTLEDGER_PRICING.annual} mode="bare" /> | <PricingClaim field={QUICKBOOKS_PRICING.plus} mode="bare" /> regular monthly |
+| **Built for** | 1–10 unit DIY small landlords filing Schedule E | General SMB accounting; rentals via class tracking add-on |
+| **Schedule E mapping** | Lines 5–19 baked into the data model | Manual; build your own chart of accounts |
+| **Platform** | iOS 26+ native | Web + iOS / Android apps |
+| **Data location** | Local-first, on-device | Cloud (Intuit servers) |
+| **Multi-property tracking** | Per-property folders, native | Class / location tagging on every transaction |
+| **Receipt scanning** | On-device OCR | Receipt-snap upload (cloud OCR) |
+| **MACRS depreciation** | Per-asset, 27.5-yr residential rental built in | Straight-line; manual entry for MACRS |
+| **1099-NEC workflow** | Per-property vendor tracking, W-9 capture, year-end summary | Generic vendor management; export and file separately |
+| **Schedule E PDF** | Generates a Schedule E worksheet PDF you can hand to your CPA or use directly | Generic P&L by class; you map to Schedule E lines manually |
+
+We're not going to claim parity with QuickBooks across all SMB accounting workflows — RentLedger doesn't do invoicing, accounts payable, payroll, or multi-entity general-ledger accounting, and we don't pretend to. The pitch is narrower: if your rental-bookkeeping job is "track expenses through the year, categorize them to Schedule E, file a clean return in April," RentLedger is shaped to exactly that job and QuickBooks isn't.
+
+## When QuickBooks IS the right call
+
+In the spirit of intellectual honesty, the cases where we'd send a landlord to QuickBooks (or a CPA running QuickBooks):
+
+- **5+ properties across multiple entities.** Multi-LLC bookkeeping needs real general-ledger separation, intercompany journal entries, and consolidated reporting that RentLedger doesn't do.
+- **Mixing rentals with active real-estate trade or business.** A real estate professional under IRC §469(c)(7) reporting on Schedule C alongside Schedule E benefits from QBO's broader chart of accounts.
+- **You have a CPA already on QuickBooks.** Don't make your CPA learn a new tool — the per-hour cost of CPA learning curve will dwarf any software savings.
+- **S-corp election or partnership returns.** Form 1120-S / 1065 returns aren't a Schedule E-shaped job; QBO + a CPA is the standard stack.
+- **Audit defense or IRS examination in progress.** Switching tools mid-audit is a bad idea — stay on whatever your tax records were generated in.
+
+For everything else — and "everything else" is most US landlord households per the [2021 Census Rental Housing Finance Survey](/blog/small-landlord-statistics-2026/) — a purpose-built rental tracker beats QuickBooks on cost, time-to-clean-Schedule-E, and rental-specific UX.
+
+## How to migrate from QuickBooks to RentLedger
+
+If you're a current QBO user wanting to switch, the realistic migration plan:
+
+1. **Export your QuickBooks transaction history** to CSV (Reports → Profit and Loss → Export → CSV; do this for each tax year you want to keep).
+2. **Map QBO categories to Schedule E line items** in a spreadsheet — this is the same mapping work you'd do at year-end on QBO anyway, just done once for historical data instead of 12× per year going forward.
+3. **Set up RentLedger property records** for each rental and import the historical transactions (CSV import is on the iOS app's roadmap; for now, manual entry of historical data or just starting fresh from January 1 are both reasonable).
+4. **Cancel QBO when current billing period ends** — Intuit honors monthly cancellations effective at end-of-period; you don't get a pro-rated refund on annual plans.
+5. **Keep QBO archive access** — Intuit retains read-only access to canceled accounts for 1 year after cancellation, which covers an audit lookback window.
+
+Most landlords starting fresh as of January 1 of the current tax year skip steps 1–2 and only deal with going-forward data. That's the cleanest path.
+
+## Sources
+
+- <CompetitorLink href="https://quickbooks.intuit.com/pricing/">QuickBooks Online pricing</CompetitorLink> — primary source for all QBO tier prices on this page (verified 2026-05-01)
+- <CompetitorLink href="https://quickbooks.intuit.com/solopreneur/">QuickBooks Solopreneur</CompetitorLink> — Intuit's single-person-business product line
+- [IRS Schedule E (Form 1040) Instructions](https://www.irs.gov/forms-pubs/about-schedule-e-form-1040) — the 15 line items every rental-tracker comparison ultimately maps back to
+- [IRS Publication 527 — Residential Rental Property](https://www.irs.gov/forms-pubs/about-publication-527) — canonical IRS publication for landlords
+- [IRS Publication 946 — How to Depreciate Property](https://www.irs.gov/forms-pubs/about-publication-946) — MACRS rules referenced above
+- [Rental Property Tax Deductions: The Complete 2026 Guide for Landlords](/blog/landlord-tax-deductions/) — RentLedger's own guide to all 15 Schedule E categories and the seven mistakes that cost landlords the most every year
+- [Small Landlord Statistics (2026)](/blog/small-landlord-statistics-2026/) — Census, JCHS, IRS, and Federal Reserve data on what mom-and-pop landlords actually look like
+
+<AuthorQualification />

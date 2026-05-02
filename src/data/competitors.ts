@@ -26,9 +26,22 @@ export type CompetitorData = z.infer<typeof CompetitorSchema>;
 // Competitors per playbook §6.0 60-article topic mix → "Additional /compare/* pages":
 // Avail, Baselane, Landlord Studio, Landlordy, Rentec Direct, RentRedi,
 // Google Sheets, Excel, Wave, FreshBooks. Stessa added (canonical RE-tracking
-// competitor in the AI wedge). Placeholders ship `placeholder: true` so the
-// template can filter them until comparison content is written.
+// competitor in the AI wedge). QuickBooks added per playbook §M2.2 Slot 2.
+// Placeholders ship `placeholder: true` so the template can filter them
+// until comparison content is written; once a hand-written narrative lands
+// in src/content/compare/<slug>.mdx the route renders that body and the
+// page becomes indexable regardless of this flag.
 const COMPETITORS: CompetitorData[] = [
+  {
+    slug: "quickbooks",
+    name: "QuickBooks",
+    sameAs: "https://quickbooks.intuit.com/",
+    placeholder: false,
+    tagline:
+      "Intuit's general-business accounting platform — built for service businesses and SMBs, occasionally retrofitted for rentals via class/location tracking on the Plus and Advanced tiers.",
+    pricingSnapshot:
+      "Simple Start $38/mo, Essentials $75/mo, Plus $115/mo, Advanced $275/mo (verified 2026-05-01)",
+  },
   {
     slug: "stessa",
     name: "Stessa",
