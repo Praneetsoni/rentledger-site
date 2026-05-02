@@ -102,7 +102,7 @@ const YMYL_KEYWORDS = [
 const SSOT_DISCLAIMER_PHRASES = [
   "General educational information — not personalized advice",
   "general educational information about U.S. federal tax topics",
-  "RentLedger LLC and its founder are not licensed tax professionals",
+  "Praneet Soni is not a licensed tax professional and is not liable",
 ];
 
 async function* walk(dir) {
