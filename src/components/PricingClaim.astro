@@ -1,0 +1,100 @@
+---
+// Per SEO-PLAYBOOK §12.7.3: every $N price claim about a competitor (or
+// RentLedger) is wrapped by this component, which renders the price plus
+// inline verification provenance — the "verified [date]; verify on
+// [pricing-page-URL]" tail is what distinguishes a defensible price citation
+// from an actionable false-advertising claim.
+//
+// Usage:
+//   import { pricingVerifiedField } from "../../data/types";
+//   const qboSimpleStart = pricingVerifiedField({
+//     value: "$38/mo",
+//     source: "https://quickbooks.intuit.com/pricing/",
+//     verified: "2026-05-02",
+//     verifiedBy: "claude",
+//   });
+//   <PricingClaim field={qboSimpleStart} label="QuickBooks Simple Start" />
+//
+// Rendering modes:
+//   - default (inline)     → "<strong>$38/mo</strong> <small>verified May 2,
+//                             2026 · source ↗</small>"
+//   - mode="bare"          → just the value, no verification tail (use only
+//                             inside a table cell where another column
+//                             carries the verification metadata)
+//
+// The Zod refinement on `kind: "pricing"` in src/data/types.ts will already
+// have failed the build if the underlying field is older than 90 days — by
+// the time this component renders, the field is known-fresh.
+
+import type { VerifiedField } from "../data/types";
+
+interface Props {
+  field: VerifiedField;
+  /** Optional label preceding the value, e.g. "QuickBooks Simple Start". */
+  label?: string;
+  /** Render mode. "inline" is the default with full verification tail.
+   * "bare" emits just the value (table-cell context). */
+  mode?: "inline" | "bare";
+}
+
+const { field, label, mode = "inline" } = Astro.props;
+
+const verifiedLabel = new Date(field.verified).toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+{
+  mode === "bare" ? (
+    <span class="pricing-claim pricing-claim--bare">
+      {label && <span class="pricing-claim__label">{label}</span>}
+      <strong class="pricing-claim__value">{field.value}</strong>
+    </span>
+  ) : (
+    <span class="pricing-claim">
+      {label && <span class="pricing-claim__label">{label}</span>}
+      <strong class="pricing-claim__value">{field.value}</strong>
+      <small class="pricing-claim__meta">
+        verified {verifiedLabel} ·{" "}
+        <a
+          href={field.source}
+          rel="nofollow noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+      </small>
+    </span>
+  )
+}
+
+<style>
+  .pricing-claim {
+    display: inline-flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+  .pricing-claim__label {
+    color: var(--rl-text-secondary);
+  }
+  .pricing-claim__value {
+    color: var(--rl-text);
+    font-variant-numeric: tabular-nums;
+  }
+  .pricing-claim__meta {
+    color: var(--rl-text-secondary);
+    font-size: 0.8125em;
+  }
+  .pricing-claim__meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  .pricing-claim__meta a:hover {
+    color: var(--rl-text);
+  }
+</style>

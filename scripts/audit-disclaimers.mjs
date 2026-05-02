@@ -14,6 +14,19 @@
 //   4. Competitor-link wrapping (warning) — outbound links to competitor
 //      domains should go through CompetitorLink.astro. Warning today,
 //      ship-blocking after first occurrence per §12.7.8.
+//   5. Trade-libel forbidden phrasings (§12.7.2 / Slot 2 enforcement) —
+//      "[competitor] is unreliable", "don't use [competitor]", "[competitor]
+//      is a scam". Markdown-blockquote escape hatch (`> ...` lines) — quoted
+//      observation is protected, asserted-as-fact is not.
+//   6. PTIN-classification safety (§12.7.9 / Slot 2 enforcement) — substring
+//      scan for "auto-files", "auto-prepares", "automatically calculates
+//      your taxes". Marketing copy that crosses this line risks classifying
+//      RentLedger as a tax-return-preparer under IRS Circular 230.
+//   7. /compare/* title pattern (§12.7.10 / Slot 2 enforcement) — the
+//      rendered <title> for any comparison page must contain "vs RentLedger"
+//      or "alternative". Audit checks frontmatter `title` / `titleFull`
+//      first, falls back to the first H1 (#) in the body. Forbidden: titles
+//      like "The Best [Competitor]…" that suggest endorsement-by-association.
 //
 // What "YMYL page" means here:
 //   A page declares itself YMYL by setting one of these markers in its
@@ -105,6 +118,58 @@ const SSOT_DISCLAIMER_PHRASES = [
   "Praneet Soni is not a licensed tax professional and is not liable",
 ];
 
+// Trade-libel forbidden phrasings per §12.7.2. Each entry is matched against
+// the literal page source with the competitor token interpolated. Hit = ship
+// block (UNLESS the line is a markdown blockquote, per §12.7.2 escape hatch:
+// quoted prose is observation, not assertion).
+const TRADE_LIBEL_TEMPLATES = [
+  "{COMPETITOR} is unreliable",
+  "don't use {COMPETITOR}",
+  "do not use {COMPETITOR}",
+  "{COMPETITOR} is a scam",
+  "{COMPETITOR} is dishonest",
+  "avoid {COMPETITOR}",
+];
+
+// Names that paired with the templates produce ship-blocking phrasings. Keep
+// in sync with COMPETITOR_DOMAINS — the matcher is case-insensitive.
+const COMPETITOR_NAMES = [
+  "QuickBooks",
+  "Stessa",
+  "Avail",
+  "Baselane",
+  "Landlord Studio",
+  "Landlordy",
+  "Rentec Direct",
+  "RentRedi",
+  "Wave",
+  "FreshBooks",
+  "Intuit",
+  "TurboTenant",
+  "DoorLoop",
+  "Buildium",
+  "AppFolio",
+  "REI Hub",
+  "Azibo",
+];
+
+// PTIN-classification safety phrasings per §12.7.9. Substring-match
+// (case-insensitive) against the literal source. Hit = ship block.
+const PTIN_FORBIDDEN_PHRASES = [
+  "auto-files your tax",
+  "auto-files your taxes",
+  "auto-prepares your tax",
+  "auto-prepares your schedule",
+  "automatically calculates your tax",
+  "automatically calculates your taxes",
+  "rentledger files your 1099",
+];
+
+// /compare/* title-pattern allowed substrings per §12.7.10. The rendered
+// <title> must contain at least one of these (case-insensitive substring
+// match). Anything else risks suggesting endorsement-by-association.
+const COMPARE_TITLE_REQUIRED_TOKENS = ["vs rentledger", "alternative"];
+
 async function* walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   for (const entry of entries) {
@@ -156,9 +221,12 @@ function isYmylPage(src, file) {
   if (!hasArticleSchema) {
     // Compare collection entries don't have schemaType frontmatter but
     // are emitted as Review schema by the layout — they always make
-    // competitor claims, so treat as YMYL.
-    if (/src\/content\/compare\//.test(src)) return true;
-    if (/src\/pages\/compare\//.test(src)) return true;
+    // competitor claims, so treat as YMYL. Path-based — must test `file`,
+    // not `src` (the body); previous regex tested src and silently
+    // misclassified every compare page as non-YMYL until M2.2 Slot 2.
+    // The /compare/ directory landing (`src/pages/compare/index.astro`)
+    // is a nav hub, not a comparison page — exclude it.
+    if (file && isComparePage(file)) return true;
     return false;
   }
 
@@ -166,7 +234,11 @@ function isYmylPage(src, file) {
 }
 
 function isComparePage(file) {
-  // Comparison pages need EditorialOnlyNotice per §12.7.5.
+  // Comparison pages need EditorialOnlyNotice per §12.7.5. The /compare/
+  // directory landing (`src/pages/compare/index.astro`) is a nav hub, not
+  // a comparison page; exclude it so it doesn't false-positive against the
+  // §12.7 component-import rules.
+  if (/src\/pages\/compare\/index\.(astro|md|mdx)$/.test(file)) return false;
   if (/src\/content\/compare\//.test(file)) return true;
   if (/src\/pages\/compare\//.test(file)) return true;
   return false;
@@ -226,6 +298,86 @@ function detectInlineDisclaimerSSOT(src) {
   if (hasImport) return null; // import present → no inline-paraphrase concern
   for (const phrase of SSOT_DISCLAIMER_PHRASES) {
     if (src.includes(phrase)) return phrase;
+  }
+  return null;
+}
+
+function findTradeLibelHits(src) {
+  // §12.7.2 — substring scan across forbidden_template × competitor_name.
+  // Skip lines that start with `>` (markdown blockquote), per the §12.7.2
+  // escape hatch. Returns array of { phrase, line } for each hit.
+  const hits = [];
+  const lines = src.split("\n");
+  for (const competitor of COMPETITOR_NAMES) {
+    for (const template of TRADE_LIBEL_TEMPLATES) {
+      const phrase = template.replace("{COMPETITOR}", competitor).toLowerCase();
+      for (const line of lines) {
+        const trimmed = line.trim();
+        // Markdown blockquote escape hatch — quoted observation is allowed
+        // (e.g., "BiggerPockets users wrote: > QuickBooks is unreliable for
+        // rentals"). The blockquote framing makes it an observation about
+        // user reports, not an asserted-as-fact claim.
+        if (trimmed.startsWith(">")) continue;
+        // Also skip explicit code fences / inline code blocks.
+        if (trimmed.startsWith("```")) continue;
+        if (line.toLowerCase().includes(phrase)) {
+          hits.push({
+            phrase: template.replace("{COMPETITOR}", competitor),
+            line: trimmed.slice(0, 140),
+          });
+        }
+      }
+    }
+  }
+  return hits;
+}
+
+function findPtinHits(src) {
+  // §12.7.9 — substring scan, case-insensitive. No blockquote escape hatch:
+  // even quoted "RentLedger auto-files your taxes" copy is dangerous if
+  // re-published from this site, because Circular 230 cares about the
+  // marketing assertion regardless of attribution.
+  const lower = src.toLowerCase();
+  return PTIN_FORBIDDEN_PHRASES.filter((p) => lower.includes(p));
+}
+
+function checkCompareTitlePattern(src, file) {
+  // §12.7.10 — title must contain "vs RentLedger" or "alternative".
+  // For an Astro page (src/pages/compare/*.astro), look at frontmatter
+  // `title` / `titleFull` and any literal `<title>` block inside the file.
+  // For a content collection MDX file (src/content/compare/*.mdx), look at
+  // the frontmatter `title` / `titleFull`.
+  //
+  // Astro template strings in the dynamic [competitor].astro page don't
+  // have a static title to check — we let those through and rely on the
+  // collection-entry's frontmatter title (which IS static) being audited.
+  const frontmatterTitle = frontmatterValue(src, "title");
+  const frontmatterTitleFull = frontmatterValue(src, "titleFull");
+  const candidates = [];
+  if (frontmatterTitle) candidates.push(frontmatterTitle);
+  if (frontmatterTitleFull) candidates.push(frontmatterTitleFull);
+
+  // Fall back to first H1 in the body (`# ...`).
+  const h1 = src.match(/^#\s+(.+)$/m);
+  if (h1) candidates.push(h1[1]);
+
+  // Fall back to a literal `<title>...</title>` if present (rare in pages
+  // that delegate to layouts).
+  const literalTitle = src.match(/<title>([^<]+)<\/title>/);
+  if (literalTitle) candidates.push(literalTitle[1]);
+
+  if (candidates.length === 0) {
+    // Nothing to check — likely the dynamic [competitor].astro file itself,
+    // which delegates title to the collection entry (audited separately).
+    return null;
+  }
+
+  const allTitlesLower = candidates.join(" || ").toLowerCase();
+  const hasRequiredToken = COMPARE_TITLE_REQUIRED_TOKENS.some((tok) =>
+    allTitlesLower.includes(tok),
+  );
+  if (!hasRequiredToken) {
+    return candidates[0];
   }
   return null;
 }
@@ -371,6 +523,50 @@ for (const scanRoot of scanRoots) {
             `${rel}: comparison page missing EditorialOnlyNotice import ` +
               `(§12.7.5 / P0-3). The "Editorial only — no compensation" ` +
               `disclosure must render via the component on every /compare/* page.`,
+          );
+        }
+
+        // Rule TITLE: §12.7.10 — comparison-page titles must contain "vs
+        // RentLedger" or "alternative". Audit checks the static title fields
+        // (frontmatter / H1 / literal <title>); the dynamic [competitor].astro
+        // page delegates title to the collection entry, which IS audited.
+        const failingTitle = checkCompareTitlePattern(src, file);
+        if (failingTitle) {
+          errors.push(
+            `${rel}: comparison-page title "${failingTitle}" does not ` +
+              `contain "vs RentLedger" or "alternative" (§12.7.10). ` +
+              `Comparison pages must signal context in the title to ` +
+              `defeat any "endorsement by association" implication.`,
+          );
+        }
+      }
+
+      // Rule TRADE-LIBEL: §12.7.2 — forbidden phrasings about competitors.
+      // Applies to all YMYL pages, since YMYL captures /compare/* + any
+      // page making competitor claims. Markdown blockquote escape hatch
+      // built into the matcher.
+      const tradeLibelHits = findTradeLibelHits(src);
+      if (tradeLibelHits.length > 0) {
+        for (const hit of tradeLibelHits) {
+          errors.push(
+            `${rel}: forbidden phrasing per §12.7.2 — "${hit.phrase}". ` +
+              `Soften to observation framing ("we found", "users have ` +
+              `reported", "in our view"). Line: ${hit.line}`,
+          );
+        }
+      }
+
+      // Rule PTIN: §12.7.9 — phrasings that imply RentLedger prepares
+      // taxes on the user's behalf risk reclassifying the app as a tax-
+      // return-preparer under IRS Circular 230 + 26 USC §7701(a)(36).
+      const ptinHits = findPtinHits(src);
+      if (ptinHits.length > 0) {
+        for (const phrase of ptinHits) {
+          errors.push(
+            `${rel}: forbidden marketing phrasing per §12.7.9 — "${phrase}". ` +
+              `Use "generates a Schedule E PDF from data you've entered" or ` +
+              `equivalent. RentLedger formats and transmits; the user is the ` +
+              `preparer of record.`,
           );
         }
       }

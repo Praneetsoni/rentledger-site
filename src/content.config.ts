@@ -64,9 +64,6 @@ const blog = defineCollection({
     howToName: z.string().optional(),
     /** Optional override for HowTo schema description when emitted alongside Article. */
     howToDescription: z.string().optional(),
-    /** True when Praneet has spot-checked the data per §12.3. Sets
-     * Article.reviewedBy in the rendered schema. */
-    reviewed: z.boolean().default(false),
     /** Optional FAQs rendered + emitted as FAQPage JSON-LD. */
     faqs: z.array(faqSchema).optional(),
     breadcrumbs: z.array(breadcrumbSchema).optional(),
@@ -79,20 +76,35 @@ const blog = defineCollection({
 
 // Per-competitor narrative content for /compare/[competitor]. The competitor
 // list itself lives in src/data/competitors.ts; the .mdx body here is the
-// hand-written comparison narrative.
+// hand-written comparison narrative. Per SEO-PLAYBOOK §M2.2 each Tier-1
+// /compare/* slot lands as one MDX entry in this collection — when an entry
+// exists for a slug the dynamic [competitor].astro route renders the MDX
+// body inside CompareLayout. Otherwise the route ships a placeholder shell
+// (still noindex per competitors.ts.placeholder).
 const compare = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/compare" }),
   schema: z.object({
     /** Must match a slug in src/data/competitors.ts. */
     competitorSlug: z.string().min(1),
+    /** Page title — also the H1 / <title> seed. Per §12.7.10 the rendered
+     * <title> must contain "vs RentLedger" or "alternative"; audit script
+     * enforces. */
     title: z.string().min(1),
+    /** Optional full <title> override for SERP. */
+    titleFull: z.string().optional(),
     description: z.string().min(1),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
+    /** Hero image relative to site root, e.g. "/images/compare/quickbooks-hero.webp". */
     heroImage: z.string().optional(),
-    /** Body of the review used as Review.reviewBody. */
+    /** Author byline — defaults to Praneet, mirrors the blog collection. */
+    author: z.string().default("Praneet Soni"),
+    /** Body of the review used as Review.reviewBody. Should mirror the
+     * page's main verdict / conclusion text, not the entire feature
+     * comparison. */
     reviewBody: z.string().min(1),
-    /** Optional rating block — only emit when honest, sourced rating exists. */
+    /** Optional rating block — only emit when honest, sourced rating exists.
+     * Per §12.7.10 schema-sanity: never self-assigned 5-star ratings. */
     reviewRating: z
       .object({
         ratingValue: z.number(),
@@ -101,7 +113,7 @@ const compare = defineCollection({
       })
       .optional(),
     faqs: z.array(faqSchema).optional(),
-    reviewed: z.boolean().default(false),
+    breadcrumbs: z.array(breadcrumbSchema).optional(),
     draft: z.boolean().default(false),
   }),
 });
