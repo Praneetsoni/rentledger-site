@@ -1,0 +1,88 @@
+---
+// Canonical tax-advice disclaimer per SEO-PLAYBOOK §12.7.1.
+// Renders the verbatim safe-harbor block on every YMYL page (any page
+// making tax/legal/financial-decision claims). Wording is calibrated to
+// disclaim personalized advice without disclaiming educational utility,
+// and to defeat any "implicit endorsement by author's apparent expertise"
+// claim by naming the publisher (Praneet Soni) explicitly.
+//
+// Publisher framing: until RentLedger is registered as an LLC, the
+// publisher of record is "Praneet Soni" personally, doing business as
+// RentLedger. When the LLC is formed, swap the publisher string in this
+// component (and AuthorQualification + EditorialOnlyNotice) to
+// "[LLC name] (operator of RentLedger), and its founder Praneet Soni."
+// Per §12.7.1 + Q28 deferred-LLC clause.
+//
+// Wording changes ship in this component, never on individual pages.
+// Page-level paraphrasing is forbidden by §12.7.1 — keep this the single
+// source of truth.
+
+interface Props {
+  /** ISO date the underlying VerifiedFields were last verified. */
+  verifiedDate: string;
+  /**
+   * Authoritative URL the reader should consult to verify figures and
+   * rules. Defaults to IRS Publication 527 (Residential Rental Property)
+   * for federal-content pages. State pages should override OR import
+   * `StateTaxDisclaimer` instead.
+   */
+  authoritativeSource?: string;
+  /** Optional human-readable label for the source link. */
+  authoritativeSourceLabel?: string;
+}
+
+const {
+  verifiedDate,
+  authoritativeSource = "https://www.irs.gov/forms-pubs/about-publication-527",
+  authoritativeSourceLabel = "IRS Publication 527",
+} = Astro.props;
+---
+
+<aside class="tax-disclaimer" role="note" aria-label="Disclaimer">
+  <p class="tax-disclaimer-headline">
+    <strong>General educational information — not personalized advice.</strong>
+  </p>
+  <p>
+    This article provides general educational information about U.S. federal
+    tax topics for residential rental property owners. It is <strong>not
+    personalized tax, legal, or accounting advice</strong>, and reading it
+    does not create any professional-client relationship between you and
+    Praneet Soni (publisher of RentLedger). Tax laws change frequently, individual
+    circumstances vary, and a CPA, Enrolled Agent, or tax attorney licensed
+    in your jurisdiction is the only appropriate party to advise on your
+    specific filing decisions.
+  </p>
+  <p>
+    Figures and rules are current as of
+    <time datetime={verifiedDate}>{verifiedDate}</time>; verify against
+    <a href={authoritativeSource} rel="external">{authoritativeSourceLabel}</a>
+    before relying on anything here. Content is provided <strong>"as is"</strong>
+    without warranty of accuracy, completeness, or timeliness. Praneet
+    Soni is not a licensed tax professional and is not liable for any
+    decision made in reliance on this content.
+  </p>
+</aside>
+
+<style>
+  .tax-disclaimer {
+    border: 1px solid var(--rl-border);
+    background: var(--rl-surface);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--rl-text-secondary);
+  }
+  .tax-disclaimer-headline {
+    margin: 0 0 8px 0;
+    color: var(--rl-text);
+  }
+  .tax-disclaimer p:last-child {
+    margin: 0;
+  }
+  .tax-disclaimer a {
+    color: var(--rl-text);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+// State-specific tax disclaimer per SEO-PLAYBOOK §12.7.4.
+// Wraps the canonical TaxDisclaimer with a state-specific block above it.
+// Ships on every /landlord-tax-deductions/[state]/ page (M5.1 pilot +
+// future expansion).
+//
+// State pages also follow a tighter re-verification cadence: 180 days
+// (not 365) per §12.7.4. The cadence override lives in the per-state
+// VerifiedField Zod refinement (src/data/types.ts), so this component
+// only needs to render the warning text — staleness is enforced at the
+// data layer.
+
+import TaxDisclaimer from "./TaxDisclaimer.astro";
+
+interface Props {
+  state: string;
+  stateRevenueDeptUrl: string;
+  stateRevenueDeptName?: string;
+  verifiedDate: string;
+}
+
+const {
+  state,
+  stateRevenueDeptUrl,
+  stateRevenueDeptName,
+  verifiedDate,
+} = Astro.props;
+
+const sourceLabel = stateRevenueDeptName ?? `${state} Department of Revenue`;
+---
+
+<aside class="state-tax-disclaimer" role="note" aria-label="State disclaimer">
+  <p class="state-tax-disclaimer-headline">
+    <strong>State tax rules vary and change frequently.</strong>
+  </p>
+  <p>
+    Information about {state} tax rules is current as of
+    <time datetime={verifiedDate}>{verifiedDate}</time>, sourced from the
+    <a href={stateRevenueDeptUrl} rel="external">{sourceLabel}</a>.
+    State legislatures update tax rules annually (typically effective
+    January 1) and may issue mid-year emergency revisions. Verify with
+    your state's revenue department or a {state}-licensed CPA before
+    relying on any state-specific information here.
+  </p>
+</aside>
+
+<TaxDisclaimer
+  verifiedDate={verifiedDate}
+  authoritativeSource={stateRevenueDeptUrl}
+  authoritativeSourceLabel={sourceLabel}
+/>
+
+<style>
+  .state-tax-disclaimer {
+    border: 1px solid var(--rl-border);
+    background: var(--rl-surface);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 32px 0 16px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--rl-text-secondary);
+  }
+  .state-tax-disclaimer-headline {
+    margin: 0 0 8px 0;
+    color: var(--rl-text);
+  }
+  .state-tax-disclaimer p:last-child {
+    margin: 0;
+  }
+  .state-tax-disclaimer a {
+    color: var(--rl-text);
+    text-decoration: underline;
+  }
+</style>
