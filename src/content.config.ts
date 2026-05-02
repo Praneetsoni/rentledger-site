@@ -46,7 +46,10 @@ const blog = defineCollection({
      * the post's structure genuinely fits HowTo or Review.
      */
     schemaType: z.enum(["Article", "HowTo", "Review"]).default("Article"),
-    /** Required when schemaType="HowTo". Step text + optional image/url. */
+    /** Required when schemaType="HowTo". Optional when "Article" — when
+     * provided alongside Article, layout emits both Article and HowTo
+     * schema (used for guide-shaped articles like Slot 1 keystone).
+     * Step text + optional image/url. */
     steps: z
       .array(
         z.object({
@@ -57,6 +60,10 @@ const blog = defineCollection({
         }),
       )
       .optional(),
+    /** Optional override for HowTo schema name when emitted alongside Article. */
+    howToName: z.string().optional(),
+    /** Optional override for HowTo schema description when emitted alongside Article. */
+    howToDescription: z.string().optional(),
     /** True when Praneet has spot-checked the data per §12.3. Sets
      * Article.reviewedBy in the rendered schema. */
     reviewed: z.boolean().default(false),

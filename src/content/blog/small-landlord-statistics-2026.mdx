@@ -28,7 +28,10 @@ breadcrumbs:
   - name: Small Landlord Statistics 2026
 ---
 
-*This article is a roundup of public-source data. It is not legal, tax, or financial advice. Verify any figure against the linked primary source before citing it in regulatory filings or investment decisions.*
+import TaxDisclaimer from "../../components/TaxDisclaimer.astro";
+import AuthorQualification from "../../components/AuthorQualification.astro";
+
+<TaxDisclaimer verifiedDate="2026-04-28" />
 
 **70% of U.S. rental properties are owned by individual investors** ([U.S. Census Bureau, 2021 Rental Housing Finance Survey, via Congressional Research Service R47332](https://archives.hud.gov/news/2022/pr22-242.cfm)). The 2024 RHFS release shows that share is shrinking — individual ownership of single-unit rentals fell from 70.9% in 2021 to 59.6% in 2024 ([Chandan Economics analysis of 2024 RHFS](https://www.chandan.com/post/census-data-show-individual-investors-still-dominate-single-family-rental-ownership)). 74.4% of these landlords say costs rose this year ([Avail 2026 Independent Landlord Survey](https://www.avail.com/education/articles/2026-independent-landlord-survey)). 84.5% of rents arrived on time in April 2026, the 33rd consecutive month of year-over-year decline ([Chandan Economics / RentRedi](https://www.chandan.com/post/independent-landlord-rental-performance-report-april-2026)). We aggregated 48+ data points from the U.S. Census Bureau, IRS, HUD, the Joint Center for Housing Studies, the Federal Reserve, the CFPB, the Urban Institute, GAO, the Eviction Lab, and 4,000+-respondent industry surveys to map what running a small rental business in the United States actually looks like in 2026. Tools like [RentLedger](/) exist for this audience — landlords with one to ten units who track everything themselves — but the numbers below are everyone's, sourced from public-domain reports and disclosed-methodology surveys only.
 
@@ -61,7 +64,7 @@ The headline does not change: small, individual landlords still own most of the 
 | Single-unit rentals owned by individuals (2021 → 2024) | 70.9% → 59.6% | [Chandan Economics, 2024 RHFS](https://www.chandan.com/post/census-data-show-individual-investors-still-dominate-single-family-rental-ownership) |
 | Single-unit rentals owned via LLC / LP / LLP (2021 → 2024) | 15.2% → 20.6% | [Chandan Economics, 2024 RHFS](https://www.chandan.com/post/census-data-show-individual-investors-still-dominate-single-family-rental-ownership) |
 | Single-unit rentals held in trust (2021 → 2024) | 1.9% → 6.8% | [Chandan Economics, 2024 RHFS](https://www.chandan.com/post/census-data-show-individual-investors-still-dominate-single-family-rental-ownership) |
-| Large institutional share of all single-family rentals | ~3% (<0.5% of all single-family stock) | [Urban Institute, 2023](https://www.urban.org/research/publication/profile-institutional-investor-owned-single-family-rental-properties) |
+| Large institutional share of all single-family rentals | ~3% (&lt;0.5% of all single-family stock) | [Urban Institute, 2023](https://www.urban.org/research/publication/profile-institutional-investor-owned-single-family-rental-properties) |
 | Top-five institutional investors' SFR holdings (2022) | ~300,000 homes (of ~450,000 across 32 firms) | [GAO-24-106643, May 2024](https://www.gao.gov/products/gao-24-106643) |
 
 *Most recent comprehensive ownership-by-property-size data: 2021 RHFS. The 2024 RHFS public-use files were released February 2026; equivalent property-count tables are still being summarized.*
@@ -99,7 +102,7 @@ Where it hurts. Small landlords on net are *not* dramatically raising rents — 
 | Operating expenses as share of every rent dollar (multifamily) | 93¢ | [NAA 2024](https://naahq.org/news/momentum-management-navigating-elevated-costs-constrained-operating-environment) |
 | Median monthly operating expense per rental unit (excl. debt service) | $380 | [Census 2021 RHFS](https://archives.hud.gov/news/2022/pr22-242.cfm) |
 | Owners reporting any capital improvement in 2020 | 76% (median spend: $840/unit/year) | [Census 2021 RHFS](https://archives.hud.gov/news/2022/pr22-242.cfm) |
-| Cost increase that gets passed through to tenants in rent | <1% of average rent (≈$7–12/mo from insurance increases) | [Federal Reserve FEDS Note, 2025](https://www.federalreserve.gov/econres/notes/feds-notes/rising-property-insurance-costs-and-pass-through-to-rents-for-apartment-buildings-20250919.html) |
+| Cost increase that gets passed through to tenants in rent | &lt;1% of average rent (≈$7–12/mo from insurance increases) | [Federal Reserve FEDS Note, 2025](https://www.federalreserve.gov/econres/notes/feds-notes/rising-property-insurance-costs-and-pass-through-to-rents-for-apartment-buildings-20250919.html) |
 
 *The Avail "74.4% saw cost increases" figure and the Baselane "22% saw 11%+ insurance hikes" figure measure different things — annual perception across all small landlords vs. specific-band insurance increases among real estate investors. Both are reported as published; readers should not aggregate them.*
 
@@ -226,3 +229,6 @@ Yes — mostly. The Chandan Economics / RentRedi Independent Landlord Rental Per
 ### How many landlords still use spreadsheets for bookkeeping?
 
 A Hemlane survey of ~600 landlords found that more than a quarter of owners managing 21–100 units still rely on spreadsheets, and the National Association of Independent Landlords reports that 23% of independent landlords still use pen and paper or spreadsheets for accounting. For step-by-step bookkeeping help, see our [support FAQs](/support/).
+
+<AuthorQualification />
+

@@ -40,10 +40,25 @@ export interface Props {
    * Per SEO-PLAYBOOK §M1.3 frontmatter spec: override the default schema
    * type emitted by the layout. Default `Article` covers ~95% of blog
    * posts. Use `HowTo` for genuine step-by-step guides — requires `steps`.
+   * When `schemaType === "Article"` AND `steps` are provided, the layout
+   * emits BOTH Article and HowTo schemas — used for guide-shaped articles
+   * that include a step-by-step walkthrough as a section (e.g., the Slot 1
+   * keystone /blog/landlord-tax-deductions page emits Article for the
+   * editorial frame + HowTo for the Schedule E walkthrough). This is
+   * fully valid per Schema.org — multiple @type entities on a single
+   * page are encouraged when the page genuinely embodies multiple types.
    */
   schemaType?: "Article" | "HowTo";
-  /** Required when schemaType === "HowTo". */
+  /** Required when schemaType === "HowTo". Optional when "Article" — when
+   * provided, layout additionally emits HowTo schema alongside Article. */
   steps?: HowToStep[];
+  /** Optional override for the HowTo `name` when emitted alongside Article.
+   * Defaults to the Article title (which may not always be the right name
+   * for the embedded walkthrough). */
+  howToName?: string;
+  /** Optional override for the HowTo `description` when emitted alongside
+   * Article. Defaults to the Article description. */
+  howToDescription?: string;
 }
 
 const {
@@ -61,6 +76,8 @@ const {
   noindex,
   schemaType = "Article",
   steps,
+  howToName,
+  howToDescription,
 } = Astro.props;
 
 if (schemaType === "HowTo" && (!steps || steps.length === 0)) {
@@ -68,6 +85,9 @@ if (schemaType === "HowTo" && (!steps || steps.length === 0)) {
     `BlogLayout: schemaType="HowTo" requires non-empty steps[]. Add steps to the post frontmatter or use the default Article type.`,
   );
 }
+
+const emitArticleAndHowTo =
+  schemaType === "Article" && Array.isArray(steps) && steps.length > 0;
 
 ---
 
@@ -93,6 +113,15 @@ if (schemaType === "HowTo" && (!steps || steps.length === 0)) {
           dateModified={dateModified}
           image={heroImage}
           reviewed={reviewed}
+        />
+      )
+    }
+    {
+      emitArticleAndHowTo && (
+        <HowTo
+          name={howToName ?? title}
+          description={howToDescription ?? description}
+          steps={steps!}
         />
       )
     }
