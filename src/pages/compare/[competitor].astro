@@ -1,5 +1,8 @@
 ---
 import CompareLayout from "../../layouts/CompareLayout.astro";
+import TaxDisclaimer from "../../components/TaxDisclaimer.astro";
+import AuthorQualification from "../../components/AuthorQualification.astro";
+import EditorialOnlyNotice from "../../components/EditorialOnlyNotice.astro";
 import { competitors } from "../../data/competitors";
 import type { GetStaticPaths } from "astro";
 
@@ -88,6 +91,9 @@ const reviewBody =
 
     <p class="lede">{competitor.tagline}</p>
 
+    <EditorialOnlyNotice competitor={competitor.name} />
+    <TaxDisclaimer verifiedDate={today} />
+
     <h2>At a glance</h2>
     <table>
       <thead>
@@ -133,5 +139,7 @@ const reviewBody =
         )
       } before deciding.
     </p>
+
+    <AuthorQualification />
   </article>
 </CompareLayout>

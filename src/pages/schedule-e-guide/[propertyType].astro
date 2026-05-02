@@ -5,6 +5,8 @@ import HowTo from "../../components/schema/HowTo.astro";
 import FAQPage from "../../components/schema/FAQPage.astro";
 import Person from "../../components/schema/Person.astro";
 import BreadcrumbList from "../../components/schema/BreadcrumbList.astro";
+import TaxDisclaimer from "../../components/TaxDisclaimer.astro";
+import AuthorQualification from "../../components/AuthorQualification.astro";
 import { propertyTypes } from "../../data/property-types";
 import type { GetStaticPaths } from "astro";
 
@@ -136,6 +138,8 @@ const howToSteps = [
       worked example with real numbers.
     </p>
 
+    <TaxDisclaimer verifiedDate={type.irsClassification.verified} />
+
     <h2>IRS classification</h2>
     <p>{type.irsClassification.value}</p>
 
@@ -167,9 +171,6 @@ const howToSteps = [
       <li><a href={type.specialRules.source}>Special rules</a> — verified {type.specialRules.verified}</li>
     </ol>
 
-    <p style="margin-top: 3rem; color: var(--rl-text-secondary); font-size: 0.875rem;">
-      <strong>Not tax advice.</strong> Figures current as of {type.irsClassification.verified}.
-      Verify with a qualified CPA or tax preparer before filing.
-    </p>
+    <AuthorQualification />
   </article>
 </BaseLayout>

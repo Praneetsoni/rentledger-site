@@ -134,7 +134,15 @@ function matchesYmylKeyword(src) {
   });
 }
 
-function isYmylPage(src) {
+function isYmylPage(src, file) {
+  // Layouts and components are infrastructure, not user-facing pages.
+  // They ship the disclaimer components for content pages to import.
+  // Audit logic applies at the page-level (src/pages/, src/content/),
+  // never at the infrastructure-level. Otherwise a layout that imports
+  // the Article schema component AND mentions a tax keyword in a doc
+  // comment (e.g., "see /blog/landlord-tax-deductions") false-positives.
+  if (file && /src\/(layouts|components)\//.test(file)) return false;
+
   // Explicit ymyl: true → always YMYL. Explicit ymyl: false → handled
   // separately in the override audit (see auditYmylFalseOverride).
   if (frontmatterValue(src, "ymyl") === "true") return true;
@@ -307,7 +315,7 @@ for (const scanRoot of scanRoots) {
       }
 
       // YMYL-only rules (Tax disclaimer / Author block / Competitor links / SSOT / EditorialOnlyNotice / markdown handling)
-      if (!isYmylPage(src)) continue;
+      if (!isYmylPage(src, file)) continue;
       ymylPages++;
 
       // Rule MD: YMYL pages must be .astro or .mdx (not raw .md) so

@@ -1,6 +1,30 @@
 ---
 import { SCHEMA_IDS, SITE_URL } from "./ids";
 
+// Per Schema.org spec, Article.reviewedBy is for an INDEPENDENT reviewer
+// (someone other than the author). Emitting reviewedBy that points to the
+// same Person as Article.author is structured-data misrepresentation:
+// "this article was reviewed by an independent party" → "Praneet reviewed
+// his own article." Per SEO-PLAYBOOK §12.7.10 schema sanity rules + PR #7
+// legal audit P2-4.
+//
+// Until a real CPA reviewer is engaged, we DO NOT emit reviewedBy at all.
+// When a CPA reviewer reviews a page, the page passes a `cpaReviewer`
+// payload — only then is reviewedBy emitted, pointing to the CPA's
+// independent Person @id.
+
+interface CpaReviewer {
+  /** CPA's full name as it should appear in schema. */
+  name: string;
+  /** Stable @id URI for the CPA Person — typically a section anchor on
+   * /about/ or a dedicated reviewer page. */
+  personId: string;
+  /** Optional canonical URL for the CPA's profile (e.g., AICPA listing). */
+  url?: string;
+  /** ISO 8601 date of review. */
+  reviewDate: string;
+}
+
 interface Props {
   headline: string;
   description: string;
@@ -16,9 +40,17 @@ interface Props {
   dateModified: string;
   /** Hero image URL relative to site root, e.g. "/images/blog/foo-hero.webp". */
   image?: string;
-  /** When set, emits Article.reviewedBy referencing the canonical Person.
-   * Use when Praneet has spot-checked the data per SEO-PLAYBOOK §12.3. */
+  /**
+   * @deprecated — kept for backwards compatibility with existing pages that
+   * pass `reviewed={false}`. Has NO effect on the emitted schema. Pass
+   * `cpaReviewer` instead when a real independent CPA review has occurred.
+   * Will be removed once all callers migrate. Per §12.7.10 + PR #7 P2-4.
+   */
   reviewed?: boolean;
+  /** Independent CPA reviewer payload. Only set when a licensed CPA has
+   * actually reviewed the article. Emits Article.reviewedBy pointing to
+   * the CPA's Person @id. */
+  cpaReviewer?: CpaReviewer;
 }
 
 const {
@@ -28,7 +60,7 @@ const {
   datePublished,
   dateModified,
   image,
-  reviewed = false,
+  cpaReviewer,
 } = Astro.props;
 
 const path = pagePath ?? Astro.url.pathname;
@@ -44,7 +76,16 @@ const article = {
   ...(image ? { image: `${SITE_URL}${image}` } : {}),
   author: { "@id": SCHEMA_IDS.person },
   publisher: { "@id": SCHEMA_IDS.organization },
-  ...(reviewed ? { reviewedBy: { "@id": SCHEMA_IDS.person } } : {}),
+  ...(cpaReviewer
+    ? {
+        reviewedBy: {
+          "@type": "Person",
+          "@id": cpaReviewer.personId,
+          name: cpaReviewer.name,
+          ...(cpaReviewer.url ? { url: cpaReviewer.url } : {}),
+        },
+      }
+    : {}),
 };
 ---
 
