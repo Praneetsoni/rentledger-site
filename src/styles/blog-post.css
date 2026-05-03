@@ -231,6 +231,12 @@
 /* H2 with kicker numerals (auto-numbered via CSS counter). */
 .bp-body {
   counter-reset: bp-section;
+  /* Force the body to respect the article column's clamp instead of
+   * inflating to its widest child. Without this, a wide table or pre
+   * block forces .bp-body wider than .bp-article's max-width, which
+   * spills into the right-hand TOC column at >= 1024px. Pairs with
+   * .bp-article { min-width: 0 } above. */
+  min-width: 0;
 }
 .bp-body h2 {
   font-family: var(--bp-font-serif);
@@ -313,8 +319,18 @@
 }
 
 /* ── Tables (data-journalism style) ───────────────────────── */
+/* Keep tables block-flowing with horizontal-scroll fallback at ALL
+ * breakpoints. Previously the desktop media query flipped tables to
+ * `display: table; overflow-x: visible`, which let multi-column
+ * tables (especially ones with inline-flex content like PricingClaim)
+ * compute their natural content width and spill out of the article
+ * column into the right-hand TOC. Block + overflow-x:auto is what
+ * editorial templates (NYT, The Atlantic, Stripe Press) use to keep
+ * wide tables contained — the table scrolls horizontally inside its
+ * column instead of overflowing the layout. */
 .bp-body table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   font-family: var(--bp-font-sans);
   font-size: 0.9375rem;
@@ -322,12 +338,6 @@
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-}
-@media (min-width: 720px) {
-  .bp-body table {
-    display: table;
-    overflow-x: visible;
-  }
 }
 .bp-body thead {
   background: rgba(200, 191, 255, 0.04);
