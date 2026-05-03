@@ -1,0 +1,323 @@
+---
+// Per SEO-PLAYBOOK §3 Wave 5 Q34: auto-rendered internal-linking footer
+// block. Every editorial / programmatic page emits 6–10 contextually-
+// related links at the foot via this component, no per-page work needed.
+//
+// Why this exists: site-wide topology signal for Googlebot + crawl-budget
+// efficiency for AI engines. The playbook's existing rule ("internal
+// links to 2+ existing pages") is too loose for a 67-page-target site;
+// 150-links-per-page (agensi.io style) is over-engineered AND would
+// violate §12.7 nominative-fair-use discipline. 6–10 auto-generated
+// contextual links is the right balance.
+//
+// Scoring model (deterministic, no ML):
+//   - Tag overlap (blog ↔ blog): +3 per shared tag
+//   - Topic-bucket match (state ↔ state, scale ↔ scale, type ↔ type): +5
+//   - Cross-bucket-by-keyword: state pages link to keystone tax-deductions
+//     blog post; comparison pages link to keystone QuickBooks / pricing-
+//     benchmark blog posts; etc. (+2 baseline relevance)
+//   - Recency tiebreak (newer = higher)
+//
+// Self-link is always excluded.
+
+import { getCollection } from "astro:content";
+import { competitors } from "../data/competitors";
+import { states } from "../data/states";
+import { propertyTypes } from "../data/property-types";
+import { scales } from "../data/unit-counts";
+
+export interface Props {
+  /** The current page's URL path (e.g. "/blog/landlord-tax-deductions/").
+   * Used to exclude self-links. Defaults to Astro.url.pathname. */
+  currentPath?: string;
+  /** Tags from the current page's frontmatter (blog/compare only).
+   * Drives tag-overlap scoring against other blog/compare entries. */
+  tags?: string[];
+  /** Which programmatic bucket this page belongs to, if any. Drives
+   * within-bucket scoring (e.g., a /landlord-tax-deductions/ca/ page
+   * scores other state pages higher than blog posts). */
+  bucket?: "blog" | "compare" | "state" | "scale" | "property-type";
+  /** Optional override for the section heading. Defaults to "Related". */
+  heading?: string;
+  /** Maximum number of links to render. Defaults to 8 (acceptable 6–10). */
+  max?: number;
+}
+
+const {
+  currentPath = Astro.url.pathname,
+  tags = [],
+  bucket,
+  heading = "Related reading",
+  max = 8,
+} = Astro.props;
+
+// Normalize the current path so we exclude both /foo and /foo/ variants.
+const normalizedCurrent = currentPath.endsWith("/")
+  ? currentPath
+  : `${currentPath}/`;
+
+interface Candidate {
+  path: string;
+  title: string;
+  description: string;
+  score: number;
+  /** Tiebreak — millis since epoch. */
+  recency: number;
+}
+
+const candidates: Candidate[] = [];
+
+// --- Blog posts ---
+const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
+for (const post of blogPosts) {
+  const path = `/blog/${post.id}/`;
+  if (path === normalizedCurrent) continue;
+
+  let score = 0;
+  // Tag overlap: +3 per shared tag.
+  if (post.data.tags && tags.length > 0) {
+    const shared = post.data.tags.filter((t) => tags.includes(t));
+    score += shared.length * 3;
+  }
+  // Cross-bucket baseline: a state/scale/type page that has no shared tags
+  // still links to relevant blog posts via keyword inference.
+  if (bucket === "state" || bucket === "property-type") {
+    if (
+      post.data.tags?.some((t) =>
+        ["tax-deductions", "schedule-e", "rental-property"].includes(t),
+      )
+    ) {
+      score += 2;
+    }
+  }
+  if (bucket === "scale") {
+    if (
+      post.data.tags?.some((t) =>
+        [
+          "small-landlords",
+          "rental-housing",
+          "statistics",
+          "bookkeeping",
+        ].includes(t),
+      )
+    ) {
+      score += 2;
+    }
+  }
+  if (bucket === "compare") {
+    if (
+      post.data.tags?.some((t) =>
+        ["tax-deductions", "schedule-e", "small-landlords"].includes(t),
+      )
+    ) {
+      score += 2;
+    }
+  }
+  // Same-bucket bonus.
+  if (bucket === "blog") score += 1;
+
+  if (score > 0) {
+    candidates.push({
+      path,
+      title: post.data.title,
+      description: post.data.description,
+      score,
+      recency: post.data.pubDate.valueOf(),
+    });
+  }
+}
+
+// --- Comparison pages (only non-placeholder competitors) ---
+for (const c of Object.values(competitors)) {
+  if (c.placeholder) continue;
+  const path = `/compare/${c.slug}/`;
+  if (path === normalizedCurrent) continue;
+
+  let score = 0;
+  if (bucket === "compare") score += 5;
+  // Blog posts about pricing/comparisons link to /compare/ pages.
+  if (
+    bucket === "blog" &&
+    tags.some((t) =>
+      ["tax-deductions", "rental-property", "bookkeeping"].includes(t),
+    )
+  ) {
+    score += 2;
+  }
+  if (bucket === "scale") score += 2;
+
+  if (score > 0) {
+    candidates.push({
+      path,
+      title: `RentLedger vs ${c.name}`,
+      description: c.tagline,
+      score,
+      recency: 0,
+    });
+  }
+}
+
+// --- State pages (non-placeholder) ---
+for (const [slug, s] of Object.entries(states)) {
+  if (s.placeholder) continue;
+  const path = `/landlord-tax-deductions/${slug}/`;
+  if (path === normalizedCurrent) continue;
+
+  let score = 0;
+  if (bucket === "state") score += 5;
+  if (
+    bucket === "blog" &&
+    tags.some((t) =>
+      ["tax-deductions", "schedule-e", "rental-property"].includes(t),
+    )
+  ) {
+    score += 2;
+  }
+  if (bucket === "property-type") score += 1;
+
+  if (score > 0) {
+    candidates.push({
+      path,
+      title: `${s.name} landlord tax deductions`,
+      description: `Schedule E and ${s.name}-specific tax rates, deadlines, and rules.`,
+      score,
+      recency: 0,
+    });
+  }
+}
+
+// --- Scale pages (non-placeholder) ---
+for (const s of Object.values(scales)) {
+  if (s.placeholder) continue;
+  const path = `/bookkeeping-for/${s.slug}-rentals/`;
+  if (path === normalizedCurrent) continue;
+
+  let score = 0;
+  if (bucket === "scale") score += 5;
+  if (bucket === "compare") score += 2;
+  if (
+    bucket === "blog" &&
+    tags.some((t) =>
+      ["bookkeeping", "small-landlords", "rental-property"].includes(t),
+    )
+  ) {
+    score += 2;
+  }
+
+  if (score > 0) {
+    candidates.push({
+      path,
+      title: `Bookkeeping for ${s.name.toLowerCase()}`,
+      description: `Workflow, time budget, and cost math for landlords at this scale.`,
+      score,
+      recency: 0,
+    });
+  }
+}
+
+// --- Property-type pages (non-placeholder) ---
+for (const [slug, t] of Object.entries(propertyTypes)) {
+  if (t.placeholder) continue;
+  const path = `/schedule-e-guide/${slug}/`;
+  if (path === normalizedCurrent) continue;
+
+  let score = 0;
+  if (bucket === "property-type") score += 5;
+  if (
+    bucket === "blog" &&
+    tags.some((t2) => ["schedule-e", "tax-deductions"].includes(t2))
+  ) {
+    score += 2;
+  }
+  if (bucket === "state") score += 1;
+
+  if (score > 0) {
+    candidates.push({
+      path,
+      title: `Schedule E for ${t.name}`,
+      description: `IRS classification, depreciation, eligible expenses, and a worked example.`,
+      score,
+      recency: 0,
+    });
+  }
+}
+
+// Sort: highest score first, then most recent. Cap at `max`.
+candidates.sort((a, b) => {
+  if (b.score !== a.score) return b.score - a.score;
+  return b.recency - a.recency;
+});
+
+const picked = candidates.slice(0, max);
+---
+
+{
+  picked.length > 0 && (
+    <aside class="related-pages" aria-label={heading}>
+      <h2>{heading}</h2>
+      <ul>
+        {picked.map((p) => (
+          <li>
+            <a href={p.path}>{p.title}</a>
+            <span class="related-desc">{p.description}</span>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
+
+<style>
+  .related-pages {
+    margin: 3rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border, rgba(221, 216, 240, 0.15));
+  }
+
+  .related-pages h2 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted, #948cad);
+  }
+
+  .related-pages ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 720px) {
+    .related-pages ul {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 2rem;
+    }
+  }
+
+  .related-pages li {
+    line-height: 1.45;
+  }
+
+  .related-pages a {
+    display: block;
+    font-weight: 600;
+    color: var(--color-text, #ddd8f0);
+    text-decoration: none;
+  }
+
+  .related-pages a:hover {
+    color: var(--color-accent, #cc7a40);
+    text-decoration: underline;
+  }
+
+  .related-desc {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #948cad);
+    margin-top: 0.15rem;
+  }
+</style>

@@ -5,6 +5,7 @@ import HowTo from "../components/schema/HowTo.astro";
 import Person from "../components/schema/Person.astro";
 import FAQPage from "../components/schema/FAQPage.astro";
 import BreadcrumbList from "../components/schema/BreadcrumbList.astro";
+import RelatedPages from "../components/RelatedPages.astro";
 import type { FAQ } from "../components/schema/FAQPage.astro";
 import type { HowToStep } from "../components/schema/HowTo.astro";
 
@@ -21,6 +22,14 @@ export interface Props {
   /** Hero image URL relative to site root, e.g. "/images/blog/foo-hero.webp".
    * Used for OG preview AND Article.image. */
   heroImage?: string;
+  /** Per SEO-PLAYBOOK §3 Wave 5 Q34: tags drive the auto-rendered
+   * `<RelatedPages>` footer's relevance scoring. Pass-through from blog
+   * frontmatter; programmatic templates can pass synthetic tags. */
+  tags?: string[];
+  /** Per SEO-PLAYBOOK §3 Wave 5 Q34: which programmatic bucket this page
+   * belongs to (drives related-pages within-bucket scoring). Defaults to
+   * "blog" for editorial posts; programmatic templates override. */
+  relatedBucket?: "blog" | "compare" | "state" | "scale" | "property-type";
   /** ISO date (YYYY-MM-DD) — when the article was first published. */
   datePublished: string;
   /** ISO date (YYYY-MM-DD) — when the article was last edited or its
@@ -66,6 +75,8 @@ const {
   keywords,
   canonicalPath,
   heroImage,
+  tags,
+  relatedBucket = "blog",
   datePublished,
   dateModified,
   faqs,
@@ -131,4 +142,16 @@ const emitArticleAndHowTo =
   </Fragment>
 
   <slot />
+
+  {
+    /* Per SEO-PLAYBOOK §3 Wave 5 Q34: auto-render 6–10 contextually-related
+       links at the foot of every editorial / programmatic page. Skip on
+       noindex pages (placeholders, drafts) — they shouldn't seed
+       internal-link signals to the rest of the site while incomplete. */
+  }
+  {
+    !noindex && (
+      <RelatedPages tags={tags ?? []} bucket={relatedBucket} max={8} />
+    )
+  }
 </BaseLayout>
