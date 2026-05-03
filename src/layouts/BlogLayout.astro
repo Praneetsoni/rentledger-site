@@ -26,8 +26,6 @@ export interface Props {
   /** ISO date (YYYY-MM-DD) — when the article was last edited or its
    * VerifiedField data was re-verified. */
   dateModified: string;
-  /** True when Praneet has spot-checked the data per §12.3. */
-  reviewed?: boolean;
   /** FAQs rendered on the page AND emitted as FAQPage JSON-LD. Per §11.6,
    * every blog page should ship 4–8 entity-linked FAQs. */
   faqs?: FAQ[];
@@ -70,7 +68,6 @@ const {
   heroImage,
   datePublished,
   dateModified,
-  reviewed = false,
   faqs,
   breadcrumbs,
   noindex,
@@ -112,7 +109,6 @@ const emitArticleAndHowTo =
           datePublished={datePublished}
           dateModified={dateModified}
           image={heroImage}
-          reviewed={reviewed}
         />
       )
     }

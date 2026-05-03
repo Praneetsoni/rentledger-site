@@ -9,6 +9,13 @@
 // VerifiedField Zod refinement (src/data/types.ts), so this component
 // only needs to render the warning text — staleness is enforced at the
 // data layer.
+//
+// Presentation discipline (§12.7.4.1, added 2026-05-02 per Praneet
+// directive): mirrors the §12.7.1.1 / §12.7.5.1 collapsed-pill pattern.
+// State block and federal TaxDisclaimer are both compact above-the-fold
+// summaries; full prose remains a single click away. Two stacked pills
+// keep the federal-vs-state legal frame distinct so a non-expanding
+// reader still sees both safe-harbor headlines.
 
 import TaxDisclaimer from "./TaxDisclaimer.astro";
 
@@ -19,36 +26,45 @@ interface Props {
   verifiedDate: string;
 }
 
-const {
-  state,
-  stateRevenueDeptUrl,
-  stateRevenueDeptName,
-  verifiedDate,
-} = Astro.props;
+const { state, stateRevenueDeptUrl, stateRevenueDeptName, verifiedDate } =
+  Astro.props;
 
 const sourceLabel = stateRevenueDeptName ?? `${state} Department of Revenue`;
 ---
 
-<aside class="state-tax-disclaimer" role="note" aria-label="State disclaimer">
-  <p class="state-tax-disclaimer-headline">
-    <strong>State tax rules vary and change frequently.</strong>
-  </p>
-  <p>
-    Information about {state} tax rules is current as of
-    <time datetime={verifiedDate}>{verifiedDate}</time>, sourced from the
-    <a href={stateRevenueDeptUrl} rel="external">{sourceLabel}</a>.
-    State legislatures update tax rules annually (typically effective
-    January 1) and may issue mid-year emergency revisions. Verify with
-    your state's revenue department or a {state}-licensed CPA before
-    relying on any state-specific information here.
-  </p>
-  <p>
-    <strong>Jurisdictional disclaimer.</strong> Praneet Soni is not
-    licensed to practice law or accountancy in {state} or any other
-    jurisdiction. This article is published from outside any
-    state-licensed professional context.
-  </p>
-</aside>
+<details
+  class="state-tax-disclaimer"
+  aria-label="State-specific disclaimer"
+>
+  <summary class="state-tax-disclaimer__summary">
+    <span class="state-tax-disclaimer__pill" aria-hidden="true">{state}</span>
+    <span class="state-tax-disclaimer__headline">
+      <strong>State tax rules vary and change frequently.</strong>
+      Verified <time datetime={verifiedDate}>{verifiedDate}</time>; consult a
+      {state}-licensed CPA.
+    </span>
+    <span class="state-tax-disclaimer__chevron" aria-hidden="true"
+      >Read full</span
+    >
+  </summary>
+  <div class="state-tax-disclaimer__body">
+    <p>
+      Information about {state} tax rules is current as of
+      <time datetime={verifiedDate}>{verifiedDate}</time>, sourced from the
+      <a href={stateRevenueDeptUrl} rel="external">{sourceLabel}</a>. State
+      legislatures update tax rules annually (typically effective January 1)
+      and may issue mid-year emergency revisions. Verify with your state's
+      revenue department or a {state}-licensed CPA before relying on any
+      state-specific information here.
+    </p>
+    <p>
+      <strong>Jurisdictional disclaimer.</strong> Praneet Soni is not licensed
+      to practice law or accountancy in {state} or any other jurisdiction.
+      This article is published from outside any state-licensed professional
+      context.
+    </p>
+  </div>
+</details>
 
 <TaxDisclaimer
   verifiedDate={verifiedDate}
@@ -58,24 +74,103 @@ const sourceLabel = stateRevenueDeptName ?? `${state} Department of Revenue`;
 
 <style>
   .state-tax-disclaimer {
+    margin: 24px 0 12px 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--rl-text-secondary);
     border: 1px solid var(--rl-border);
     background: var(--rl-surface);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin: 32px 0 16px 0;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--rl-text-secondary);
+    border-radius: 999px;
+    transition:
+      border-radius 0.18s ease,
+      background 0.18s ease;
   }
-  .state-tax-disclaimer-headline {
-    margin: 0 0 8px 0;
+  .state-tax-disclaimer[open] {
+    border-radius: 12px;
+  }
+
+  .state-tax-disclaimer__summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px 8px 8px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .state-tax-disclaimer__summary::-webkit-details-marker {
+    display: none;
+  }
+  .state-tax-disclaimer__summary:hover .state-tax-disclaimer__chevron {
     color: var(--rl-text);
   }
-  .state-tax-disclaimer p:last-child {
-    margin: 0;
+
+  .state-tax-disclaimer__pill {
+    flex: 0 0 auto;
+    background: var(--rl-text);
+    color: var(--rl-bg);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
   }
-  .state-tax-disclaimer a {
+
+  .state-tax-disclaimer__headline {
+    flex: 1 1 auto;
+    color: var(--rl-text-secondary);
+    font-size: 13px;
+  }
+  .state-tax-disclaimer__headline strong {
+    color: var(--rl-text);
+    font-weight: 600;
+  }
+  .state-tax-disclaimer__headline time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .state-tax-disclaimer__chevron {
+    flex: 0 0 auto;
+    font-size: 12px;
+    color: var(--rl-text-secondary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  .state-tax-disclaimer[open] .state-tax-disclaimer__chevron::after {
+    content: " ↑";
+  }
+  .state-tax-disclaimer:not([open]) .state-tax-disclaimer__chevron::after {
+    content: " ↓";
+  }
+
+  .state-tax-disclaimer__body {
+    padding: 4px 24px 20px;
+    border-top: 1px solid var(--rl-border);
+  }
+  .state-tax-disclaimer__body p {
+    margin: 12px 0;
+  }
+  .state-tax-disclaimer__body p:first-child {
+    margin-top: 16px;
+  }
+  .state-tax-disclaimer__body p:last-child {
+    margin-bottom: 0;
+  }
+  .state-tax-disclaimer__body a {
     color: var(--rl-text);
     text-decoration: underline;
+  }
+
+  @media (max-width: 540px) {
+    .state-tax-disclaimer__summary {
+      flex-wrap: wrap;
+      padding: 10px 14px 10px 8px;
+    }
+    .state-tax-disclaimer__chevron {
+      width: 100%;
+      text-align: right;
+    }
   }
 </style>

@@ -8,11 +8,22 @@
 // account from a competitor without removing the "accepts no compensation"
 // language for that page.
 //
-// Per FTC Endorsement Guides (16 CFR Part 255), if RentLedger ever
-// receives a free product, demo seat, NDA briefing, or comp account from
-// a covered competitor, this component must be removed for that page +
-// replaced with an FTC-compliant material-connection disclosure block.
-// Do NOT paraphrase this line on individual pages.
+// Presentation discipline (§12.7.5.1, added 2026-05-02 per Praneet
+// directive): the disclosure must remain above the fold (FTC Endorsement
+// Guides 16 CFR Part 255 require "clear and conspicuous" placement before
+// the affiliate / sponsored content), but ships as a compact pill-summary
+// with a <details>-based expansion. The summary asserts the headline
+// disclosure ("Editorial only — no affiliate relationship") so a non-
+// expanding reader still sees the truth claim. Full prose remains a
+// click away. Applies only to the on-page display; does NOT relax the
+// audit-script enforcement that the component must be imported on every
+// /compare/* page.
+//
+// Per FTC Endorsement Guides, if RentLedger ever receives a free product,
+// demo seat, NDA briefing, or comp account from a covered competitor,
+// this component must be removed for that page + replaced with an
+// FTC-compliant material-connection disclosure block. Do NOT paraphrase
+// this disclosure on individual pages.
 
 interface Props {
   /** Canonical competitor name as it appears on the page (e.g., "QuickBooks"). */
@@ -22,30 +33,117 @@ interface Props {
 const { competitor } = Astro.props;
 ---
 
-<aside class="editorial-only-notice" role="note" aria-label="Editorial disclosure">
-  <p>
-    <strong>Editorial only.</strong> RentLedger has no affiliate
-    relationship with {competitor}, earns no commission if you sign up with
-    them, and accepts no compensation, free product, or comp account from
-    any product reviewed on this page.
-  </p>
-</aside>
+<details class="editorial-only-notice" aria-label="Editorial disclosure">
+  <summary class="editorial-only-notice__summary">
+    <span class="editorial-only-notice__pill" aria-hidden="true"
+      >No affiliate</span
+    >
+    <span class="editorial-only-notice__headline">
+      <strong>Editorial only.</strong> No affiliate relationship with {
+        competitor
+      }, no commission, no comp account.
+    </span>
+    <span class="editorial-only-notice__chevron" aria-hidden="true"
+      >Read full</span
+    >
+  </summary>
+  <div class="editorial-only-notice__body">
+    <p>
+      <strong>Editorial only.</strong> RentLedger has no affiliate relationship
+      with {competitor}, earns no commission if you sign up with them, and
+      accepts no compensation, free product, or comp account from any product
+      reviewed on this page.
+    </p>
+  </div>
+</details>
 
 <style>
   .editorial-only-notice {
-    border-left: 3px solid var(--rl-primary);
-    background: var(--rl-surface);
-    padding: 12px 18px;
     margin: 24px 0;
     font-size: 13px;
     line-height: 1.55;
     color: var(--rl-text-secondary);
-    border-radius: 0 8px 8px 0;
+    border: 1px solid var(--rl-border);
+    background: var(--rl-surface);
+    border-radius: 999px;
+    transition:
+      border-radius 0.18s ease,
+      background 0.18s ease;
   }
-  .editorial-only-notice p {
-    margin: 0;
+  .editorial-only-notice[open] {
+    border-radius: 12px;
   }
-  .editorial-only-notice strong {
+
+  .editorial-only-notice__summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px 8px 8px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .editorial-only-notice__summary::-webkit-details-marker {
+    display: none;
+  }
+  .editorial-only-notice__summary:hover
+    .editorial-only-notice__chevron {
     color: var(--rl-text);
+  }
+
+  .editorial-only-notice__pill {
+    flex: 0 0 auto;
+    background: var(--rl-primary, var(--rl-text));
+    color: var(--rl-bg);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .editorial-only-notice__headline {
+    flex: 1 1 auto;
+    color: var(--rl-text-secondary);
+    font-size: 13px;
+  }
+  .editorial-only-notice__headline strong {
+    color: var(--rl-text);
+    font-weight: 600;
+  }
+
+  .editorial-only-notice__chevron {
+    flex: 0 0 auto;
+    font-size: 12px;
+    color: var(--rl-text-secondary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  .editorial-only-notice[open] .editorial-only-notice__chevron::after {
+    content: " ↑";
+  }
+  .editorial-only-notice:not([open]) .editorial-only-notice__chevron::after {
+    content: " ↓";
+  }
+
+  .editorial-only-notice__body {
+    padding: 4px 24px 20px;
+    border-top: 1px solid var(--rl-border);
+  }
+  .editorial-only-notice__body p {
+    margin: 16px 0 0;
+  }
+
+  @media (max-width: 540px) {
+    .editorial-only-notice__summary {
+      flex-wrap: wrap;
+      padding: 10px 14px 10px 8px;
+    }
+    .editorial-only-notice__chevron {
+      width: 100%;
+      text-align: right;
+    }
   }
 </style>
