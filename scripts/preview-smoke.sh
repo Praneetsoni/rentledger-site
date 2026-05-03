@@ -115,11 +115,6 @@ check_status "llms-full.txt"     "/llms-full.txt"     "200"
 check_status "sitemap index"     "/sitemap-index.xml" "200"
 check_status "sitemap 0"         "/sitemap-0.xml"     "200"
 check_status "blog rss"          "/blog/rss.xml"      "200"
-# Per SEO-PLAYBOOK §3 Wave 5 Q32: IndexNow self-published key file must be
-# served at the host root with the key string as its content. The IndexNow
-# service fetches this to verify host ownership; missing file = silent
-# rejection of every URL submission.
-check_status "indexnow key"      "/9d5d448a2d994049bac73e32b3564aa3.txt" "200"
 
 # Note: robots.txt + sitemap entries use the CANONICAL site URL (the
 # `site` field in astro.config.mjs), not the testing origin. That's
@@ -134,7 +129,6 @@ contains "llms.txt h1"            "/llms.txt"       "# RentLedger"
 contains "llms.txt product"       "/llms.txt"       "## Product"
 contains "llms-full.txt h1"       "/llms-full.txt"  "# RentLedger — Full Content Bundle"
 contains "llms-full.txt blog"     "/llms-full.txt"  "## Blog posts"
-contains "indexnow key value"     "/9d5d448a2d994049bac73e32b3564aa3.txt" "9d5d448a2d994049bac73e32b3564aa3"
 contains "sitemap-0 has /"        "/sitemap-0.xml"  "<loc>${CANONICAL}/</loc>"
 contains "sitemap-0 has /pricing" "/sitemap-0.xml"  "<loc>${CANONICAL}/pricing/</loc>"
 

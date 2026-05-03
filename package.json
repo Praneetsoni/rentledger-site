@@ -8,11 +8,9 @@
     "start": "astro dev",
     "prebuild": "node scripts/audit-disclaimers.mjs",
     "build": "astro build",
-    "postbuild": "node scripts/indexnow-ping.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "audit:disclaimers": "node scripts/audit-disclaimers.mjs",
-    "indexnow:ping": "node scripts/indexnow-ping.mjs"
+    "audit:disclaimers": "node scripts/audit-disclaimers.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
