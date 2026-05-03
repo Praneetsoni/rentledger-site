@@ -1,0 +1,77 @@
+---
+// Per SEO-PLAYBOOK §3 Wave 5 Q35 + §6.0 AEO conventions:
+// A 40–60 word declarative answer block rendered directly under the H1
+// of every Tier 1 / Tier 3 / state-pilot / property-type / /compare/* page.
+//
+// Why this exists: Google's passage-ranker (the part that powers featured
+// snippets and AI Overviews) and LLM extractors (ChatGPT, Perplexity,
+// Claude) disproportionately surface the first declarative answer block
+// on a page. A self-contained 40–60 word paragraph immediately under the
+// H1 is the easiest possible target for both systems to extract.
+//
+// Soft enforcement: this component opts pages in. Non-YMYL pages
+// (changelog, /about/, /terms/) don't need a quick answer. Inside the
+// component, we render the prose verbatim and emit a *runtime warning*
+// in dev mode if the word count is outside the 30–80 range — this guides
+// editorial judgment without blocking the build.
+//
+// Style: matches the visual treatment of the inline §12.7 disclaimers
+// (left-bordered blockquote with subtle background tint).
+
+export interface Props {
+  /** The 40–60 word answer. Plain prose; no inline links, no markdown. */
+  text: string;
+}
+
+const { text } = Astro.props;
+
+// Word-count guidance — soft, not enforced. Logs to the dev console;
+// does not throw. Editorial review is the real gate.
+if (import.meta.env.DEV) {
+  const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+  if (wordCount < 30 || wordCount > 80) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[QuickAnswer] Word count is ${wordCount}; target is 40–60 (acceptable 30–80). ` +
+        `Outside this range hurts featured-snippet / AI-Overview extraction. ` +
+        `Page: ${Astro.url.pathname}`,
+    );
+  }
+}
+---
+
+<blockquote class="quick-answer" aria-label="Quick answer">
+  <p>{text}</p>
+</blockquote>
+
+<style>
+  .quick-answer {
+    margin: 1.5rem 0 2rem;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--color-accent, #cc7a40);
+    background: color-mix(
+      in oklab,
+      var(--color-bg, #0f0f14) 92%,
+      var(--color-accent, #cc7a40) 8%
+    );
+    border-radius: 4px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .quick-answer p {
+    margin: 0;
+    color: var(--color-text, #ddd8f0);
+  }
+
+  /* Light-mode fallback if the page doesn't define dark vars. */
+  @media (prefers-color-scheme: light) {
+    .quick-answer {
+      background: color-mix(
+        in oklab,
+        var(--color-bg, #ffffff) 96%,
+        var(--color-accent, #cc7a40) 4%
+      );
+    }
+  }
+</style>

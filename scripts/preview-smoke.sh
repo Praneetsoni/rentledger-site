@@ -61,7 +61,8 @@ check_noindex() {
   local body
   body=$($CURL -s --max-time 15 "${ORIGIN}${path}")
   # astro-seo emits `noindex, nofollow` (with space) when both flags set.
-  if echo "$body" | grep -qE '<meta name="robots" content="noindex,[[:space:]]*nofollow"'; then
+  # Here-string avoids pipefail+SIGPIPE failures on long bodies (see contains()).
+  if grep -qE '<meta name="robots" content="noindex,[[:space:]]*nofollow"' <<< "$body"; then
     note "PASS" "$label" "${path} has noindex,nofollow"
   else
     note "FAIL" "$label" "${path} missing noindex meta — placeholder leak"
@@ -74,9 +75,10 @@ check_index_meta() {
   body=$($CURL -s --max-time 15 "${ORIGIN}${path}")
   # astro-seo emits `index,follow,max-snippet:...,max-image-preview:large`
   # — comma-joined, no spaces. Tolerate either spacing for portability.
-  if echo "$body" | grep -qE '<meta name="robots" content="index,[[:space:]]*follow'; then
+  # Here-string avoids pipefail+SIGPIPE failures on long bodies.
+  if grep -qE '<meta name="robots" content="index,[[:space:]]*follow' <<< "$body"; then
     note "PASS" "$label" "${path} indexable (no noindex on real page)"
-  elif echo "$body" | grep -q '<meta name="robots" content="noindex'; then
+  elif grep -q '<meta name="robots" content="noindex' <<< "$body"; then
     note "FAIL" "$label" "${path} unexpectedly noindex — should be indexable"
   else
     note "FAIL" "$label" "${path} robots meta not found or unexpected format"
@@ -87,7 +89,11 @@ contains() {
   local label="$1" path="$2" needle="$3"
   local body
   body=$($CURL -s --max-time 15 "${ORIGIN}${path}")
-  if echo "$body" | grep -qF "$needle"; then
+  # Here-string instead of `echo "$body" | grep -qF` — pipefail + grep -q
+  # closing stdin on first match SIGPIPEs the upstream echo for long
+  # bodies (>200 lines), which the pipe's exit status then surfaces as a
+  # spurious failure even when the match was found.
+  if grep -qF "$needle" <<< "$body"; then
     note "PASS" "$label" "${path} contains «${needle}»"
   else
     note "FAIL" "$label" "${path} missing «${needle}»"
@@ -105,9 +111,15 @@ done
 # ── 2. Crawler-facing endpoints ─────────────────────────────────────────
 check_status "robots.txt"        "/robots.txt"        "200"
 check_status "llms.txt"          "/llms.txt"          "200"
+check_status "llms-full.txt"     "/llms-full.txt"     "200"
 check_status "sitemap index"     "/sitemap-index.xml" "200"
 check_status "sitemap 0"         "/sitemap-0.xml"     "200"
 check_status "blog rss"          "/blog/rss.xml"      "200"
+# Per SEO-PLAYBOOK §3 Wave 5 Q32: IndexNow self-published key file must be
+# served at the host root with the key string as its content. The IndexNow
+# service fetches this to verify host ownership; missing file = silent
+# rejection of every URL submission.
+check_status "indexnow key"      "/9d5d448a2d994049bac73e32b3564aa3.txt" "200"
 
 # Note: robots.txt + sitemap entries use the CANONICAL site URL (the
 # `site` field in astro.config.mjs), not the testing origin. That's
@@ -120,6 +132,9 @@ CANONICAL="https://rentledger.org"
 contains "robots sitemap line"    "/robots.txt"     "Sitemap: ${CANONICAL}/sitemap-index.xml"
 contains "llms.txt h1"            "/llms.txt"       "# RentLedger"
 contains "llms.txt product"       "/llms.txt"       "## Product"
+contains "llms-full.txt h1"       "/llms-full.txt"  "# RentLedger — Full Content Bundle"
+contains "llms-full.txt blog"     "/llms-full.txt"  "## Blog posts"
+contains "indexnow key value"     "/9d5d448a2d994049bac73e32b3564aa3.txt" "9d5d448a2d994049bac73e32b3564aa3"
 contains "sitemap-0 has /"        "/sitemap-0.xml"  "<loc>${CANONICAL}/</loc>"
 contains "sitemap-0 has /pricing" "/sitemap-0.xml"  "<loc>${CANONICAL}/pricing/</loc>"
 
