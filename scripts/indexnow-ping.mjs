@@ -33,6 +33,24 @@ if (process.env.INDEXNOW_SKIP === "1") {
   process.exit(0);
 }
 
+// Cloudflare Pages exposes CF_PAGES_BRANCH on every build. Preview deploys
+// (any branch other than `main`) live at *.pages.dev — pinging IndexNow
+// with rentledger.org URLs from a preview build (a) fails verification
+// because the keyLocation file is at the preview origin, not the canonical
+// host, and (b) wastes IndexNow's quota with redundant URL submissions
+// that are already covered by production deploys. So: production-only.
+//
+// Locally CF_PAGES_BRANCH is undefined, so the script runs (INDEXNOW_SKIP
+// remains the manual local override).
+if (process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== "main") {
+  console.log(
+    `[indexnow] Skipped — Cloudflare Pages preview build for branch ` +
+      `"${process.env.CF_PAGES_BRANCH}". IndexNow runs only on the main ` +
+      `branch deploy to ${HOST}.`,
+  );
+  process.exit(0);
+}
+
 if (!existsSync(SITEMAP)) {
   console.warn(
     `[indexnow] No sitemap at ${SITEMAP} — skipping (run after \`astro build\`).`,
